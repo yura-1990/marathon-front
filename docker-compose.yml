@@ -2,10 +2,12 @@ services:
   app:
     build:
       context: .
-      dockerfile: ./docker/Dockerfile
+      dockerfile: Dockerfile
     container_name: marathon
     networks:
       - app-network
+    volumes:
+      - .:/app
 
 networks:
   app-network:

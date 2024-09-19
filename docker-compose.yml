@@ -1,0 +1,14 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    container_name: marathon
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    external: true
+    # ports:
+    #   - "8080:80"

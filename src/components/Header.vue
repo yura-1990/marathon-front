@@ -16,7 +16,7 @@
                   <div class="site-branding me-auto">
                     <h1>
                       <a class="home-link" href="/" title="Raccer" rel="home">
-                        <img id="logo-img" height="34" width="148" class="img-fluid auto_size" src="/assets/images/logo.svg" alt="logo-img">
+                        <img id="logo-img" class="img-fluid auto_size" src="/assets/images/logo_itog2.png" alt="logo-img">
                       </a>
                     </h1>
                   </div><!-- site-branding end -->
@@ -65,12 +65,8 @@
                   <!-- header_extra -->
                   <div class="header_extra d-flex flex-row align-items-center justify-content-end">
                     <div class="widget_info d-flex flex-row align-items-center">
-                      <div class="widget_content align-self-center">
-                        <span class="d-block">Book now</span>
-                        <a href="tel:+18000-200-1234">001+ 123 456 7890</a>
-                      </div>
                     </div>
-                    <a class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-darkcolor" href="/contact-us">get a quote</a>
+                    <a class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-darkcolor" href="/register">Register</a>
                   </div><!-- header_extra end -->
                 </div>
               </div><!-- site-navigation end-->

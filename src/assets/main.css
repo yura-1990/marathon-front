@@ -1,1 +1,82 @@
 
+
+
+.swiper-button-prev.swiper-button-disabled, .swiper-button-next.swiper-button-disabled{
+    background-color: #000;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    padding: 2px !important;
+
+}
+
+.swiper-button-prev, .swiper-button-next{
+    background-color: #000;
+    width: 35px !important;
+    height: 35px !important;
+    border-radius: 50%;
+    padding: 2px !important;
+}
+
+.swiper-button-prev.swiper-button-disabled, .swiper-button-next.swiper-button-disabled:hover{
+    opacity: 1;
+}
+
+.swiper-button-prev:after, .swiper-button-next:after{
+    font-size: 20px !important;
+    color: white;
+}
+
+.swiper-button-prev:after, .swiper-button-next:after{
+    font-size: 20px !important;
+    color: white;
+}
+
+.swiper-button-prev,
+.swiper-button-next{
+    transform: scale(0);
+}
+
+.swiper:hover .swiper-button-prev,
+.swiper:hover .swiper-button-next {
+    transform: scale(1);
+    pointer-events: auto;
+    transition: 0.3s cubic-bezier(0.25, 0.8,0.25, 2); ;
+}
+
+.slide .slide__content--headings .second-letter{
+    font-size: 35px;
+    line-height: 100%;
+}
+
+.register-wrapper{
+    position: relative;
+    background: #699319;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.register{
+    position: absolute;
+    top: -150%;
+    border-radius: 30px;
+    overflow: hidden;
+    display: block;
+    opacity: 0;
+    transform: scale(0);
+    background: white;
+    transition: 0.2s ease;
+    z-index: -9;
+    color: #0b0b0b;
+}
+
+.register-wrapper:hover .register{
+    opacity: 1;
+    z-index: 9;
+    transform: scale(1);
+}

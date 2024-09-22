@@ -366,6 +366,7 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
 
       <section
         class="prt-row bg-img1 prt-bg prt-bgimage-yes bg-base-dark cta-section overflow-hidden clearfix"
+        style="background-image: url('/assets/images/Photo-2_resized.jpg'); background-attachment: fixed; background-position: top; background-repeat: no-repeat; background-size: cover "
       >
         <div class="prt-row-wrapper-bg-layer prt-bg-layer bg-base-dark"></div>
         <div id="foglayer_01" class="fog">
@@ -391,22 +392,22 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
                       <div class="marquee">
                         <div class="marquee-content style1">
                           <div class="marquee-text style1">
-                            <a href="tel:1234567890"> (+000) 9987 254 698 </a>
+                            <a href="tel:+998975923990"> +998 (97) 592 39 90 </a>
                           </div>
                           <div class="marquee-text style1">
-                            <a href="mailto:info@example.com">info@business.com</a>
+                            <a href="mailto:info@example.com">info@roadrunning.com</a>
                           </div>
                           <div class="marquee-text style1">
-                            <a href="tel:1234567890"> (+000) 9987 254 698 </a>
+                            <a href="tel:+998975923990"> +998 (97) 592 39 90 </a>
                           </div>
                           <div class="marquee-text style1">
-                            <a href="mailto:info@example.com">info@business.com</a>
+                            <a href="mailto:info@example.com">info@roadrunning.com</a>
                           </div>
                           <div class="marquee-text style1">
-                            <a href="tel:1234567890"> (+000) 9987 254 698 </a>
+                            <a href="tel:+998975923990"> +998 (97) 592 39 90 </a>
                           </div>
                           <div class="marquee-text style1">
-                            <a href="mailto:info@example.com">info@business.com</a>
+                            <a href="mailto:info@example.com">info@roadrunning.com</a>
                           </div>
                         </div>
                       </div>
@@ -415,11 +416,12 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
                     <div class="prt_single_image-wrapper style1">
                       <img
                         class="img-fluid rounded-circle"
-                        src="/assets/images/single-img-4-157x157.webp"
+                        src="/assets/images/logo_itog.png"
+                        width="150px"
                         alt=""
                       />
                     </div>
-                    is to win the race time for racing
+                    is to win the marathon time for running
                   </div>
                 </div>
               </div>
@@ -440,7 +442,7 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
                         width="304"
                         height="304"
                         class="img-fluid"
-                        src="/assets/images/single-img-5-304x304-min.jpg"
+                        src="/assets/images/Photo-5_resized.jpg"
                         alt="images"
                       />
                     </div>
@@ -473,7 +475,7 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
                         width="304"
                         height="304"
                         class="img-fluid"
-                        src="/assets/images/single-img-5-304x304-min.jpg"
+                        src="/assets/images/Photo-7_resized.jpg"
                         alt="images"
                       />
                     </div>
@@ -507,7 +509,7 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
                 <div class="featured-thumbnail">
                   <img
                     class="img-fluid res-767-mt-0"
-                    src="/assets/images/single-img-7-634x635.webp"
+                    src="/assets/images/running.jpg"
                     alt="images"
                   />
                 </div>
@@ -690,7 +692,12 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
               <div
                 class="prt-bg prt-col-bgimage-yes prt-col-bgcolor-yes col-bg-img-two prt-left-span spacing-2"
               >
-                <div class="prt-col-wrapper-bg-layer prt-bg-layer">
+                <div class=" prt-bg-layer" style="
+                  background-image: url('/assets/images/Photo-2_resized.jpg');
+                  background-position: center;
+                  background-size: cover;
+                  background-repeat: no-repeat;"
+                >
                   <div class="prt-col-wrapper-bg-layer-inner"></div>
                 </div>
                 <div class="layer-content">
@@ -902,7 +909,7 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
                 <div class="featured-thumbnail">
                   <img
                     class="img-fluid"
-                    src="/assets/images/blog/blog-1-374x233.webp"
+                    src="/assets/images/Photo-21_resized.jpg"
                     loading="lazy"
                     alt="image"
                   />
@@ -927,7 +934,7 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
                 <div class="featured-thumbnail">
                   <img
                     class="img-fluid"
-                    src="/assets/images/blog/blog-1-374x233.webp"
+                    src="/assets/images/Photo-16_resized.jpg"
                     loading="lazy"
                     alt="image"
                   />
@@ -952,7 +959,7 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
                 <div class="featured-thumbnail">
                   <img
                     class="img-fluid"
-                    src="/assets/images/blog/blog-1-374x233.webp"
+                    src="/assets/images/Photo-19_resized.jpg"
                     loading="lazy"
                     alt="image"
                   />
@@ -977,7 +984,7 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
                 <div class="featured-thumbnail">
                   <img
                     class="img-fluid"
-                    src="/assets/images/blog/blog-1-374x233.webp"
+                    src="/assets/images/Photo-10_resized.jpg"
                     loading="lazy"
                     alt="image"
                   />

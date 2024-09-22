@@ -3,7 +3,9 @@
 </script>
 
 <template>
-  <footer class="footer prt-bgimage-yes bg-footer prt-bg bg-base-dark overflow-hidden clearfix">
+  <footer class="prt-bgimage-yes bg-footer prt-bg bg-base-dark overflow-hidden clearfix"
+          style="background-image: url('/assets/images/flag-2.webp'); background-size: cover; background-position: center; background-repeat: no-repeat"
+  >
     <div class="prt-row-wrapper-bg-layer bg-base-dark prt-bg-layer"></div>
     <div class="container position-relative">
       <div class="first-footer">
@@ -23,7 +25,7 @@
                     </defs>
                     <text>
                       <textPath startOffset="0" xlink:href="#txt-path">
-                        Never give up while racing. Never give up while racing.Never give up while racing.</textPath>
+                        Road running with us.</textPath>
                     </text>
                   </svg>
                   <div class="circular">

@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import PrivateLayout from "@/layouts/PrivateLayout.vue";
 import Home from "@/pages/Home.vue";
 import PublicLayout from "@/layouts/PublicLayout.vue";
 import AboutUs from "@/pages/AboutUs.vue";
+import Login from '@/pages/auth/Login.vue'
 
 
 const router = createRouter({
@@ -22,8 +22,14 @@ const router = createRouter({
           name: 'AboutUs',
           component: AboutUs
         },
+
       ]
-    }
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
   ]
 })
 

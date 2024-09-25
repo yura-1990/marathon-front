@@ -66,7 +66,7 @@
                   <div class="header_extra d-flex flex-row align-items-center justify-content-end">
                     <div class="widget_info d-flex flex-row align-items-center">
                     </div>
-                    <a class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-darkcolor" href="/register">Register</a>
+                    <a class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-darkcolor" href="/login">Login</a>
                   </div><!-- header_extra end -->
                 </div>
               </div><!-- site-navigation end-->

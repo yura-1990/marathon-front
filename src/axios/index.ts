@@ -7,6 +7,7 @@ const token: Token = Cookies.get('auth_token');
 
 const headers: Record<string, string> = {
     'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
     ...(token && { 'Authorization': `Bearer ${token}` }), // Add Authorization header if token exists
 };
 

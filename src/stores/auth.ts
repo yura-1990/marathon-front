@@ -80,7 +80,7 @@ export const usePasswordStore = defineStore('password',  {
         const response: AxiosResponse<any> = await axios.post('/auth/login', data)
 
         if (response.data.status){
-          Cookies.set( 'auth_token',(response.data as Token))
+          Cookies.set( 'auth_token',(response.data.token as Token))
 
           window.location.href = '/dashboard'
         }

@@ -79,3 +79,25 @@
     z-index: 9;
     transform: scale(1);
 }
+
+.card{
+    background: rgba(0, 0, 0, 0.74);
+    backdrop-filter: blur(-2px);
+    box-shadow: 1px 1px 10px rgba(7, 0, 0, 0.89);
+}
+
+input{
+    background: rgba(0, 0, 0, 0.1) !important;
+    backdrop-filter: blur(-2px) !important;
+    color: white !important;
+}
+
+label{
+    color: white;
+}
+
+.dropdown-menu-dark{
+    background: rgba(0, 0, 0, 0.74);
+    backdrop-filter: blur(-2px);
+}
+

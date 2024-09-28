@@ -1,4 +1,14 @@
 <script setup lang="ts">
+import {useSettingStore} from "@/stores/setting";
+import { storeToRefs } from 'pinia'
+import {onMounted} from "vue";
+
+const settings = useSettingStore()
+const { token } = storeToRefs(settings)
+
+onMounted(()=>{
+  settings.getToken()
+})
 
 </script>
 
@@ -64,9 +74,10 @@
                 <div class="d-flex align-items-center justify-content-end">
                   <!-- header_extra -->
                   <div class="header_extra d-flex flex-row align-items-center justify-content-end">
-                    <div class="widget_info d-flex flex-row align-items-center">
-                    </div>
-                    <a class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-darkcolor" href="/login">Login</a>
+
+                    <a v-if="!!token" class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-darkcolor" href="/dashboard">Dashboard</a>
+                    <a v-else class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-darkcolor" href="/login">Login</a>
+
                   </div><!-- header_extra end -->
                 </div>
               </div><!-- site-navigation end-->

@@ -8,7 +8,7 @@ import Breadcrumb from '@/components/admin/Breadcrumb.vue'
 </script>
 
 <template>
-  <div class="vh-100 overflow-hidden ">
+  <div class="vh-100 overflow-hidden admin">
     <div class="position-relative">
       <Header />
     </div>
@@ -31,9 +31,21 @@ import Breadcrumb from '@/components/admin/Breadcrumb.vue'
 </template>
 
 <style scoped>
+
+.admin{
+  background-image: url("/assets/images/sport-bg.jpg");
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
 .custom-content{
-  background: rgba(0, 0, 0, 0.25);
   padding: 10px;
   flex-grow: 1;
+  position: relative;
+  background: rgba(0, 0, 0, 0.38);
+  backdrop-filter: blur(-2px);
 }
+
 </style>

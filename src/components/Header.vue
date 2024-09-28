@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <header id="masthead" class="header prt-header-style-01">
+  <div id="masthead" class="header prt-header-style-01">
     <div id="site-header-menu" class="site-header-menu">
       <div class="site-header-menu-inner prt-stickable-header">
         <div class="container">
@@ -76,7 +76,7 @@
       </div>
     </div>
     <!-- site-header-menu end-->
-  </header>
+  </div>
 </template>
 
 <style scoped>

@@ -1,13 +1,48 @@
 <script setup lang="ts">
 
 import { ref } from 'vue'
+import { usePasswordStore } from '@/stores/auth'
 
-const form = ref({})
+const auth = usePasswordStore()
+
+interface Login {
+  email: string
+  password: string
+}
+
+interface Register extends Login {
+  name: string
+  password_confirmation: string
+}
+
+const login = ref<Login>({
+  email: '',
+  password: '',
+})
+
+const register = ref<Register>({
+  name: '',
+  email: '',
+  password: '',
+  password_confirmation: ''
+})
+const loading = ref<boolean>(false)
 
 const container = ref<Boolean>(true)
 function toggleAuth(isLogin: boolean): void
 {
   container.value = !isLogin
+}
+
+async function submit(type: string='login'): Promise<void>
+{
+  loading.value = true
+  if (type === 'register') {
+    await auth.register(register.value)
+  } else {
+    await auth.login(login.value)
+  }
+
 }
 
 </script>
@@ -21,61 +56,64 @@ function toggleAuth(isLogin: boolean): void
       <div class="forms-container">
 
         <div class="signin-signup">
-          <form action="#" class="sign-in-form">
+          <form @submit.prevent="submit()" class="sign-in-form">
             <h2 class="title">Sign in</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" placeholder="Username" />
+              <input type="email" v-model="login.email" placeholder="Email" />
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Password" />
+              <input type="password" v-model="login.password" placeholder="Password" />
             </div>
-            <input type="submit" value="Login" class="btn solid" />
+            <div class="d-flex align-items-center justify-content-start gap-3 my-3">
+              <i class="fa-light fa-face-clouds"></i>
+              <a href="/send-email">Forgot password</a>
+            </div>
+            <button :disabled="loading" type="submit" class="btn solid" >
+              <div v-if="loading" class="spinner-border spinner-border-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              Sign in
+            </button>
             <p class="social-text">Or Sign in with social platforms</p>
             <div class="social-media">
               <a href="#" class="social-icon">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-twitter"></i>
-              </a>
-              <a href="#" class="social-icon">
                 <i class="fab fa-google"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-linkedin-in"></i>
               </a>
             </div>
           </form>
-          <form action="#" class="sign-up-form">
+
+          <form @submit.prevent="submit('register')" class="sign-up-form">
             <h2 class="title">Sign up</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" placeholder="Username" />
+              <input type="text" v-model="register.name" placeholder="Name" />
             </div>
             <div class="input-field">
               <i class="fas fa-envelope"></i>
-              <input type="email" placeholder="Email" />
+              <input type="email" v-model="register.email" placeholder="Email" />
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Password" />
+              <input type="password" v-model="register.password" placeholder="Password" />
             </div>
-            <input type="submit" class="btn" value="Sign up" />
+            <div class="input-field">
+              <i class="fa-solid fa-square-check"></i>
+              <input type="password" v-model="register.password_confirmation" placeholder="Repeat password" />
+            </div>
+            <button :disabled="loading" type="submit" class="btn" >
+              <div v-if="loading" class="spinner-border spinner-border-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              Sign up
+            </button>
+
             <p class="social-text">Or Sign up with social platforms</p>
+
             <div class="social-media">
               <a href="#" class="social-icon">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-twitter"></i>
-              </a>
-              <a href="#" class="social-icon">
                 <i class="fab fa-google"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-linkedin-in"></i>
               </a>
             </div>
           </form>

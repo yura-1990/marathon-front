@@ -10,6 +10,8 @@ import ForgotPassword from '@/pages/auth/forgot-password.vue'
 import NotFound from '@/pages/not-found.vue'
 import EmailSend from '@/pages/auth/email-send.vue'
 import Cookies from 'js-cookie'
+import EventDates from '@/pages/events/event-dates.vue'
+import Marathon from '@/pages/marathons/marathon.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,7 +30,16 @@ const router = createRouter({
           name: 'AboutUs',
           component: AboutUs
         },
-
+        {
+          path: '/event/:id',
+          name: 'EventDates',
+          component: EventDates
+        },
+        {
+          path: '/marathon/:id',
+          name: 'Marathon',
+          component: Marathon
+        },
       ]
     },
     {

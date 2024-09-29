@@ -4,19 +4,44 @@ import type { AxiosResponse } from 'axios'
 
 interface State {
   events: any
+  event: any
 }
 
 
 export const useEventStore = defineStore('events',  {
   state: (): State => ({
-    events: []
+    events: [],
+    event: []
   }),
 
   actions: {
-    async getEvents(): Promise<void> {
+    async getEvents(language: string = 'ru'): Promise<void> {
       try {
-        const response: AxiosResponse<any> = await axios.get('/event/all')
+        const response: AxiosResponse<any> = await axios.get('/event/all',{
+          params: {
+            language
+          }
+        })
         this.events = response.data
+        console.log(response.data)
+
+      } catch (error: any) {
+        console.log('Error in event')
+      }
+
+    },
+
+    async getOneEvent(id: string | string[], language: string = 'ru'): Promise<void> {
+      try {
+        const response: AxiosResponse<any> = await axios.get(`event/show/${id}`, {
+          params: {
+            language
+          }
+        })
+
+        console.log(response.data)
+
+        this.event = response.data
 
       } catch (error: any) {
         console.log('Error in event')

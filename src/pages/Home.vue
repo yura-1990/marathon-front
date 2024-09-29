@@ -1,19 +1,20 @@
 <script setup lang="ts">
 import { useEventStore } from '@/stores/events'
 import { useMarathonStore } from '@/stores/marathons'
-import { onMounted } from 'vue'
+import { onMounted, watch } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
-
+import { useI18n } from 'vue-i18n'
 
 const event = useEventStore()
 const marathon = useMarathonStore()
+const { locale } = useI18n();
 
 onMounted(async () => {
-  await event.getEvents()
-  await marathon.getMarathons()
+  await event.getEvents(locale.value)
+  await marathon.getMarathons(locale.value)
 })
 
 function groupedDatesByMonth(arr: Array<any>): Array<any>
@@ -22,18 +23,20 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
     const date = new Date(event.date_event);
     const month = date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' }); // Format "September 2024"
 
-    // If the month key doesn't exist, create it
     if (!acc[month]) {
       acc[month] = [];
     }
 
-    // Add the event date to the corresponding month
     acc[month].push(event);
     return acc;
   }, {});
 
 }
 
+watch(()=>locale.value, async (language)=>{
+  await event.getEvents(language)
+  await marathon.getMarathons(language)
+})
 
 </script>
 
@@ -51,7 +54,7 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
 
           <div
             class="slide custom-slide"
-            :style="{'background-image': `url(http://api.roadrunning.uz/storage/${event.image})`}"
+            :style="`background-image: url(http://api.roadrunning.uz/storage/${event.image}); `"
           >
 
             <div class="slide__content container text-base-white main-display mx-auto slide_style1">
@@ -91,7 +94,7 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
                                     <a
                                       class="prt-btn  prt-btn-style-fill prt-btn-color-whitecolor text-nowrap text-start"
                                       href="/"
-                                    >Register now</a>
+                                    >{{ $t('register_now') }}</a>
                                   </div>
                                 </li>
 
@@ -105,8 +108,10 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
                       <div data-animation="fadeInDown" class="slider-btn">
                         <a
                           class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-whitecolor mt-20 res-991-mb-30 mt-40 text-start"
-                          href="services.html"
-                        >More about</a>
+                          :href="`/event/${event.id}`"
+                        >
+                          {{ $t('more_about') }}
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -146,7 +151,7 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
                         </defs>
                         <text>
                           <textPath startOffset="0" xlink:href="#txt-path">
-                            Road running with us.
+                            {{ $t('road_running_with_us') }}
                           </textPath>
                         </text>
                       </svg>
@@ -160,7 +165,7 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
                 </div>
                 <div class="section-title">
                   <div class="title-header">
-                    <h2 class="title">Let’s make great something together!</h2>
+                    <h2 class="title">{{ $t('lets_make_great') }}</h2>
                   </div>
                 </div>
               </div>
@@ -183,10 +188,7 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
             </div>
             <div class="col-lg-6 pl-35 res-991-pl-15">
               <p>
-                Road running is 100% dedicated to providing the smooth and successful race experience for
-                every size race. No more long delays for your race award ceremonies or waiting on
-                results to be processed. Strive to make your race the most successful and exciting
-                race as possible
+                {{ $t('road_running') }}
               </p>
               <div
                 class="prt-bg prt-col-bgimage-yes prt-col-bgcolor-yes col-bg-img-one bg-base-skin border-rad_30 mt-45 spacing-1 h-auto res-991-mt-30"
@@ -198,12 +200,11 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
                   <div class="section-title style1">
                     <div class="title-header">
                       <h2 class="title">
-                        Join our race and get to know how fast you are
+                        {{ $t('join_race') }}
                         <a
                           class="prt-btn prt-btn-size-md btn-inline prt-btn-color-whitecolor pl-10"
                           href="about-us.html"
-                          >Join our group</a
-                        >
+                          >{{ $t('join_group') }}</a>
                       </h2>
                     </div>
                   </div>
@@ -281,7 +282,7 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
           <div class="row">
             <div class="col-lg-12">
               <template v-for="(running, runningIndex) in marathon.marathons.data" :key="runningIndex">
-                <div v-if="running.status" :id="'frame_' + (runningIndex+1)" >
+                <div v-if="running.status"  class="frame">
                   <div class="frame-border">
                     <div class="row">
                       <div class="col-lg-5">
@@ -310,8 +311,7 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
                                 <a
                                   class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-skincolor"
                                   href="services.html"
-                                >VIEW MORE EVENT</a
-                                >
+                                >{{ $t('view_more_event') }}</a>
                               </div>
                             </div>
                           </div>
@@ -343,19 +343,18 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
               <div class="marquee-block overflow-hidden">
                 <div class="marquee">
                   <div class="marquee-content">
-                    <div class="marquee-text">Event schedule for 2024</div>
-                    <div class="marquee-text">Event schedule for 2024</div>
-                    <div class="marquee-text">Event schedule for 2024</div>
-                    <div class="marquee-text">Event schedule for 2024</div>
-                    <div class="marquee-text">Event schedule for 2024</div>
-                    <div class="marquee-text">Event schedule for 2024</div>
-                    <div class="marquee-text">Event schedule for 2024</div>
-                    <div class="marquee-text">Event schedule for 2024</div>
-                    <div class="marquee-text">Event schedule for 2024</div>
-                    <div class="marquee-text">Event schedule for 2024</div>
-                    <div class="marquee-text">Event schedule for 2024</div>
-                    <div class="marquee-text">Event schedule for 2024</div>
-                    <div class="marquee-text">Event schedule for 2024</div>
+                    <div class="marquee-text">{{ $t('event_schedule_2024') }}</div>
+                    <div class="marquee-text">{{ $t('event_schedule_2024') }}</div>
+                    <div class="marquee-text">{{ $t('event_schedule_2024') }}</div>
+                    <div class="marquee-text">{{ $t('event_schedule_2024') }}</div>
+                    <div class="marquee-text">{{ $t('event_schedule_2024') }}</div>
+                    <div class="marquee-text">{{ $t('event_schedule_2024') }}</div>
+                    <div class="marquee-text">{{ $t('event_schedule_2024') }}</div>
+                    <div class="marquee-text">{{ $t('event_schedule_2024') }}</div>
+                    <div class="marquee-text">{{ $t('event_schedule_2024') }}</div>
+                    <div class="marquee-text">{{ $t('event_schedule_2024') }}</div>
+                    <div class="marquee-text">{{ $t('event_schedule_2024') }}</div>
+                    <div class="marquee-text">{{ $t('event_schedule_2024') }}</div>
                   </div>
                 </div>
               </div>
@@ -387,24 +386,24 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
               <div class="section-title style2">
                 <div class="title-header">
                   <div class="title">
-                    my ultimate
+                    {{ $t('my_ultimate') }}
                     <div class="marquee-block style1 bg-base-skin overflow-hidden">
                       <div class="marquee">
                         <div class="marquee-content style1">
                           <div class="marquee-text style1">
-                            <a href="tel:+998975923990"> +998 (97) 592 39 90 </a>
+                            <a href="tel:+998975923990"> +998 (00) 000 00 00 </a>
                           </div>
                           <div class="marquee-text style1">
                             <a href="mailto:info@example.com">info@roadrunning.com</a>
                           </div>
                           <div class="marquee-text style1">
-                            <a href="tel:+998975923990"> +998 (97) 592 39 90 </a>
+                            <a href="tel:+998975923990"> +998 (00) 000 00 00 </a>
                           </div>
                           <div class="marquee-text style1">
                             <a href="mailto:info@example.com">info@roadrunning.com</a>
                           </div>
                           <div class="marquee-text style1">
-                            <a href="tel:+998975923990"> +998 (97) 592 39 90 </a>
+                            <a href="tel:+998975923990"> +998 (00) 000 00 00 </a>
                           </div>
                           <div class="marquee-text style1">
                             <a href="mailto:info@example.com">info@roadrunning.com</a>
@@ -412,7 +411,7 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
                         </div>
                       </div>
                     </div>
-                    passion
+                    {{ $t('passion') }}
                     <div class="prt_single_image-wrapper style1">
                       <img
                         class="img-fluid rounded-circle"
@@ -421,7 +420,7 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
                         alt=""
                       />
                     </div>
-                    is to win the marathon time for running
+                    {{ $t('win_marathon_time') }}
                   </div>
                 </div>
               </div>
@@ -541,7 +540,7 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
             <div class="col-lg-5">
               <div class="section-title">
                 <div class="title-header">
-                  <h2 class="title">WHAT PEOPLE SAY ABOUT US</h2>
+                  <h2 class="title">{{ $t('what_people_say') }}</h2>
                 </div>
               </div>
               <div class="featured-icon-box icon-align-before-content style1">
@@ -557,10 +556,7 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
                     <h3>21%</h3>
                   </div>
                   <div class="featured-desc">
-                    <p>
-                      Average traffic <br />
-                      increasefor clients
-                    </p>
+                    <p v-html="$t('average_traffic_increase')"></p>
                   </div>
                 </div>
               </div>
@@ -587,15 +583,12 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
                     </div>
                     <div class="testimonial-content">
                       <p class="testimonial-content-p">
-                        <span class="text-base-white">Incredible adrenaline rush!</span> From the
-                        roaring engines to the precise handling, every moment on the track was
-                        electrifying. The organization and support were impeccable, making it a
-                        truly unforgettable experience. Can't wait to return for more thrilling
-                        races
+                        <span class="text-base-white">{{ $t('adrenaline_rush') }}</span>
+                        {{ $t('testimonial2') }}
                       </p>
                       <div class="testimonial-caption">
-                        <h3>Carleton cassie</h3>
-                        <label>car racer</label>
+                        <h3>Mariya</h3>
+                        <label>Guzanova</label>
                       </div>
                       <div class="star-ratings">
                         <ul class="rating">
@@ -622,15 +615,14 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
                     </div>
                     <div class="testimonial-content">
                       <p class="testimonial-content-p">
-                        <span class="text-base-white">Transformative coaching!</span> Under their
-                        guidance, I've seen a remarkable improvement in my racing skills. From
-                        refining my technique to mastering strategic maneuvers, their expertise has
-                        propelled me from a novice to a podium contender. Truly grateful for the
-                        opportunity
+                        <span class="text-base-white">
+                          {{ $t('transformative_coaching') }}
+                        </span>
+                        {{ $t('testimonial1') }}
                       </p>
                       <div class="testimonial-caption">
-                        <h3>Michel wheit</h3>
-                        <label>Mechanical</label>
+                        <h3>Murad</h3>
+                        <label>Nazarov</label>
                       </div>
                       <div class="star-ratings">
                         <ul class="rating">
@@ -657,15 +649,12 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
                     </div>
                     <div class="testimonial-content">
                       <p class="testimonial-content-p">
-                        <span class="text-base-white"> Unforgettable competition! </span>The
-                        atmosphere was charged with excitement, and the level of competition was
-                        intense. Winning amazing prizes was just the icing on the cake. This event
-                        exceeded all expectations, and I can't wait to participate again. Highly
-                        recommend for any racing enthusiast.
+                        <span class="text-base-white"> {{ $t('unforgettable_competition') }} </span>
+                        {{ $t('testimonial2') }}
                       </p>
                       <div class="testimonial-caption">
-                        <h3>Henry richard</h3>
-                        <label>CEO</label>
+                        <h3>Salima</h3>
+                        <label>Egamberdieva</label>
                       </div>
                       <div class="star-ratings">
                         <ul class="rating">

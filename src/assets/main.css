@@ -101,3 +101,6 @@ label{
     backdrop-filter: blur(-2px);
 }
 
+.table{
+    background: transparent;
+}

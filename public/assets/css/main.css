@@ -1334,17 +1334,24 @@ nav.main-menu ul.menu > li.mega-menu-item:hover > a {
     color: var(--base-skin);
 }
 #site-header-menu .site-navigation ul.menu > li >a:after {
-    content: '\f107';
+    content: "";
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>');
     font-size: 13px;
     font-weight: 600;
-    font-family: 'Font Awesome 5 Free';
+    font-family: 'Font Awesome 5', serif;
     font-style: normal;
     position: relative;
     top: 1px;
     transition: .1s all;
+    width: 12px;
+    height: 12px;
+    background-size: cover;
+    display: inline-block;
 }
 #site-header-menu .site-navigation ul.menu > li >a:last-child:after {
     content: '';
+    background: none;
+
 }
 
 /* header_extra */
@@ -2106,12 +2113,12 @@ ul.footer-social-icons li:last-child:after{
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    height: 600px;
+    height: 83vh;
 }
 .prt-page-title-row.style1 {
     background-image: url(../images/pagetitle-bg-1.webp);
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: top center;
     background-size: cover;
     padding: 200px 0 15px;
     text-align: left;

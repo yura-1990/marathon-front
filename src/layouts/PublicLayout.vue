@@ -6,13 +6,13 @@ import Footer from "@/components/Footer.vue";
 </script>
 
 <template>
-  <div class="page sticky-column">
-    <Header />
+    <div class="page sticky-column">
+      <Header />
 
-    <RouterView />
+      <RouterView />
 
-    <Footer />
-  </div>
+      <Footer />
+    </div>
 </template>
 
 <style scoped>

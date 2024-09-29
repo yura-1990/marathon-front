@@ -2369,13 +2369,15 @@ section { counter-reset:container}
     border: 2px solid var(--base-body-color-dark);
     /* box-shadow: 5px 6px 8px rgb(0 0 0 / 15%); */
 }
-#frame_1,#frame_2,#frame_3,#frame_4 { 
+#frame_1,#frame_2,#frame_3,#frame_4,#frame_5,#frame_6 {
     position: sticky;
     top: 100px;
 }
 #frame_2{top: 215px;}
 #frame_3{top: 315px;}
 #frame_4{top: 415px;}
+#frame_5{top: 415px;}
+#frame_6{top: 415px;}
 
 /* services-style2 */
 .featured-imagebox-services.style2 { 

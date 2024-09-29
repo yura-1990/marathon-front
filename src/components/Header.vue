@@ -2,6 +2,7 @@
 import {useSettingStore} from "@/stores/setting";
 import { storeToRefs } from 'pinia'
 import {onMounted} from "vue";
+import LanguageSwitcher from '@/components/language-switcher.vue'
 
 const settings = useSettingStore()
 const { token } = storeToRefs(settings)
@@ -19,54 +20,51 @@ onMounted(()=>{
         <div class="container">
           <div class="row">
             <div class="col-lg-12">
-              <!--site-navigation -->
               <div class="site-navigation d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center justify-content-start">
-                  <!-- site-branding -->
                   <div class="site-branding me-auto">
                     <h1>
                       <a class="home-link" href="/" title="Raccer" rel="home">
                         <img id="logo-img" class="img-fluid auto_size" src="/assets/images/logo_itog2.png" alt="logo-img">
                       </a>
                     </h1>
-                  </div><!-- site-branding end -->
+                  </div>
                   <div class="btn-show-menu-mobile menubar menubar--squeeze">
                       <span class="menubar-box">
                           <span class="menubar-inner"></span>
                       </span>
                   </div>
-                  <!-- menu -->
                   <nav class="main-menu menu-mobile" id="menu">
                     <ul class="menu slide-menu">
                       <li class="mega-menu-item megamenu-fw active">
-                        <a class="mega-menu-link" href="/">Home</a>
+                        <a class="mega-menu-link" href="/">{{ $t('home') }}</a>
                       </li>
                       <li class="mega-menu-item">
-                        <a href="#" class="mega-menu-link">Pages</a>
+                        <a href="#" class="mega-menu-link">{{ $t('pages') }}</a>
                         <ul class="mega-submenu">
-                          <li><a href="/about-us">About us</a></li>
-                          <li><a href="/services">Service</a></li>
-                          <li><a href="/pricing">Pricing</a></li>
-                          <li><a href="/contact-us">Contact us</a></li>
-                          <li><a href="/team-details">Team details</a></li>
+                          <li><a href="/about-us">{{ $t('about_us') }}</a></li>
+                          <li><a href="/services">{{ $t('service') }}</a></li>
+                          <li><a href="/pricing">{{ $t('pricing') }}</a></li>
+                          <li><a href="/contact-us">{{ $t('contact_us') }}</a></li>
+                          <li><a href="/team-details">{{ $t('team_details') }}</a></li>
                         </ul>
                       </li>
                       <li class="mega-menu-item">
-                        <a href="/services" class="mega-menu-link">Services</a>
+                        <a href="/services" class="mega-menu-link">{{ $t('services') }}</a>
                         <ul class="mega-submenu">
-                          <li><a href="/services">Service</a></li>
-                          <li><a href="/service-details">Service details</a></li>
+                          <li><a href="/services">{{ $t('service') }}</a></li>
+                          <li><a href="/service-details">{{ $t('service_details') }}</a></li>
                         </ul>
                       </li>
                       <li class="mega-menu-item">
-                        <a href="/blog" class="mega-menu-link">Blog</a>
+                        <a href="/blog" class="mega-menu-link">{{ $t('blog') }}</a>
                         <ul class="mega-submenu">
-                          <li><a href="/blog">Blog</a></li>
-                          <li><a href="/blog-single">Blog single</a></li>
+                          <li><a href="/blog">{{ $t('blog') }}</a></li>
+                          <li><a href="/blog-single">{{ $t('blog_single') }}</a></li>
                         </ul>
                       </li>
                       <li class="mega-menu-item">
-                        <a href="/contact-us" class="mega-menu-link">Contact Us</a>
+                        <a href="/contact-us" class="mega-menu-link">{{ $t('contact_us') }}</a>
                       </li>
                     </ul>
                   </nav><!-- menu end -->
@@ -74,9 +72,9 @@ onMounted(()=>{
                 <div class="d-flex align-items-center justify-content-end">
                   <!-- header_extra -->
                   <div class="header_extra d-flex flex-row align-items-center justify-content-end">
-
-                    <a v-if="!!token" class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-darkcolor" href="/dashboard">Dashboard</a>
-                    <a v-else class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-darkcolor" href="/login">Login</a>
+                    <LanguageSwitcher />
+                    <a v-if="!!token" class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-darkcolor" href="/dashboard">{{ $t('dashboard') }}</a>
+                    <a v-else class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-darkcolor" href="/login">{{ $t('login') }}</a>
 
                   </div><!-- header_extra end -->
                 </div>

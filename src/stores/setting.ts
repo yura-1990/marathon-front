@@ -39,5 +39,12 @@ export const useSettingStore = defineStore('setting',  {
         console.error('Failed to decode token', e);
       }
     },
+
+    formmatDate(dateString: string): string | null
+    {
+      const dateObject = new Date(dateString);
+      return dateObject.toLocaleDateString('en-GB'); // Formats to DD-MM-YYYY
+
+    }
   }
 })

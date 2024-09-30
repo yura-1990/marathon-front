@@ -12,6 +12,7 @@ node_modules
 dist-ssr
 coverage
 *.local
+raccer-advance
 
 /cypress/videos/
 /cypress/screenshots/

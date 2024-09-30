@@ -1,0 +1,113 @@
+$flaticon_raccer-font: "flaticon_raccer";
+
+@font-face {
+    font-family: $flaticon-font;
+    src: url("./flaticon.ttf?8b001fabf8e5879c596d6d62ceaa829f") format("truetype"),
+url("./flaticon.woff?8b001fabf8e5879c596d6d62ceaa829f") format("woff"),
+url("./flaticon.woff2?8b001fabf8e5879c596d6d62ceaa829f") format("woff2"),
+url("./flaticon.eot?8b001fabf8e5879c596d6d62ceaa829f#iefix") format("embedded-opentype"),
+url("./flaticon.svg?8b001fabf8e5879c596d6d62ceaa829f#flaticon") format("svg");
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon_raccer !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+$flaticon_raccer-map: (
+    "champion": "\f101",
+    "student": "\f102",
+    "accelerator": "\f103",
+    "car": "\f104",
+    "racing-flag": "\f105",
+    "motorsport": "\f106",
+    "victory-lap": "\f107",
+    "drifting": "\f108",
+    "karting": "\f109",
+    "formula": "\f10a",
+    "motorcycle": "\f10b",
+    "rocket": "\f10c",
+    "rating": "\f10d",
+    "quote": "\f10e",
+    "clock": "\f10f",
+    "location": "\f110",
+    "send": "\f111",
+    "circuit": "\f112",
+    "prize": "\f113",
+    "customer-service": "\f114",
+    "deal": "\f115",
+    "money": "\f116",
+);
+
+.flaticon-champion:before {
+    content: map-get($flaticon_raccer-map, "champion");
+}
+.flaticon-student:before {
+    content: map-get($flaticon_raccer-map, "student");
+}
+.flaticon-accelerator:before {
+    content: map-get($flaticon_raccer-map, "accelerator");
+}
+.flaticon-car:before {
+    content: map-get($flaticon_raccer-map, "car");
+}
+.flaticon-racing-flag:before {
+    content: map-get($flaticon_raccer-map, "racing-flag");
+}
+.flaticon-motorsport:before {
+    content: map-get($flaticon_raccer-map, "motorsport");
+}
+.flaticon-victory-lap:before {
+    content: map-get($flaticon_raccer-map, "victory-lap");
+}
+.flaticon-drifting:before {
+    content: map-get($flaticon_raccer-map, "drifting");
+}
+.flaticon-karting:before {
+    content: map-get($flaticon_raccer-map, "karting");
+}
+.flaticon-formula:before {
+    content: map-get($flaticon_raccer-map, "formula");
+}
+.flaticon-motorcycle:before {
+    content: map-get($flaticon_raccer-map, "motorcycle");
+}
+.flaticon-rocket:before {
+    content: map-get($flaticon_raccer-map, "rocket");
+}
+.flaticon-rating:before {
+    content: map-get($flaticon_raccer-map, "rating");
+}
+.flaticon-quote:before {
+    content: map-get($flaticon_raccer-map, "quote");
+}
+.flaticon-clock:before {
+    content: map-get($flaticon_raccer-map, "clock");
+}
+.flaticon-location:before {
+    content: map-get($flaticon_raccer-map, "location");
+}
+.flaticon-send:before {
+    content: map-get($flaticon_raccer-map, "send");
+}
+.flaticon-circuit:before {
+    content: map-get($flaticon_raccer-map, "circuit");
+}
+.flaticon-prize:before {
+    content: map-get($flaticon_raccer-map, "prize");
+}
+.flaticon-customer-service:before {
+    content: map-get($flaticon_raccer-map, "customer-service");
+}
+.flaticon-deal:before {
+    content: map-get($flaticon_raccer-map, "deal");
+}
+.flaticon-money:before {
+    content: map-get($flaticon_raccer-map, "money");
+}

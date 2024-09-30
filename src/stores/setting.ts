@@ -1,13 +1,12 @@
 import { defineStore } from 'pinia'
 import Cookies from 'js-cookie'
 import { useJwt } from '@vueuse/integrations/useJwt'
-import type { UseJwtReturn } from '@vueuse/integrations/useJwt'
 
 
 interface State {
   openSidebar: boolean
   token: string | undefined
-  user: UseJwtReturn<any, any, null> | undefined
+  user: any
 }
 
 

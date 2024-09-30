@@ -39,29 +39,11 @@ onMounted(()=>{
                       <li class="mega-menu-item megamenu-fw active">
                         <a class="mega-menu-link" href="/">{{ $t('home') }}</a>
                       </li>
-                      <li class="mega-menu-item">
-                        <a href="#" class="mega-menu-link">{{ $t('pages') }}</a>
-                        <ul class="mega-submenu">
-                          <li><a href="/about-us">{{ $t('about_us') }}</a></li>
-                          <li><a href="/services">{{ $t('service') }}</a></li>
-                          <li><a href="/pricing">{{ $t('pricing') }}</a></li>
-                          <li><a href="/contact-us">{{ $t('contact_us') }}</a></li>
-                          <li><a href="/team-details">{{ $t('team_details') }}</a></li>
-                        </ul>
+                      <li class="mega-menu-item megamenu-fw active">
+                        <a class="mega-menu-link" href="/">{{ $t('events') }}</a>
                       </li>
                       <li class="mega-menu-item">
-                        <a href="/services" class="mega-menu-link">{{ $t('services') }}</a>
-                        <ul class="mega-submenu">
-                          <li><a href="/services">{{ $t('service') }}</a></li>
-                          <li><a href="/service-details">{{ $t('service_details') }}</a></li>
-                        </ul>
-                      </li>
-                      <li class="mega-menu-item">
-                        <a href="/blog" class="mega-menu-link">{{ $t('blog') }}</a>
-                        <ul class="mega-submenu">
-                          <li><a href="/blog">{{ $t('blog') }}</a></li>
-                          <li><a href="/blog-single">{{ $t('blog_single') }}</a></li>
-                        </ul>
+                        <a href="/about-us" class="mega-menu-link">{{ $t('about_us') }}</a>
                       </li>
                       <li class="mega-menu-item">
                         <a href="/contact-us" class="mega-menu-link">{{ $t('contact_us') }}</a>

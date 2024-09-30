@@ -136,7 +136,7 @@ watch(()=>locale.value, async (language)=>{
               <div class="d-md-flex">
                 <div class="circular-fid-and-text-box">
                   <div class="circular-main">
-                    <div class="prt-rotating-text">
+                    <div class="prt-rotating-text position-relative">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -157,7 +157,7 @@ watch(()=>locale.value, async (language)=>{
                       </svg>
                       <div class="circular">
                         <div class="prt_prettyphoto">
-                          <img class="img-fluid" src="/assets/images/shape-img.webp" alt="image" />
+                            <img id="logo-img" width="90px" class="logo-label" src="/assets/images/logo_itog.png" alt="logo-img">
                         </div>
                       </div>
                     </div>

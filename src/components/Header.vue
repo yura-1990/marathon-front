@@ -39,6 +39,9 @@ onMounted(()=>{
                       <li class="mega-menu-item megamenu-fw active">
                         <a class="mega-menu-link" href="/">{{ $t('home') }}</a>
                       </li>
+                      <li class="mega-menu-item megamenu-fw active">
+                        <a class="mega-menu-link" href="/">{{ $t('events') }}</a>
+                      </li>
                       <li class="mega-menu-item">
                         <a href="/about-us" class="mega-menu-link">{{ $t('about_us') }}</a>
                       </li>

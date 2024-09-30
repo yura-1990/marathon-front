@@ -12,13 +12,15 @@
         <div class="row">
           <div class="col-lg-9 align-self-center">
             <div class="footer-title">
-              <h2>let’s <span class="text-base-skin"> talk !</span></h2>
+              <a href="/" title="Raccer">
+                <img id="logo-img" width="150px" class="img-fluid  auto_size" src="/assets/images/logo_itog.png" alt="logo-img">
+              </a>
             </div>
           </div>
           <div class="col-lg-3">
             <div class="circular-fid-and-text-box">
               <div class="circular-main">
-                <div class="prt-rotating-text">
+                <div class="prt-rotating-text position-relative">
                   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 200 200">
                     <defs>
                       <path d="M0, 100a100, 100 0 1, 0 200, 0a100, 100 0 1, 0 -200, 0" id="txt-path-1"></path>
@@ -30,7 +32,7 @@
                   </svg>
                   <div class="circular">
                     <div class="prt_prettyphoto">
-                      <img class="img-fluid" src="/assets/images/shape-img.webp" alt="image">
+                      <img id="logo-img" width="90px" class="footer-label" src="/assets/images/logo_itog.png" alt="logo-img">
                     </div>
                   </div>
                 </div>
@@ -44,16 +46,19 @@
           <div class="col-xs-12 col-md-6 col-lg-4 widget-area">
             <div class="widget newsletter_widget clearfix">
               <h3 class="widget-title">newsletter</h3>
-              <form id="subscribe-form" class="newsletter-form" method="post" action="#" data-mailchimp="true">
-                <div class="mailchimp-inputbox clearfix" id="subscribe-content">
+              <form id="subscribe-form"  method="post" action="#" data-mailchimp="true">
+                <div class="d-flex align-items-center">
                   <input type="email" name="email" placeholder="Get news & updates">
-                  <button class="submit subscribe-btn" type="submit"></button>
-                  <p class="cookies">
-                    <input type="checkbox" name="cookies-consent" id="cookies-consent1">
-                    <label for="cookies-consent1"></label>
-                    I agree to all terms and condition
-                  </p>
+                  <button class="text-black h3 rounded-pill" type="submit">
+                    <i class="fa-thin fa-paper-plane"></i>
+                  </button>
                 </div>
+
+                <p class="cookies">
+                  <input type="checkbox" name="cookies-consent" id="cookies-consent1">
+                  <label for="cookies-consent1"></label>
+                  I agree to all terms and condition
+                </p>
               </form>
             </div>
           </div>
@@ -83,7 +88,7 @@
                 <div class="pt-20">
                   <a href="mailto:info@example.com" class="email-info">info.support@gmail.com</a>
                   <div class="tel-number">
-                    <a href="tel:5558781245">001+1234567890</a>
+                    <a href="tel:+998 00 000 00 00">+998 00 000 00 00</a>
                   </div>
                 </div>
               </div>

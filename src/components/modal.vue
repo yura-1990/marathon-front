@@ -77,17 +77,6 @@ watch(()=>sendEmailStatus.value, (value)=>{
 
   if (!value){
     loginModal.value?.click()
-
-    login.value.password
-      = login.value.email
-      = register.value.name
-      = register.value.name
-      = register.value.email
-      = register.value.password
-      = register.value.password_confirmation
-      = email.value
-      = resetPassword.value.password
-      = resetPassword.value.password_confirmation = ''
   }
 })
 
@@ -105,7 +94,6 @@ watch(()=>sendEmailStatusMessage.value, ()=>{
     = resetPassword.value.password
     = resetPassword.value.password_confirmation = ''
 
-  location.reload()
 
 })
 

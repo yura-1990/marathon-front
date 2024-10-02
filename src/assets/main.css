@@ -251,3 +251,6 @@ label{
     color: #0800ff;
     font-size: 14px;
 }
+nav.main-menu li ul.mega-submenu{
+    width: max-content !important;
+}

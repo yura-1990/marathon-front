@@ -35,7 +35,9 @@ watch(()=>locale.value, async (language)=>{
           <div class="col-lg-12">
             <div class="prt-page-title-row-heading">
               <div class="prt-page-title-link d-flex align-items-center">
-                <a href="#">{{ $t('register') }}</a>
+                <button class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-skincolor me-3">
+                  {{ $t('participate') }}
+                </button>
                 <div class="post-category">
                   <i class="ti ti-alarm-clock" aria-hidden="true"></i>
                   <span>2022-06-25, 03:pm</span>

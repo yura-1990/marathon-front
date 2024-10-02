@@ -9,6 +9,7 @@ import 'swiper/css/navigation';
 import { useI18n } from 'vue-i18n'
 import { storeToRefs } from 'pinia'
 import { useSettingStore } from '@/stores/setting'
+import { RouterLink } from 'vue-router'
 
 const eventStore = useEventStore()
 const marathon = useMarathonStore()
@@ -109,12 +110,12 @@ watch(()=>locale.value, async (language)=>{
                       </div>
 
                       <div data-animation="fadeInDown" class="slider-btn">
-                        <a
+                        <RouterLink
                           class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-whitecolor mt-20 res-991-mb-30 mt-40 text-start"
-                          :href="`/event/${event.id}`"
+                          :to="`/event/${event.id}`"
                         >
                           {{ $t('more_about') }}
-                        </a>
+                        </RouterLink>
                       </div>
                     </div>
                   </div>

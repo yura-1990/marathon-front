@@ -18,6 +18,7 @@ const route = useRoute()
 const settings = useSettingStore()
 const hoveredIndex = ref<number|null>(null);
 const { locale } = useI18n();
+import { RouterLink } from 'vue-router'
 
 const elementStyle = ref({
   backgroundColor: '',
@@ -49,7 +50,7 @@ watch(()=>locale.value, async (language)=>{
 
 <template>
   <div>
-    
+
     <div
       class="prt-page-title-row style1"
       :style="`background: url(http://api.roadrunning.uz/storage/${event.image});
@@ -96,11 +97,13 @@ watch(()=>locale.value, async (language)=>{
                         <h6>{{ marathon?.datetime_from }} - {{ marathon?.datetime_to }}</h6>
                         <h6>{{ marathon?.gender?.type }}</h6>
                       </div>
-                      <a href="/login" class="btn btn-outline-info">Register</a>
+                      <RouterLink :to="`/participate/${marathon.id}`" class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-skincolor">
+                        {{ $t('participate') }}
+                      </RouterLink>
                     </div>
                     <div :id="`carouselExampleControls-${marathon.id}`" class="carousel slide marathon-block" data-bs-ride="carousel">
 
-                      <router-link :to="`/marathon/${marathon?.id}`" class="carousel-inner rounded overflow-hidden " >
+                      <RouterLink :to="`/marathon/${marathon?.id}`" class="carousel-inner rounded overflow-hidden " >
                         <div v-for="(image, imageIndex) in marathon.image "
                              class="carousel-item marathon-content"
                              :class="{'active': imageIndex === 0}"
@@ -116,7 +119,7 @@ watch(()=>locale.value, async (language)=>{
                         <div class="carousel-caption d-none d-md-block">
                           <h4 class="text-white ">{{ marathon.name }}</h4>
                         </div>
-                      </router-link>
+                      </RouterLink>
                       <template v-if="marathon?.image?.length > 1">
                         <div  class="marathon-controller" >
                           <button class="carousel-control-prev" type="button" :data-bs-target="`#carouselExampleControls-${marathon.id}`" data-bs-slide="prev">

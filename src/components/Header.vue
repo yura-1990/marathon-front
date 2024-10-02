@@ -49,13 +49,13 @@ onMounted(()=>{
                         </RouterLink>
                       </li>
                       <li class="mega-menu-item megamenu-fw active">
-                        <a class="mega-menu-link" href="/">{{ $t('events') }}</a>
+                        <RouterLink class="mega-menu-link" to="/">{{ $t('events') }}</RouterLink>
                       </li>
                       <li class="mega-menu-item">
-                        <a href="/about-us" class="mega-menu-link">{{ $t('about_us') }}</a>
+                        <RouterLink to="/about-us" class="mega-menu-link">{{ $t('about_us') }}</RouterLink>
                       </li>
                       <li class="mega-menu-item">
-                        <a href="/contact-us" class="mega-menu-link">{{ $t('contact_us') }}</a>
+                        <RouterLink to="/contact-us" class="mega-menu-link">{{ $t('contact_us') }}</RouterLink>
                       </li>
                     </ul>
                   </nav><!-- menu end -->

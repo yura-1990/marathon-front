@@ -254,3 +254,8 @@ label{
 nav.main-menu li ul.mega-submenu{
     width: max-content !important;
 }
+
+.wrap-form.query_form-1 span.text-input input, .wrap-form.query_form-1 span.text-input select, .wrap-form.query_form-1 span.text-input textarea{
+    color: black !important;
+    background: white;
+}

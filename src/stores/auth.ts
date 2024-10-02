@@ -54,7 +54,6 @@ export const useAuthStore = defineStore('auth',  {
       try {
         const response: AxiosResponse<any> = await axios.post('/auth/forgot-password', data)
         this.sendEmailStatus = response.data.status
-        this.sendEmailStatusMessage = response.data.message
 
       } catch (error: any) {
         console.log('Error in event')
@@ -73,6 +72,7 @@ export const useAuthStore = defineStore('auth',  {
           this.sendEmailStatus = false
           this.sendEmailStatusMessage = 'login success'
           Cookies.set( 'auth_token',(response.data.token as Token))
+          location.reload()
         }
 
       } catch (error: any) {
@@ -87,8 +87,9 @@ export const useAuthStore = defineStore('auth',  {
 
         if (response.data.status){
           Cookies.set( 'auth_token',(response.data as Token))
-
+          this.sendEmailStatusMessage = 'register success'
           this.sendEmailStatus = false
+          location.reload()
         }
 
       } catch (error: any) {

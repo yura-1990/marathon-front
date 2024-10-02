@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
+:root {
+    --base-skin: rgb(11, 144, 79);
+}
+
 .swiper-button-prev.swiper-button-disabled, .swiper-button-next.swiper-button-disabled{
     background-color: #000;
     width: 35px;
@@ -117,4 +121,133 @@ label{
     top: 50%;
     left: 50%;
     transform: translate(-20%, -30%);
+}
+
+.cart-text{
+    color: #0B904F;
+}
+
+.cart{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.bg-theme{
+    background: var(--base-skin);
+}
+
+.text-theme{
+    color: var(--base-skin);
+}
+
+.prt-page-title-row.style2.blog-single{
+    height: 80vh;
+}
+
+.marathon-users{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--base-skin);
+}
+
+.style2{
+    position: relative;
+    z-index: 1;
+}
+.style2::before{
+    content: '';
+    background: rgba(0, 0, 0, 0.17);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.prt-page-title-row-inner{
+    z-index: 5;
+}
+
+.login{
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--base-skin);
+    color: white;
+    border-radius: 50%;
+}
+
+.login:hover{
+    color: white;
+}
+
+.modal-backdrop{
+ z-index: 1;
+}
+
+.modal .contact-form-block input{
+    color: black !important;
+    font-weight: bold;
+    background: #fff !important;
+}
+
+.modal .contact-form-block input::placeholder{
+    color: rgba(0, 0, 0, 0.46) !important;
+}
+
+.wrap-form.query_form-1 span.text-input span.heading-name{
+    color: black;
+    font-weight: bold;
+}
+
+.modal-template{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.modal-template::before{
+    content: '';
+    background: var(--base-skin);
+    clip-path: polygon(0% 0%, 50% 50%, 100% 0%, 100% 100%, 80% 50%, 50% 100%, 20% 50%, 0% 100%);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    transition: 0.5s linear;
+}
+
+.modal-template.active::before{
+    background: rgba(0, 0, 0, 0.22);
+    clip-path: none;
+    z-index: 1;
+}
+
+.login-password{
+    position: absolute;
+    top: 48%;
+    right: 10%;
+    z-index: 3;
+    color: black !important;
+    transform: translate(-50%, 50%);
+    cursor: pointer;
+}
+
+.forgot-password{
+    font-weight: 500;
+    width: 100%;
+    color: #0800ff;
+    font-size: 14px;
 }

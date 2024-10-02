@@ -9,10 +9,11 @@ lerna-debug.log*
 
 node_modules
 .DS_Store
-dist-ssr
 dist
+dist-ssr
 coverage
 *.local
+raccer-advance
 
 /cypress/videos/
 /cypress/screenshots/

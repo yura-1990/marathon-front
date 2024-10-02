@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { usePasswordStore } from '@/stores/auth'
+import { useAuthStore } from '@/stores/auth'
 
 const route = useRoute();
 const email = ref<string | null>(null);
 const token = ref<string | null>(null);
 const password = ref<string | null>(null);
 const passwordConfirmation = ref<string | null>(null);
-const passwordStore = usePasswordStore()
+const passwordStore = useAuthStore()
 const loading = ref<boolean>(false)
 
 onMounted(async () => {

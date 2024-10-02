@@ -11,7 +11,9 @@ import NotFound from '@/pages/not-found.vue'
 import EmailSend from '@/pages/auth/email-send.vue'
 import Cookies from 'js-cookie'
 import EventDates from '@/pages/events/event-dates.vue'
-import Marathon from '@/pages/marathons/marathon.vue'
+import Carts from '@/pages/cart/carts.vue'
+import SingleMarathon from '@/pages/marathons/single-marathon.vue'
+import Marathons from '@/pages/marathons/marathons.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -36,71 +38,42 @@ const router = createRouter({
           component: EventDates
         },
         {
+          path: '/marathons',
+          name: 'Marathons',
+          component: Marathons
+        },
+        {
           path: '/marathon/:id',
-          name: 'Marathon',
-          component: Marathon
-        },
-      ]
-    },
-    {
-      path: '/login',
-      name: 'Login',
-      component: Login
-    },
-    {
-      path: '/not-found',
-      name: 'NotFound',
-      component: NotFound
-    },
-    {
-      path: '/send-email',
-      name: 'SendEmail',
-      component: EmailSend
-    },
-    {
-      path: '/forgot-password',
-      name: 'ForgotPassword',
-      component: ForgotPassword
-    },
-    {
-      path: '/dashboard',
-      component: PrivateLayout,
-      meta: { requiresAuth: true },
-      children: [
-        {
-          path: '/dashboard',
-          name: 'Dashboard',
-          component: Dashboard,
-          meta: { requiresAuth: true },
+          name: 'SingleMarathon',
+          component: SingleMarathon
         },
         {
-          path: '/profile',
-          name: 'Profile',
-          component: Profile,
-          meta: { requiresAuth: true },
+          path: '/carts',
+          name: 'Carts',
+          component: Carts
         },
       ]
     },
   ]
 })
 
-router.beforeEach(async (to, from, next)=>{
-  const isAuthenticated = !!Cookies.get('auth_token')
-
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!isAuthenticated) {
-      next({ name: 'Login' })
-    } else {
-      next()
-    }
-  } else {
-    if (isAuthenticated && to.name === 'Login') {
-      next({ name: 'Dashboard' })
-    } else {
-      next()
-    }
-  }
-
-})
+// router.beforeEach(async (to, from, next)=>{
+//   const isAuthenticated = !!Cookies.get('auth_token')
+//
+//   if (to.matched.some(record => record.meta.requiresAuth)) {
+//     if (!isAuthenticated) {
+//       next({ name: 'Login' })
+//     } else {
+//       next()
+//     }
+//   } else {
+//     if (isAuthenticated && to.name === 'Login') {
+//       next({ name: 'Home' })
+//     } else {
+//       next()
+//     }
+//   }
+//
+// })
 
 export default router

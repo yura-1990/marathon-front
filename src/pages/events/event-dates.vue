@@ -79,7 +79,7 @@ watch(()=>locale.value, async (language)=>{
       <template v-for="(date, dateIndex) in event.event_has_marathons" :key="dateIndex">
         <div class="py-3">
           <div class="container">
-            <h3> {{ settings.formmatDate(date.date_event) }} </h3>
+            <h3> {{ settings.formatDate(date.date_event) }} </h3>
 
             <template v-if="date?.marathons.length >= 1">
               <swiper

@@ -11,7 +11,7 @@ interface State {
 
 type Token = string
 
-export const usePasswordStore = defineStore('password',  {
+export const useAuthStore = defineStore('auth',  {
   state: (): State => ({
     loginStatus: false,
     sendEmailStatus: false,
@@ -24,20 +24,12 @@ export const usePasswordStore = defineStore('password',  {
       try {
         const response: AxiosResponse<any> = await axios.post('/auth/set-new-password', data)
 
-        console.log(response.data)
-        this.loginStatus = response.data.status
-        this.sendEmailStatusMessage = response.data.message
-
         if (response.data.status){
-          window.location.href = '/login'
-        } else {
-          window.location.href = '/not-found'
+          this.sendEmailStatus = false
         }
 
       } catch (error: any) {
         console.log('Error in event')
-      } finally {
-        this.loginStatus = false
       }
 
     },
@@ -61,8 +53,6 @@ export const usePasswordStore = defineStore('password',  {
     {
       try {
         const response: AxiosResponse<any> = await axios.post('/auth/forgot-password', data)
-
-        console.log(response.data)
         this.sendEmailStatus = response.data.status
         this.sendEmailStatusMessage = response.data.message
 
@@ -80,9 +70,9 @@ export const usePasswordStore = defineStore('password',  {
         const response: AxiosResponse<any> = await axios.post('/auth/login', data)
 
         if (response.data.status){
+          this.sendEmailStatus = false
+          this.sendEmailStatusMessage = 'login success'
           Cookies.set( 'auth_token',(response.data.token as Token))
-
-          window.location.href = '/dashboard'
         }
 
       } catch (error: any) {
@@ -98,13 +88,11 @@ export const usePasswordStore = defineStore('password',  {
         if (response.data.status){
           Cookies.set( 'auth_token',(response.data as Token))
 
-          window.location.href = '/dashboard'
+          this.sendEmailStatus = false
         }
 
       } catch (error: any) {
         console.log('Error in event')
-      } finally {
-        this.loginStatus = false
       }
     },
 
@@ -113,11 +101,10 @@ export const usePasswordStore = defineStore('password',  {
       try {
         const response: AxiosResponse<any> = await axios.get('/auth/logout')
 
-        console.log(response.data)
         if (response.data.status){
           Cookies.remove('auth_token')
 
-          window.location.href = '/'
+          location.reload()
         }
 
       } catch (error: any) {
@@ -125,7 +112,7 @@ export const usePasswordStore = defineStore('password',  {
 
         Cookies.remove('auth_token')
 
-        window.location.href = '/'
+        location.reload()
       }
     },
   }

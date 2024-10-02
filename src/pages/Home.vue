@@ -7,13 +7,17 @@ import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { useI18n } from 'vue-i18n'
+import { storeToRefs } from 'pinia'
+import { useSettingStore } from '@/stores/setting'
 
-const event = useEventStore()
+const eventStore = useEventStore()
 const marathon = useMarathonStore()
+const { events } = storeToRefs(eventStore)
 const { locale } = useI18n();
+const settingStore = useSettingStore()
 
 onMounted(async () => {
-  await event.getEvents(locale.value)
+  await eventStore.getEvents(locale.value)
   await marathon.getMarathons(locale.value)
 })
 
@@ -34,7 +38,7 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
 }
 
 watch(()=>locale.value, async (language)=>{
-  await event.getEvents(language)
+  await eventStore.getEvents(language)
   await marathon.getMarathons(language)
 })
 
@@ -49,9 +53,8 @@ watch(()=>locale.value, async (language)=>{
       :space-between="50"
       :loop="true"
     >
-      <template v-for="(event, index) in event  .events.data" :key="index">
+      <template v-for="(event, index) in events.data" :key="index">
         <swiper-slide v-if="event.status" >
-
           <div
             class="slide custom-slide"
             :style="`background-image: url(http://api.roadrunning.uz/storage/${event.image}); `"
@@ -83,17 +86,17 @@ watch(()=>locale.value, async (language)=>{
                         <ul class="list-unstyled d-flex flex-wrap gap-3">
                           <template v-for="(dates, month, index) in groupedDatesByMonth(event.event_has_marathons)" :key="index">
                             <li>
-                              <span class="text-warning fw-bold">
+                              <span class="prt-btn-color-whitecolor fw-bold">
                                 {{ month }}
                               </span>
                               <ul class="d-flex m-0 list-unstyled gap-3">
-                                <li v-for="(date, dateIndex) in dates" :key="dateIndex" class="register-wrapper">
+                                <li v-for="(date, dateIndex) in dates" :key="dateIndex" class="register-wrapper  bg-theme">
                                   {{ new Date(date.date_event).getDate() }}
 
                                   <div class="register">
                                     <a
                                       class="prt-btn  prt-btn-style-fill prt-btn-color-whitecolor text-nowrap text-start"
-                                      href="/"
+                                      :href="`/marathon/${date.id}`"
                                     >{{ $t('register_now') }}</a>
                                   </div>
                                 </li>
@@ -281,8 +284,8 @@ watch(()=>locale.value, async (language)=>{
         <div class="container">
           <div class="row">
             <div class="col-lg-12">
-              <template v-for="(running, runningIndex) in marathon.marathons.data" :key="runningIndex">
-                <div v-if="running.status"  class="frame">
+              <template v-for="(event, eventIndex) in events.data" :key="eventIndex">
+                <div v-if="event.status"  class="frame">
                   <div class="frame-border">
                     <div class="row">
                       <div class="col-lg-5">
@@ -290,27 +293,21 @@ watch(()=>locale.value, async (language)=>{
                           <div class="featured-imagebox-wrapper">
                             <div class="featured-content">
                               <div class="featured-title">
-                                <h3>{{ running.name }}</h3>
-                                <h5>{{ running.marathon_type.name }}</h5>
+                                <h3>{{ event.name }}</h3>
                               </div>
                               <div class="featured-desc">
                                 <p>
-                                  {{ running.description }}
+                                  {{ event.description }}
                                 </p>
                               </div>
-                              <small class="text-info">
-                                {{ (new Date(running.event_has_marathon.date_event)).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })  }}
-                              </small>
                               <small class="d-flex text-info">
-                                <span>{{ running.datetime_from }}</span>
-                                <span>-</span>
-                                <span>{{ running.datetime_to }}</span>
+                                {{ settingStore.formatEventDateRange(event?.event_has_marathons) }}
                               </small>
                               <hr class="m-0">
                               <div class="featured-btn">
                                 <a
                                   class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-skincolor"
-                                  href="services.html"
+                                  :href="`/event/${event.id}`"
                                 >{{ $t('view_more_event') }}</a>
                               </div>
                             </div>
@@ -321,7 +318,7 @@ watch(()=>locale.value, async (language)=>{
                         <div class="featured-thumbnail">
                           <img
                             class="img-fluid border-rad-50"
-                            :src="`http://api.roadrunning.uz/storage/${running.image[0]}`"
+                            :src="`http://api.roadrunning.uz/storage/${event.image[0]}`"
                             alt="img"
                           />
                         </div>

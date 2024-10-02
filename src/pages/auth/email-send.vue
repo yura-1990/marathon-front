@@ -1,11 +1,11 @@
 <script setup lang="ts">
   import { ref } from 'vue'
-  import { usePasswordStore } from '@/stores/auth'
+  import { useAuthStore } from '@/stores/auth'
   import { storeToRefs } from 'pinia'
   const email = ref<string>('')
   const loading = ref<boolean>(false)
 
-  const passwordStore = usePasswordStore()
+  const passwordStore = useAuthStore()
   const { sendEmailStatus, sendEmailStatusMessage } = storeToRefs(passwordStore)
 
   async function sendEmail(): Promise<void>

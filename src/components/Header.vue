@@ -3,9 +3,13 @@ import {useSettingStore} from "@/stores/setting";
 import { storeToRefs } from 'pinia'
 import {onMounted} from "vue";
 import LanguageSwitcher from '@/components/language-switcher.vue'
+import Cart from '@/components/cart.vue'
+import { RouterLink } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
 
 const settings = useSettingStore()
-const { token } = storeToRefs(settings)
+const { user } = storeToRefs(settings)
+const userStore = useAuthStore()
 
 onMounted(()=>{
   settings.getToken()
@@ -31,13 +35,18 @@ onMounted(()=>{
                   </div>
                   <div class="btn-show-menu-mobile menubar menubar--squeeze">
                       <span class="menubar-box">
-                          <span class="menubar-inner"></span>
+                        <span class="menubar-inner"></span>
                       </span>
                   </div>
                   <nav class="main-menu menu-mobile" id="menu">
                     <ul class="menu slide-menu">
                       <li class="mega-menu-item megamenu-fw active">
-                        <a class="mega-menu-link" href="/">{{ $t('home') }}</a>
+                        <RouterLink
+                          class="mega-menu-link"
+                          to="/"
+                        >
+                          {{ $t('home') }}
+                        </RouterLink>
                       </li>
                       <li class="mega-menu-item megamenu-fw active">
                         <a class="mega-menu-link" href="/">{{ $t('events') }}</a>
@@ -54,19 +63,45 @@ onMounted(()=>{
                 <div class="d-flex align-items-center justify-content-end">
                   <!-- header_extra -->
                   <div class="header_extra d-flex flex-row align-items-center justify-content-end">
+                    <Cart />
                     <LanguageSwitcher />
-                    <a v-if="!!token" class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-darkcolor" href="/dashboard">{{ $t('dashboard') }}</a>
-                    <a v-else class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-darkcolor" href="/login">{{ $t('login') }}</a>
+                    <template v-if="!user">
+                      <a class="login" type="button" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <i class="fa-regular fa-user"></i>
+                      </a>
+                    </template>
+                    <template v-else>
+                      <nav class="main-menu menu-mobile p-0">
+                        <ul class="menu slide-menu m-0">
+                          <li class="mega-menu-item">
+                            <a href="#" class="user-login d-flex align-items-center justify-content-center mega-menu-link">
+                              <span class="login">{{ settings.getInitials(user.user.name) }}</span>
+                            </a>
 
-                  </div><!-- header_extra end -->
+                            <ul class="mega-submenu">
+                              <li>
+                                {{ user.user.email }}
+                                <hr class="mb-1">
+                              </li>
+                              <li>
+                                <a href="#" @click="userStore.logout()">Logout</a>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </nav>
+                    </template>
+                  </div>
                 </div>
-              </div><!-- site-navigation end-->
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
     <!-- site-header-menu end-->
+
+
   </div>
 </template>
 

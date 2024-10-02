@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { useSettingStore } from '@/stores/setting'
 import { storeToRefs } from 'pinia'
-import { usePasswordStore } from '@/stores/auth'
+import { useAuthStore } from '@/stores/auth'
 import { RouterLink } from 'vue-router'
 import { onMounted } from 'vue'
 
 const settings = useSettingStore()
 const { openSidebar, user } = storeToRefs(settings)
-const userStore = usePasswordStore()
+const userStore = useAuthStore()
 
 onMounted(() => {
   settings.getToken()

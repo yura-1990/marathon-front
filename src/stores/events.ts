@@ -15,11 +15,11 @@ export const useEventStore = defineStore('events',  {
   }),
 
   actions: {
-    async getEvents(language: string = 'ru'): Promise<void> {
+    async getEvents(language: string = 'ru', paginate:number = 25): Promise<void> {
       try {
         const response: AxiosResponse<any> = await axios.get('/event/all',{
           params: {
-            language
+            language, paginate
           }
         })
         this.events = response.data

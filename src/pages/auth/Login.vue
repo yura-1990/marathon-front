@@ -1,9 +1,9 @@
 <script setup lang="ts">
 
 import { ref } from 'vue'
-import { usePasswordStore } from '@/stores/auth'
+import { useAuthStore } from '@/stores/auth'
 
-const auth = usePasswordStore()
+const auth = useAuthStore()
 
 interface Login {
   email: string

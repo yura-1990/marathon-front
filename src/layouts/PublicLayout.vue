@@ -1,20 +1,25 @@
 <script setup lang="ts">
-import {RouterView} from "vue-router";
-import Header from "@/components/Header.vue";
-import Footer from "@/components/Footer.vue";
+import { RouterView, useRoute } from 'vue-router'
+import Header from '@/components/Header.vue'
+import Footer from '@/components/Footer.vue'
+import Modal from '@/components/modal.vue'
+const route = useRoute();
 
+const isActive = (path: string) => {
+  return route.path === path;
+};
 </script>
 
 <template>
-    <div class="page sticky-column">
-      <Header />
+  <div class="page" :class="{'sticky-column': isActive('/')}">
+    <Header />
 
-      <RouterView />
+    <RouterView />
 
-      <Footer />
-    </div>
+    <Footer />
+
+    <Modal />
+  </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

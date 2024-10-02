@@ -18,7 +18,7 @@ function switcherLanguage(lang: string): void
   <nav class="main-menu menu-mobile">
     <ul class="menu slide-menu">
       <li class="mega-menu-item">
-        <a href="#" class="mega-menu-link me-3">{{ locale }}</a>
+        <a href="#" class="mega-menu-link">{{ locale }}</a>
         <ul class="mega-submenu">
           <li v-for="(lang, index) in languages"
               :key="index"

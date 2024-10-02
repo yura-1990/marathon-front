@@ -4,7 +4,8 @@ import type { AxiosResponse } from 'axios'
 
 interface State {
   marathons: any,
-  marathonTypes: any
+  marathonTypes: any,
+  marathon: any,
 }
 
 
@@ -12,18 +13,37 @@ export const useMarathonStore = defineStore('marathons',  {
   state: (): State => ({
     marathons: [],
     marathonTypes: [],
+    marathon: []
   }),
 
   actions: {
-    async getMarathons(language: string = 'ru'): Promise<void> {
+    async getMarathons(language: string = 'ru', paginate: number = 25): Promise<void> {
       try {
         const response: AxiosResponse<any> = await axios.get('/marathon/all', {
+          params: {
+            language, paginate
+          }
+        })
+
+        this.marathons = response.data
+
+      } catch (error: any) {
+        console.log('Error in event')
+      }
+
+    },
+
+    async getSingleMarathon(marathonId: string | string[], language: string = 'ru',): Promise<void> {
+      try {
+        const response: AxiosResponse<any> = await axios.get('/marathon/show/' + marathonId, {
           params: {
             language
           }
         })
 
-        this.marathons = response.data
+        this.marathon = response.data
+
+        console.log(response.data)
 
       } catch (error: any) {
         console.log('Error in event')

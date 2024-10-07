@@ -3,13 +3,11 @@ import Cookies from 'js-cookie'
 import { useJwt } from '@vueuse/integrations/useJwt'
 import { useI18n } from 'vue-i18n'
 
-
 interface State {
   openSidebar: boolean
   token: string | undefined
   user: any
 }
-
 
 export const useSettingStore = defineStore('setting', {
   state: (): State => ({
@@ -84,15 +82,30 @@ export const useSettingStore = defineStore('setting', {
       return `${formattedStartDate} - ${formattedEndDate}`
     },
 
-    getInitials(name: string): string
-    {
-      const words = name.trim().split(' '); // Split the name by spaces
+    getInitials(name: string): string {
+      const words = name.trim().split(' ')
 
       if (words.length === 1) {
-        return words[0].slice(0, 2).toUpperCase();
+        return words[0].slice(0, 2).toUpperCase()
       } else {
-        return (words[0][0] + words[1][0]).toUpperCase();
+        return (words[0][0] + words[1][0]).toUpperCase()
       }
+    },
+
+    formatAMPM(timeString: string): string
+    {
+      const currentDate = new Date();
+
+      const [hoursStr, minutesStr] = timeString.split(':');
+
+      const parsedHours = parseInt(hoursStr, 10);
+      const parsedMinutes = parseInt(minutesStr, 10);
+
+      currentDate.setHours(parsedHours, parsedMinutes);
+
+      const hours = currentDate.getHours();
+
+      return hours >= 12 ? 'PM' : 'AM';
     }
   }
 })

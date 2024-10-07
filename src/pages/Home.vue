@@ -26,7 +26,7 @@ function groupedDatesByMonth(arr: Array<any>): Array<any>
 {
   return arr.reduce((acc:any, event:any) => {
     const date = new Date(event.date_event);
-    const month = date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' }); // Format "September 2024"
+    const month = date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 
     if (!acc[month]) {
       acc[month] = [];
@@ -55,6 +55,7 @@ watch(()=>locale.value, async (language)=>{
       :loop="true"
     >
       <template v-for="(event, index) in events.data" :key="index">
+
         <swiper-slide v-if="event.status" >
           <div
             class="slide custom-slide"
@@ -93,7 +94,6 @@ watch(()=>locale.value, async (language)=>{
                               <ul class="d-flex m-0 list-unstyled gap-3">
                                 <li v-for="(date, dateIndex) in dates" :key="dateIndex" class="register-wrapper  bg-theme">
                                   {{ new Date(date.date_event).getDate() }}
-
                                   <div class="register">
                                     <a
                                       class="prt-btn  prt-btn-style-fill prt-btn-color-whitecolor text-nowrap text-start"
@@ -132,7 +132,6 @@ watch(()=>locale.value, async (language)=>{
       <section class="prt-row first-section overflow-hidden clearfix">
         <div class="winner-flag">
           <img width="525" height="377" src="/assets/images/flag-image.webp" alt="" />
-
         </div>
         <div class="container">
           <div class="row">
@@ -328,7 +327,6 @@ watch(()=>locale.value, async (language)=>{
                   </div>
                 </div>
               </template>
-
             </div>
           </div>
         </div>

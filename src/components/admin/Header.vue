@@ -11,7 +11,6 @@ const userStore = useAuthStore()
 
 onMounted(() => {
   settings.getToken()
-
 })
 </script>
 

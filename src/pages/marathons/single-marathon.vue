@@ -4,11 +4,15 @@ import { storeToRefs } from 'pinia'
 import { onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import {useSettingStore} from "@/stores/setting";
+import { RouterLink } from 'vue-router'
 
 const singleMarathon = useMarathonStore()
 const { marathon } = storeToRefs(singleMarathon)
+const settingStore = useSettingStore()
 const route = useRoute()
 const {locale} = useI18n()
+
 
 onMounted(async ()=>{
   await singleMarathon.getSingleMarathon(route.params.id, locale.value)
@@ -35,16 +39,24 @@ watch(()=>locale.value, async (language)=>{
           <div class="col-lg-12">
             <div class="prt-page-title-row-heading">
               <div class="prt-page-title-link d-flex align-items-center">
-                <button class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-skincolor me-3">
+                <RouterLink :to="`/participate/${marathon.id}`" v-if="marathon?.event_has_marathon?.status" class="prt-btn border-0 prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-skincolor me-3">
                   {{ $t('participate') }}
-                </button>
-                <div class="post-category">
-                  <i class="ti ti-alarm-clock" aria-hidden="true"></i>
-                  <span>2022-06-25, 03:pm</span>
+                </RouterLink>
+
+                <div class="post-category d-flex flex-wrap align-items-center">
+                  <span>
+                    <i class="ti ti-alarm-clock" aria-hidden="true"></i>
+                  </span>
+                  <div>
+                    <span>
+                      {{ settingStore.formatDate(marathon?.event_has_marathon?.date_event) }}
+                    </span>
+                    <span>{{ marathon?.datetime_from }} - {{ marathon?.datetime_to }}</span>
+                  </div>
                 </div>
                 <div class="post-date">
                   <i class="fa-light fa-user"></i>
-                  <span> 5 users</span>
+                  <span> {{ marathon.participants ? marathon.participants.length : 0 }} {{ $t('participants') }}</span>
                 </div>
               </div>
               <div class="prt-page-title-details">
@@ -53,6 +65,7 @@ watch(()=>locale.value, async (language)=>{
               <div class="page-title-heading">
                 <h2 class="title">{{ marathon.name }}</h2>
                 <p class="text-white ">{{ marathon.description }}</p>
+                <h4 class="text-white ">{{ marathon.price }} UZS</h4>
               </div>
             </div>
           </div>

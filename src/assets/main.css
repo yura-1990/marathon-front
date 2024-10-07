@@ -146,6 +146,17 @@ label{
 
 .prt-page-title-row.style2.blog-single{
     height: 80vh;
+    position: relative;
+}
+
+.prt-page-title-row.style2.blog-single::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.4);
 }
 
 .marathon-users{
@@ -207,7 +218,7 @@ label{
 }
 
 .wrap-form.query_form-1 span.text-input span.heading-name{
-    color: black;
+    color: var(--base-skin);
     font-weight: bold;
 }
 
@@ -220,8 +231,8 @@ label{
 
 .modal-template::before{
     content: '';
-    background: var(--base-skin);
-    clip-path: polygon(0% 0%, 50% 50%, 100% 0%, 100% 100%, 80% 50%, 50% 100%, 20% 50%, 0% 100%);
+    background: white;
+    /*clip-path: polygon(0% 0%, 50% 50%, 100% 0%, 100% 100%, 80% 50%, 50% 100%, 20% 50%, 0% 100%);*/
     position: absolute;
     width: 100%;
     height: 100%;
@@ -258,4 +269,61 @@ nav.main-menu li ul.mega-submenu{
 .wrap-form.query_form-1 span.text-input input, .wrap-form.query_form-1 span.text-input select, .wrap-form.query_form-1 span.text-input textarea{
     color: black !important;
     background: white;
+}
+
+.prt-page-title-row.style1{
+    position: relative;
+}
+
+.prt-page-title-row.style1::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.pricing .nav{
+    flex-wrap: nowrap;
+}
+
+.pricing .nav-pills .nav-link{
+    border: 1px solid var(--base-skin);
+    color: var(--base-skin);
+    font-weight: bolder;
+}
+
+.pricing .nav-pills .nav-link.active{
+    background: var(--base-skin);
+    color: white;
+}
+
+.liner-between{
+    height: 10px;
+    transition: 1s ease;
+    width: 100%;
+}
+
+.line-process{
+    height: 100%;
+    background: var(--base-skin);
+}
+
+.top_130{
+    top: -200px;
+}
+
+.login-price{
+    background: var(--base-skin);
+    padding: 12px;
+}
+
+.outline-pricing{
+    border: 1px solid var(--base-skin) !important;
+}
+
+.wrap-form.query_form-1 span.text-input input::-webkit-input-placeholder, .wrap-form.query_form-1 span.text-input textarea::-webkit-input-placeholder, .wrap-form.query_form-1 span.text-input select::-webkit-input-placeholder, .wrap-form.query_form-1 span.text-input select{
+    color: #0b0b0b;
 }

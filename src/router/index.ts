@@ -7,6 +7,7 @@ import Carts from '@/pages/cart/carts.vue'
 import SingleMarathon from '@/pages/marathons/single-marathon.vue'
 import Marathons from '@/pages/marathons/marathons.vue'
 import Participate from '@/pages/paticipates/participate.vue'
+import Events from "@/pages/events/events.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,6 +30,11 @@ const router = createRouter({
           path: '/event/:id',
           name: 'EventDates',
           component: EventDates
+        },
+        {
+          path: '/events',
+          name: 'Event',
+          component: Events
         },
         {
           path: '/marathons',

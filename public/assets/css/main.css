@@ -215,7 +215,7 @@ menu, ol, ul {
     --base-bodyfont-Size: 18px;
     --base-bodyfont-color: #888888;
     --base-skin: #f56331;
-    --base-dark: #1f1d1a;
+    --base-dark: rgba(31, 29, 26, 0.98);
     --base-grey: #f7f7f7;
     --base-white: #ffffff;    
     --base-second-font:"Kaushan Script", cursive;

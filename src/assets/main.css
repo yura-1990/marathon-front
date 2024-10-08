@@ -262,13 +262,9 @@ label{
     color: #0800ff;
     font-size: 14px;
 }
+
 nav.main-menu li ul.mega-submenu{
     width: max-content !important;
-}
-
-.wrap-form.query_form-1 span.text-input input, .wrap-form.query_form-1 span.text-input select, .wrap-form.query_form-1 span.text-input textarea{
-    color: black !important;
-    background: white;
 }
 
 .prt-page-title-row.style1{
@@ -295,15 +291,13 @@ nav.main-menu li ul.mega-submenu{
     font-weight: bolder;
 }
 
-.pricing .nav-pills .nav-link.active{
-    background: var(--base-skin);
-    color: white;
-}
 
 .liner-between{
     height: 10px;
     transition: 1s ease;
     width: 100%;
+    border-bottom: 1px solid var(--base-skin);
+    border-top: 1px solid var(--base-skin);
 }
 
 .line-process{
@@ -320,10 +314,26 @@ nav.main-menu li ul.mega-submenu{
     padding: 12px;
 }
 
-.outline-pricing{
-    border: 1px solid var(--base-skin) !important;
+.custom-radio{
+    font-size: 16px;
+    color: var(--base-skin);
+    font-family: var(--base-headingfont);
+    text-transform: uppercase;
 }
 
-.wrap-form.query_form-1 span.text-input input::-webkit-input-placeholder, .wrap-form.query_form-1 span.text-input textarea::-webkit-input-placeholder, .wrap-form.query_form-1 span.text-input select::-webkit-input-placeholder, .wrap-form.query_form-1 span.text-input select{
-    color: #0b0b0b;
+.form-check-input:checked{
+    background-color: var(--base-skin) !important;
+    border-color: var(--base-white) !important;
+}
+
+.custom-parent{
+    color: var(--base-skin);
+    font-family: var(--base-headingfont);
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.pricing-plan .pricing-head{
+    width: 50%;
 }

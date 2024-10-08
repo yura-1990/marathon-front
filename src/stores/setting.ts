@@ -26,7 +26,9 @@ export const useSettingStore = defineStore('setting', {
         const token = Cookies.get('auth_token')
         if (token) {
           this.token = token
-          this.user = useJwt(token).payload.value
+          const users: any = useJwt(token)?.payload?.value
+          this.user = users?.users
+          console.log(users?.users)
         } else {
           console.error('Token is undefined')
         }
@@ -82,7 +84,7 @@ export const useSettingStore = defineStore('setting', {
       return `${formattedStartDate} - ${formattedEndDate}`
     },
 
-    getInitials(name: string): string {
+    getInitials(name: string ): string {
       const words = name.trim().split(' ')
 
       if (words.length === 1) {

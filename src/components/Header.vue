@@ -82,12 +82,12 @@ onMounted(()=>{
                         <ul class="menu slide-menu m-0">
                           <li class="mega-menu-item">
                             <a href="#" class="user-login d-flex align-items-center justify-content-center mega-menu-link">
-                              <span class="login">{{ settings.getInitials(user.user.name) }}</span>
+                              <span class="login">{{ settings.getInitials(user?.name ?? 'No Name') }}</span>
                             </a>
 
                             <ul class="mega-submenu">
                               <li>
-                                {{ user.user.email }}
+                                {{ user?.email }}
                                 <hr class="mb-1">
                               </li>
                               <li>

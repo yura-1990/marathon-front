@@ -45,7 +45,7 @@
         <div class="row">
           <div class="col-xs-12 col-md-6 col-lg-4 widget-area">
             <div class="widget newsletter_widget clearfix">
-              <h3 class="widget-title">newsletter</h3>
+              <h3 class="widget-title">{{ $t('leave_us_your_email') }}</h3>
               <form id="subscribe-form"  method="post" action="#" data-mailchimp="true">
                 <div class="d-flex align-items-center">
                   <input type="email" name="email" placeholder="Get news & updates">
@@ -57,34 +57,27 @@
                 <p class="cookies">
                   <input type="checkbox" name="cookies-consent" id="cookies-consent1">
                   <label for="cookies-consent1"></label>
-                  I agree to all terms and condition
+                  {{ $t('i_agree_to_terms') }}
                 </p>
               </form>
             </div>
           </div>
           <div class="col-xs-12 col-md-6 col-lg-4 widget-area">
             <div class="widget widget_nav_menu clearfix">
-              <h3 class="widget-title">Quick Links</h3>
+              <h3 class="widget-title">{{ $t('quick_links') }}</h3>
               <ul id="menu-footer-service-link" class="menu">
-                <li><a href="/">Home</a></li>
-                <li><a href="/blog">Volunteers</a></li>
-                <li><a href="/about-us">About racing</a></li>
-                <li><a href="/services">Services</a></li>
-                <li><a href="/contact-us">Contact us</a></li>
-                <li><a href="/contact-us">Privacy policy</a></li>
-                <li><a href="/service-details">Event info</a></li>
-                <li><a href="/blog-single">Blog post</a></li>
-                <li><a href="/services">Race pack</a></li>
-                <li><a href="/blog-single">Package single</a></li>
+                <li><a href="/">{{ $t('home') }}</a></li>
+                <li><a  href="/events">{{ $t('events') }}</a></li>
+                <li><a href="/about-us">{{ $t('about_us') }}</a></li>
+                <li><a class="text-nowrap" href="/contact-us">{{ $t('contact_us') }}</a></li>
               </ul>
             </div>
           </div>
           <div class="col-xs-12 col-md-12 col-lg-4 widget-area">
             <div class="widget widget-address clearfix">
-              <h3 class="widget-title">Contact info</h3>
+              <h3 class="widget-title">{{ $t('contact_info') }}</h3>
               <div class="">
-                <p>509 Wiley court south anikashire <br>
-                  massachusetts Massachusetts 15th street</p>
+                <p>{{ $t('address') }}</p>
                 <div class="pt-20">
                   <a href="mailto:info@example.com" class="email-info">info.support@gmail.com</a>
                   <div class="tel-number">
@@ -104,10 +97,8 @@
                 <div class="copyright">
                   <div class="d-sm-flex align-items-center justify-content-center position-relative">
                     <div class="cpy-text">
-                      © 2024 <a href="/"> Raccer</a>.
-                      All rights reserved. Template made with
-                      passion by Preyan Technosys
-                    </div>
+                      © 2024 <a href="/"> Road running</a>.
+                      {{ $t('all_rights_reserved') }}</div>
                   </div>
                 </div>
                 <div>

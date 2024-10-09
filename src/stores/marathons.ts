@@ -25,6 +25,8 @@ export const useMarathonStore = defineStore('marathons',  {
           }
         })
 
+        console.log(response.data)
+
         this.marathons = response.data
 
       } catch (error: any) {

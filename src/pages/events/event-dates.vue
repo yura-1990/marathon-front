@@ -92,14 +92,15 @@ watch(()=>locale.value, async (language)=>{
               >
                 <SwiperSlide v-for="(marathon, marathonIndex) in date?.marathons" :key="marathonIndex">
                   <div>
-                    <div class="d-flex align-items-center justify-content-between py-2">
-                      <div class="d-flex gap-3 align-items-center">
+                    <div class="d-flex align-items-start justify-content-between py-2">
+                      <div class="d-flex flex-column justify-content-center align-items-start ">
                         <h6>{{ marathon?.datetime_from }} - {{ marathon?.datetime_to }}</h6>
-                        <h6>{{ marathon?.gender?.type }}</h6>
                       </div>
-                      <RouterLink :to="`/participate/${marathon.id}`" class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-skincolor">
-                        {{ $t('participate') }}
-                      </RouterLink>
+                      <template v-if="event?.status">
+                        <RouterLink :to="`/participate/${marathon.id}`" class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-skincolor">
+                          {{ $t('participate') }}
+                        </RouterLink>
+                      </template>
                     </div>
                     <div :id="`carouselExampleControls-${marathon.id}`" class="carousel slide marathon-block" data-bs-ride="carousel">
 
@@ -118,6 +119,8 @@ watch(()=>locale.value, async (language)=>{
                         </div>
                         <div class="carousel-caption d-none d-md-block">
                           <h4 class="text-white ">{{ marathon.name }}</h4>
+                          <h6>{{ marathon?.gender?.type }}</h6>
+                          <h6 class="text-white ">{{ marathon.price }} UZS</h6>
                         </div>
                       </RouterLink>
                       <template v-if="marathon?.image?.length > 1">

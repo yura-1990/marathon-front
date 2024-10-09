@@ -5,11 +5,18 @@ import {onMounted} from "vue";
 import LanguageSwitcher from '@/components/language-switcher.vue'
 import Cart from '@/components/cart.vue'
 import { RouterLink } from 'vue-router'
+import { useRoute } from 'vue-router';
 import { useAuthStore } from '@/stores/auth'
 
 const settings = useSettingStore()
 const { user } = storeToRefs(settings)
 const userStore = useAuthStore()
+
+const route = useRoute();
+
+const isActive = (path: string) => {
+  return route.path === path;
+};
 
 onMounted(()=>{
   settings.getToken()
@@ -40,7 +47,7 @@ onMounted(()=>{
                   </div>
                   <nav class="main-menu menu-mobile" id="menu">
                     <ul class="menu slide-menu">
-                      <li class="mega-menu-item megamenu-fw active">
+                      <li class="mega-menu-item megamenu-fw" :class="{ 'active': isActive('/') }">
                         <RouterLink
                           class="mega-menu-link"
                           to="/"
@@ -48,15 +55,15 @@ onMounted(()=>{
                           {{ $t('home') }}
                         </RouterLink>
                       </li>
-                      <li class="mega-menu-item megamenu-fw active">
-                        <RouterLink class="mega-menu-link" to="/">{{ $t('events') }}</RouterLink>
+                      <li class="mega-menu-item megamenu-fw" :class="{ 'active': isActive('/events') }">
+                        <RouterLink class="mega-menu-link" to="/events">{{ $t('events') }}</RouterLink>
                       </li>
                       <li class="mega-menu-item">
                         <RouterLink to="/about-us" class="mega-menu-link">{{ $t('about_us') }}</RouterLink>
                       </li>
-                      <li class="mega-menu-item">
-                        <RouterLink to="/contact-us" class="mega-menu-link">{{ $t('contact_us') }}</RouterLink>
-                      </li>
+<!--                      <li class="mega-menu-item">-->
+<!--                        <RouterLink to="/contact-us" class="mega-menu-link">{{ $t('contact_us') }}</RouterLink>-->
+<!--                      </li>-->
                     </ul>
                   </nav><!-- menu end -->
                 </div>
@@ -75,12 +82,12 @@ onMounted(()=>{
                         <ul class="menu slide-menu m-0">
                           <li class="mega-menu-item">
                             <a href="#" class="user-login d-flex align-items-center justify-content-center mega-menu-link">
-                              <span class="login">{{ settings.getInitials(user.user.name) }}</span>
+                              <span class="login">{{ settings.getInitials(user?.name ?? 'No Name') }}</span>
                             </a>
 
                             <ul class="mega-submenu">
                               <li>
-                                {{ user.user.email }}
+                                {{ user?.email }}
                                 <hr class="mb-1">
                               </li>
                               <li>

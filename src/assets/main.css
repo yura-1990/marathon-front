@@ -146,6 +146,17 @@ label{
 
 .prt-page-title-row.style2.blog-single{
     height: 80vh;
+    position: relative;
+}
+
+.prt-page-title-row.style2.blog-single::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.4);
 }
 
 .marathon-users{
@@ -207,7 +218,7 @@ label{
 }
 
 .wrap-form.query_form-1 span.text-input span.heading-name{
-    color: black;
+    color: var(--base-skin);
     font-weight: bold;
 }
 
@@ -220,8 +231,7 @@ label{
 
 .modal-template::before{
     content: '';
-    background: var(--base-skin);
-    clip-path: polygon(0% 0%, 50% 50%, 100% 0%, 100% 100%, 80% 50%, 50% 100%, 20% 50%, 0% 100%);
+    background: white;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -251,11 +261,110 @@ label{
     color: #0800ff;
     font-size: 14px;
 }
+
 nav.main-menu li ul.mega-submenu{
     width: max-content !important;
 }
 
-.wrap-form.query_form-1 span.text-input input, .wrap-form.query_form-1 span.text-input select, .wrap-form.query_form-1 span.text-input textarea{
-    color: black !important;
-    background: white;
+.prt-page-title-row.style1{
+    position: relative;
+}
+
+.prt-page-title-row.style1::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.pricing .nav{
+    flex-wrap: nowrap;
+}
+
+.pricing .nav-pills .nav-link{
+    border: 1px solid var(--base-skin);
+    color: var(--base-skin);
+    font-weight: bolder;
+}
+
+
+.liner-between{
+    height: 10px;
+    transition: 1s ease;
+    width: 100%;
+    border-bottom: 1px solid var(--base-skin);
+    border-top: 1px solid var(--base-skin);
+}
+
+.line-process{
+    height: 100%;
+    background: var(--base-skin);
+}
+
+.top_130{
+    top: -200px;
+}
+
+.login-price{
+    background: var(--base-skin);
+    padding: 12px;
+}
+
+.custom-radio{
+    font-size: 16px;
+    color: var(--base-skin);
+    font-family: var(--base-headingfont);
+    text-transform: uppercase;
+}
+
+.form-check-input:checked{
+    background-color: var(--base-skin) !important;
+    border-color: var(--base-white) !important;
+}
+
+.custom-parent{
+    color: var(--base-skin);
+    font-family: var(--base-headingfont);
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.pricing-plan .pricing-head{
+    width: 50%;
+}
+
+.numbers-item{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--base-white);
+}
+
+.numbers-item:hover{
+    background: var(--base-skin);
+    border: none;
+}
+
+.numbers-item.active{
+    background: var(--base-skin);
+    border: none;
+}
+
+.circular-main img {
+    position: relative;
+    left: 50px;
+    bottom: 35px;
+}
+
+footer .circular-main img {
+    position: relative;
+    left: 75px;
+    bottom: 0;
 }

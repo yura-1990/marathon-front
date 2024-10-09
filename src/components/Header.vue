@@ -61,9 +61,9 @@ onMounted(()=>{
                       <li class="mega-menu-item">
                         <RouterLink to="/about-us" class="mega-menu-link">{{ $t('about_us') }}</RouterLink>
                       </li>
-                      <li class="mega-menu-item">
-                        <RouterLink to="/contact-us" class="mega-menu-link">{{ $t('contact_us') }}</RouterLink>
-                      </li>
+<!--                      <li class="mega-menu-item">-->
+<!--                        <RouterLink to="/contact-us" class="mega-menu-link">{{ $t('contact_us') }}</RouterLink>-->
+<!--                      </li>-->
                     </ul>
                   </nav><!-- menu end -->
                 </div>

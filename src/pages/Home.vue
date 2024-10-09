@@ -425,110 +425,110 @@ watch(()=>locale.value, async (language)=>{
         </div>
       </section>
 
-      <section class="prt-row event-section overflow-hidden clearfix">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="featured-imagebox featured-imagebox-event style1">
-                <div class="row">
-                  <div class="col-md-5 col-lg-5">
-                    <div class="featured-thumbnail">
-                      <img
-                        width="304"
-                        height="304"
-                        class="img-fluid"
-                        src="/assets/images/Photo-5_resized.jpg"
-                        alt="images"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-7 col-lg-7">
-                    <div class="featured-content">
-                      <div class="featured-title">
-                        <h3>VELOCITY VORTEX SHOWDOWN</h3>
-                      </div>
-                      <div class="featured-desc">
-                        <p>Starting : 07:00am & end : 10:00am</p>
-                        <p>Host by : Willium agato</p>
-                      </div>
-                      <div class="featured-btn">
-                        <a
-                          class="prt-btn prt-btn-size-md btn-inline prt-btn-color-whitecolor"
-                          href="contact-us.html"
-                          >book ticket</a
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="featured-imagebox featured-imagebox-event style1 mt-35">
-                <div class="row">
-                  <div class="col-md-5 col-lg-5">
-                    <div class="featured-thumbnail">
-                      <img
-                        width="304"
-                        height="304"
-                        class="img-fluid"
-                        src="/assets/images/Photo-7_resized.jpg"
-                        alt="images"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-7 col-lg-7">
-                    <div class="featured-content">
-                      <div class="featured-title">
-                        <h3>TURBOCHARGED TRIUMPH TOURNAMENT</h3>
-                      </div>
-                      <div class="featured-desc">
-                        <p>Starting : 07:00am & end : 10:00am</p>
-                        <p>Host by : Willium agato</p>
-                      </div>
-                      <div class="featured-btn">
-                        <a
-                          class="prt-btn prt-btn-size-md btn-inline prt-btn-color-whitecolor"
-                          href="contact-us.html"
-                          >book ticket</a
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="featured-imagebox featured-imagebox-event style1 content">
-                <div class="flag-right-img">
-                  <img class="img-fluid" src="/assets/images/flag-right.png" alt="image" />
-                </div>
-                <div class="featured-thumbnail">
-                  <img
-                    class="img-fluid res-767-mt-0"
-                    src="/assets/images/running.jpg"
-                    alt="images"
-                  />
-                </div>
-                <div class="featured-content">
-                  <div class="featured-title">
-                    <h3>SPEEDSTER SPECTACULAR CIRCUIT</h3>
-                  </div>
-                  <div class="featured-desc">
-                    <p>Starting : 07:00am & end : 10:00am</p>
-                    <p>Host by : Willium agato</p>
-                  </div>
-                  <div class="featured-btn">
-                    <a
-                      class="prt-btn prt-btn-size-md btn-inline prt-btn-color-whitecolor"
-                      href="contact-us.html"
-                      >book ticket</a
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+<!--      <section class="prt-row event-section overflow-hidden clearfix">-->
+<!--        <div class="container">-->
+<!--          <div class="row">-->
+<!--            <div class="col-lg-6">-->
+<!--              <div class="featured-imagebox featured-imagebox-event style1">-->
+<!--                <div class="row">-->
+<!--                  <div class="col-md-5 col-lg-5">-->
+<!--                    <div class="featured-thumbnail">-->
+<!--                      <img-->
+<!--                        width="304"-->
+<!--                        height="304"-->
+<!--                        class="img-fluid"-->
+<!--                        src="/assets/images/Photo-5_resized.jpg"-->
+<!--                        alt="images"-->
+<!--                      />-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <div class="col-md-7 col-lg-7">-->
+<!--                    <div class="featured-content">-->
+<!--                      <div class="featured-title">-->
+<!--                        <h3>VELOCITY VORTEX SHOWDOWN</h3>-->
+<!--                      </div>-->
+<!--                      <div class="featured-desc">-->
+<!--                        <p>Starting : 07:00am & end : 10:00am</p>-->
+<!--                        <p>Host by : Willium agato</p>-->
+<!--                      </div>-->
+<!--                      <div class="featured-btn">-->
+<!--                        <a-->
+<!--                          class="prt-btn prt-btn-size-md btn-inline prt-btn-color-whitecolor"-->
+<!--                          href="contact-us.html"-->
+<!--                          >book ticket</a-->
+<!--                        >-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="featured-imagebox featured-imagebox-event style1 mt-35">-->
+<!--                <div class="row">-->
+<!--                  <div class="col-md-5 col-lg-5">-->
+<!--                    <div class="featured-thumbnail">-->
+<!--                      <img-->
+<!--                        width="304"-->
+<!--                        height="304"-->
+<!--                        class="img-fluid"-->
+<!--                        src="/assets/images/Photo-7_resized.jpg"-->
+<!--                        alt="images"-->
+<!--                      />-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <div class="col-md-7 col-lg-7">-->
+<!--                    <div class="featured-content">-->
+<!--                      <div class="featured-title">-->
+<!--                        <h3>TURBOCHARGED TRIUMPH TOURNAMENT</h3>-->
+<!--                      </div>-->
+<!--                      <div class="featured-desc">-->
+<!--                        <p>Starting : 07:00am & end : 10:00am</p>-->
+<!--                        <p>Host by : Willium agato</p>-->
+<!--                      </div>-->
+<!--                      <div class="featured-btn">-->
+<!--                        <a-->
+<!--                          class="prt-btn prt-btn-size-md btn-inline prt-btn-color-whitecolor"-->
+<!--                          href="contact-us.html"-->
+<!--                          >book ticket</a-->
+<!--                        >-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="col-lg-6">-->
+<!--              <div class="featured-imagebox featured-imagebox-event style1 content">-->
+<!--                <div class="flag-right-img">-->
+<!--                  <img class="img-fluid" src="/assets/images/flag-right.png" alt="image" />-->
+<!--                </div>-->
+<!--                <div class="featured-thumbnail">-->
+<!--                  <img-->
+<!--                    class="img-fluid res-767-mt-0"-->
+<!--                    src="/assets/images/running.jpg"-->
+<!--                    alt="images"-->
+<!--                  />-->
+<!--                </div>-->
+<!--                <div class="featured-content">-->
+<!--                  <div class="featured-title">-->
+<!--                    <h3>SPEEDSTER SPECTACULAR CIRCUIT</h3>-->
+<!--                  </div>-->
+<!--                  <div class="featured-desc">-->
+<!--                    <p>Starting : 07:00am & end : 10:00am</p>-->
+<!--                    <p>Host by : Willium agato</p>-->
+<!--                  </div>-->
+<!--                  <div class="featured-btn">-->
+<!--                    <a-->
+<!--                      class="prt-btn prt-btn-size-md btn-inline prt-btn-color-whitecolor"-->
+<!--                      href="contact-us.html"-->
+<!--                      >book ticket</a-->
+<!--                    >-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </section>-->
 
       <section class="prt-row testimonial-section overflow-hidden clearfix">
         <div class="container">
@@ -670,197 +670,6 @@ watch(()=>locale.value, async (language)=>{
         </div>
       </section>
 
-      <section class="prt-row overflow-hidden pricing-section-1 bg-layer-equal-height clearfix">
-        <div class="container-fluid">
-          <div class="row g-0">
-            <div class="col-xl-6">
-              <div
-                class="prt-bg prt-col-bgimage-yes prt-col-bgcolor-yes col-bg-img-two prt-left-span spacing-2"
-              >
-                <div class=" prt-bg-layer" style="
-                  background-image: url('/assets/images/Photo-2_resized.jpg');
-                  background-position: center;
-                  background-size: cover;
-                  background-repeat: no-repeat;"
-                >
-                  <div class="prt-col-wrapper-bg-layer-inner"></div>
-                </div>
-                <div class="layer-content">
-                  <div class="section-title style3">
-                    <div class="title-header">
-                      <h2 class="title">Get ready</h2>
-                      <h2 class="title text-md-end">to race</h2>
-                      <div class="secondary-text">
-                        <div class=""><span class="normal-text">21</span></div>
-                        <div class="">
-                          <span class="Kaushan-text">April 2024 </span>
-                          <span class="normal-text-1"> Sunday </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <img
-                    class="img-fluid pl-110 pt-20 res-1400-pl-0"
-                    src="/assets/images/single-img-8-479x171.webp"
-                    alt="image"
-                  />
-                  <div class="bg-title-image">
-                    <a href="tel:1234567890">01+ 123 456 7890</a>
-                    <h3><a href="contact-us.html"> Get online ticket </a></h3>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-6">
-              <div
-                class="prt-bg prt-col-bgimage-yes prt-col-bgcolor-yes col-bg-img-three prt-right-span spacing-3"
-              >
-                <div class="prt-col-wrapper-bg-layer prt-bg-layer">
-                  <div class="prt-col-wrapper-bg-layer-inner"></div>
-                </div>
-                <div class="layer-content">
-                  <div class="prt-tabs prt-tab-style-01">
-                    <ul class="tabs">
-                      <li class="tab">introductory lesson</li>
-                      <li class="tab active">Group riding</li>
-                      <li class="tab">car / bike leasing</li>
-                      <li class="tab">Trail ride adventure</li>
-                      <li class="tab">private riding</li>
-                    </ul>
-                    <div class="content-tab">
-                      <!-- content-inner -->
-                      <div class="content-inner active">
-                        <div class="prt-pricing-plan">
-                          <div class="prt-p_table-body">
-                            <div class="prt-p_table-amount pricing-price">
-                              <h3>$456</h3>
-                              <span class="pac_frequency"> / mon</span>
-                            </div>
-                            <ul class="prt-p_table-features">
-                              <li><i class="ti ti-check"></i>10 Property Listing</li>
-                              <li><i class="ti ti-check"></i>30 Days Availability</li>
-                              <li><i class="ti ti-check"></i>Feature Properties</li>
-                              <li><i class="ti ti-check"></i>24/7 support</li>
-                            </ul>
-                            <div class="prt-p_table-footer">
-                              <a
-                                class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-skincolor"
-                                href="pricing.html"
-                                >Get Started now</a
-                              >
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- content-inner end-->
-                      <!-- content-inner -->
-                      <div class="content-inner">
-                        <div class="prt-pricing-plan">
-                          <div class="prt-p_table-body">
-                            <div class="prt-p_table-amount pricing-price">
-                              <h3>$456</h3>
-                              <span class="pac_frequency"> / mon</span>
-                            </div>
-                            <ul class="prt-p_table-features">
-                              <li><i class="ti ti-check"></i>10 Property Listing</li>
-                              <li><i class="ti ti-check"></i>30 Days Availability</li>
-                              <li><i class="ti ti-check"></i>Feature Properties</li>
-                              <li><i class="ti ti-check"></i>24/7 support</li>
-                            </ul>
-                            <div class="prt-p_table-footer">
-                              <a
-                                class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-skincolor"
-                                href="contact.html"
-                                >Get Started now</a
-                              >
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- content-inner end-->
-                      <!-- content-inner -->
-                      <div class="content-inner">
-                        <div class="prt-pricing-plan">
-                          <div class="prt-p_table-body">
-                            <div class="prt-p_table-amount pricing-price">
-                              <h3>$256</h3>
-                              <span class="pac_frequency"> / mon</span>
-                            </div>
-                            <ul class="prt-p_table-features">
-                              <li><i class="ti ti-check"></i>10 Property Listing</li>
-                              <li><i class="ti ti-check"></i>30 Days Availability</li>
-                              <li><i class="ti ti-check"></i>Feature Properties</li>
-                              <li><i class="ti ti-check"></i>24/7 support</li>
-                            </ul>
-                            <div class="prt-p_table-footer">
-                              <a
-                                class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-skincolor"
-                                href="contact.html"
-                                >Get Started now</a
-                              >
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- content-inner end-->
-                      <!-- content-inner -->
-                      <div class="content-inner">
-                        <div class="prt-pricing-plan">
-                          <div class="prt-p_table-body">
-                            <div class="prt-p_table-amount pricing-price">
-                              <h3>$356</h3>
-                              <span class="pac_frequency"> / mon</span>
-                            </div>
-                            <ul class="prt-p_table-features">
-                              <li><i class="ti ti-check"></i>10 Property Listing</li>
-                              <li><i class="ti ti-check"></i>30 Days Availability</li>
-                              <li><i class="ti ti-check"></i>Feature Properties</li>
-                              <li><i class="ti ti-check"></i>24/7 support</li>
-                            </ul>
-                            <div class="prt-p_table-footer">
-                              <a
-                                class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-skincolor"
-                                href="contact.html"
-                                >Get Started now</a
-                              >
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- content-inner end-->
-                      <!-- content-inner -->
-                      <div class="content-inner">
-                        <div class="prt-pricing-plan">
-                          <div class="prt-p_table-body">
-                            <div class="prt-p_table-amount pricing-price">
-                              <h3>$556</h3>
-                              <span class="pac_frequency"> / mon</span>
-                            </div>
-                            <ul class="prt-p_table-features">
-                              <li><i class="ti ti-check"></i>10 Property Listing</li>
-                              <li><i class="ti ti-check"></i>30 Days Availability</li>
-                              <li><i class="ti ti-check"></i>Feature Properties</li>
-                              <li><i class="ti ti-check"></i>24/7 support</li>
-                            </ul>
-                            <div class="prt-p_table-footer">
-                              <a
-                                class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-skincolor"
-                                href="contact.html"
-                                >Get Started now</a
-                              >
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- content-inner end-->
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <section class="prt-row blog-section overflow-hidden clearfix">
         <div class="winner-flag-1 z-index-0">
@@ -871,14 +680,10 @@ watch(()=>locale.value, async (language)=>{
             <div class="col-lg-8 m-auto">
               <div class="section-title title-style-center_text">
                 <div class="title-header">
-                  <h2 class="title">be part of a big event</h2>
+                  <h2 class="title">{{ $t('be_part_of_big_event') }}</h2>
                 </div>
                 <div class="title-desc">
-                  <p>
-                    Step into the heart of adrenaline-pumping action! Join us for a colossal event
-                    where every revving engine, every screeching turn, creates an unforgettable
-                    experience.
-                  </p>
+                  <p>{{ $t('step_into_adrenaline_action') }}</p>
                 </div>
               </div>
             </div>
@@ -900,7 +705,7 @@ watch(()=>locale.value, async (language)=>{
                   />
                 </div>
                 <div class="featured-title">
-                  <h3><a href="blog-single.html">special competitions</a></h3>
+                  <h3><a href="/events">{{ $t('special_competitions') }}</a></h3>
                 </div>
                 <div class="featured-content">
                   <div class="post-category">
@@ -909,7 +714,7 @@ watch(()=>locale.value, async (language)=>{
                   </div>
                   <div class="post-date">
                     <i class="ti ti-comment" aria-hidden="true"></i>
-                    <span>comment</span>
+                    <span>{{ $t('comment') }}</span>
                   </div>
                 </div>
               </div>
@@ -925,7 +730,7 @@ watch(()=>locale.value, async (language)=>{
                   />
                 </div>
                 <div class="featured-title">
-                  <h3><a href="blog-single.html">HIGHER Driving School</a></h3>
+                  <h3><a href="/events">{{ $t('higher_running_school') }}</a></h3>
                 </div>
                 <div class="featured-content">
                   <div class="post-category">
@@ -934,7 +739,7 @@ watch(()=>locale.value, async (language)=>{
                   </div>
                   <div class="post-date">
                     <i class="ti ti-comment" aria-hidden="true"></i>
-                    <span>comment</span>
+                    <span>{{ $t('comment') }}</span>
                   </div>
                 </div>
               </div>
@@ -950,7 +755,7 @@ watch(()=>locale.value, async (language)=>{
                   />
                 </div>
                 <div class="featured-title">
-                  <h3><a href="blog-single.html">EXPLORE HILL RIDING</a></h3>
+                  <h3><a href="/events">{{ $t('explore_hill_running') }}</a></h3>
                 </div>
                 <div class="featured-content">
                   <div class="post-category">
@@ -959,32 +764,7 @@ watch(()=>locale.value, async (language)=>{
                   </div>
                   <div class="post-date">
                     <i class="ti ti-comment" aria-hidden="true"></i>
-                    <span>comment</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="featured-imagebox featured-imagebox-blog style1">
-                <div class="featured-thumbnail">
-                  <img
-                    class="img-fluid"
-                    src="/assets/images/Photo-10_resized.jpg"
-                    loading="lazy"
-                    alt="image"
-                  />
-                </div>
-                <div class="featured-title">
-                  <h3><a href="blog-single.html">MOUNTAIN BIKE RACES</a></h3>
-                </div>
-                <div class="featured-content">
-                  <div class="post-category">
-                    <i class="ti ti-alarm-clock" aria-hidden="true"></i>
-                    <span>2022-08-14, 01:pm</span>
-                  </div>
-                  <div class="post-date">
-                    <i class="ti ti-comment" aria-hidden="true"></i>
-                    <span>comment</span>
+                    <span>{{ $t('comment') }}</span>
                   </div>
                 </div>
               </div>

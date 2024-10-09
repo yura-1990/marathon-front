@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch, watchPostEffect, watchSyncEffect } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useSettingStore } from '@/stores/setting'
 import { useMarathonStore } from '@/stores/marathons'
@@ -9,8 +9,7 @@ import { useGenderStore } from '@/stores/gender'
 import { useRegionStore } from '@/stores/regions'
 import { useOrganizationStore } from '@/stores/organiztions'
 import { useParticipantCategoryStore } from '@/stores/participantCategories'
-import * as process from 'node:process'
-import { useNumberStore } from '@/stores/numberTypes'
+import { useUniformStore } from '@/stores/uniforms'
 
 const singleMarathon = useMarathonStore()
 const { marathon } = storeToRefs(singleMarathon)
@@ -19,13 +18,14 @@ const genderStore = useGenderStore()
 const regionStore = useRegionStore()
 const organizationStore = useOrganizationStore()
 const participantCategory = useParticipantCategoryStore()
-const numberStore = useNumberStore()
+const uniformStore = useUniformStore()
 const { user } = storeToRefs(settingStore)
 const { genders } = storeToRefs(genderStore)
 const { regions } = storeToRefs(regionStore)
 const { organizations } = storeToRefs(organizationStore)
 const { participantCategories } = storeToRefs(participantCategory)
-const { numberTypes } = storeToRefs(numberStore)
+const { uniforms } = storeToRefs(uniformStore)
+
 const route = useRoute()
 const { locale } = useI18n()
 const selfProcess = ref<Array<any>>([
@@ -41,7 +41,6 @@ const selfProcess = ref<Array<any>>([
   }
 ])
 const hasParent = ref<boolean>(false)
-const complateRegion = ref<string>('')
 const missingFields = ref<Array<string>>([])
 interface Form {
   name: string
@@ -56,8 +55,9 @@ interface Form {
   parent_name: string
   user_id: number | null
   options: string
+  number: string | null,
+  uniform_id: string | null
 }
-
 const personInfo = ref<Form>({
   name: '',
   email: '',
@@ -70,7 +70,9 @@ const personInfo = ref<Form>({
   organization_id: null,
   parent_name: '',
   user_id: null,
-  options: ''
+  options: '',
+  number: '0',
+  uniform_id: null
 })
 const requiredFields: (keyof Form)[] = [
   'name',
@@ -81,8 +83,9 @@ const requiredFields: (keyof Form)[] = [
   'address',
   'birth'
 ]
-
-const number = ref()
+const size = ref<string | null>(null)
+const isEmailValid = ref<boolean>(true)
+const isPhoneValid = ref(true);
 
 function checkRequiredFields(): boolean {
   if (hasParent.value) {
@@ -110,15 +113,13 @@ onMounted(async () => {
   await regionStore.getRegions(locale.value)
   await organizationStore.getOrganizations(locale.value)
   await participantCategory.getOrganizations(locale.value)
-  await numberStore.getNumbers(locale.value)
+})
+
+onMounted(async () => {
+  await uniformStore.getUniforms(locale.value)
 })
 
 onMounted(() => {
-  personInfo.value.name = user.value.name
-  personInfo.value.email = user.value.email
-  personInfo.value.user_id = user.value.id
-
-
   if (localStorage.getItem('process')) {
     const progress: string | null = localStorage.getItem('process');
 
@@ -157,10 +158,34 @@ watch(
     await regionStore.getRegions(language)
     await organizationStore.getOrganizations(language)
     await participantCategory.getOrganizations(language)
+    await uniformStore.getUniforms(language)
   }
 )
 
+function applyPhoneMask () {
+  personInfo.value.phone = settingStore.maskPhone(personInfo.value.phone);
+  isPhoneValid.value = settingStore.validatePhone(personInfo.value.phone);
+}
 
+function validateEmailInput() {
+  isEmailValid.value = settingStore.validateEmail(personInfo.value.email);
+}
+
+function setNumber(id: number): void
+{
+  personInfo.value.number = id.toString();
+}
+
+function setUniform(): void
+{
+  const s = size.value?.split('-')[1].trim()
+  const getS = uniforms.value.filter((el)=>el.size === s)[0]
+  personInfo.value.uniform_id = getS.id
+}
+
+async function submit(){
+  console.log(personInfo.value)
+}
 
 </script>
 
@@ -205,6 +230,11 @@ watch(
         <section class="prt-row from-section clearfix">
           <div class="container">
             <div class="bg-base-dark py-3 px-4 border-rad_30 res-991-mt-30">
+              <div class="section-title title-style-center_text">
+                <div class="title-header">
+                  <h2 class="title">Personal Info</h2>
+                </div>
+              </div>
               <template v-if="!user">
                 <div class="d-flex justify-content-center">
                   <a
@@ -223,7 +253,7 @@ watch(
               <template v-else>
                 <div class="contact-form-block p-5">
 
-                  <form
+                  <form @submit.prevent="submit"
                     id="self-participation"
                     class="wrap-form query_form-1 needs-validation contact_form"
                     novalidate
@@ -255,26 +285,28 @@ watch(
                             class="email"
                             type="text"
                             placeholder="example@gmail.com"
+                            @input="validateEmailInput"
                           />
-                        </span>
                         <span
-                          v-if="missingFields.includes('email')"
-                          class="text-danger"
+                          v-if="!isEmailValid"
+                          class="text-danger ms-3"
                         >
-                          Please fill
+                          Email is not valid
+                        </span>
                         </span>
                       </div>
                       <div class="col-lg-6">
                         <span class="text-input">
                           <span class="heading-name">phone number</span>
                           <input
-                            type="text"
+                            type="tel"
                             v-model="personInfo.phone"
-                            placeholder="+998 90 000 00 00"
+                            placeholder="+000 00 000 00 00"
+                            @input="applyPhoneMask"
                           />
                           <span
-                            v-if="missingFields.includes('phone')"
-                            class="text-danger"
+                            v-if="!isPhoneValid"
+                            class="text-danger ms-3"
                           >
                             Please fill
                           </span>
@@ -441,26 +473,66 @@ watch(
                           </datalist>
                         </span>
                       </div>
+
                       <div class="col-lg-12 mt-5 py-5">
-                        <div v-for="(num, numIndex) in marathon.number_types" :key="numIndex" class="pricing-plan">
+                        <div class="section-title title-style-center_text">
+                          <div class="title-header">
+                            <h2 class="title">Choose Uniform size</h2>
+                          </div>
+                        </div>
+
+                        <span class="text-input">
+                          <label for="uniformIndex">
+                            <span class="heading-name">Uniform</span>
+                          </label>
+                          <input
+                            v-model="size"
+                            class="form-control"
+                            list="uniformOptions"
+                            id="organizationIndex"
+                            placeholder="Type or choose ..."
+                            @input="setUniform"
+                          />
+                          <datalist id="uniformOptions">
+                            <option
+                              v-for="(value, valueIndex) in uniforms"
+                              :value="value.type + ' - ' + value.size"
+                              :key="valueIndex"
+                            >{{ value.size }}</option>
+                          </datalist>
+                        </span>
+                      </div>
+
+                      <div class="col-lg-12 mt-5 py-5">
+                        <div class="section-title title-style-center_text">
+                          <div class="title-header">
+                            <h2 class="title">Choose Number</h2>
+                          </div>
+                        </div>
+                        <div v-for="(num, numIndex) in marathon?.number_types" :key="numIndex" class="pricing-plan">
                           <div class="pricing-table-heading">
                             <div class="prt-p-blur-text">{{ num?.type.charAt(0) }}</div>
                             <div class="pricing-head">
                               <div class="prt-p_table-title">
                                 <h3>{{ num?.type }}</h3>
-                                <p>
-                                  Discover affordable pricing options tailored for car racing enthusiasts.
-                                  Join us and experience the thrill of the track without breaking the bank
-                                </p>
                               </div>
                             </div>
                             <div class="prt-p_table-amount float-end">
                               <div class="prt-p_table-price ">{{ num?.pivot?.price ? num.pivot.price + ' UZS' : 0 }}</div>
                               <div class="prt-p-blur-text right">/p</div>
                             </div>
-                            <div class="prt-p_table-button">
-                              <a class="prt-button" href="#!"></a>
-                            </div>
+                            <div  class="prt-p_table-button"></div>
+
+                            <ul class="numbers d-flex flex-wrap gap-3 list-unstyled">
+                              <template v-for="(n, ni) in num.options" :key="ni" >
+                                <li v-if="marathon.marathon_type.number_order_from <= n && marathon.marathon_type.number_order_to >= n"
+                                    class="numbers-item"
+                                    :class="{'active': personInfo.number == n}" @click="setNumber(n)"
+                                >
+                                  {{ n }}
+                                </li>
+                              </template>
+                            </ul>
                           </div>
                         </div>
                       </div>
@@ -473,7 +545,7 @@ watch(
                             class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-skincolor"
                             type="submit"
                           >
-                            Submit form
+                            + Add to card
                           </button>
                         </div>
                       </div>
@@ -484,80 +556,6 @@ watch(
             </div>
           </div>
         </section>
-
-<!--        <section class="prt-row pricing-section clearfix">-->
-<!--          <div class="container">-->
-<!--            <div class="row">-->
-<!--              <div class="col-lg-12">-->
-<!--                <div class="pricing-plan">-->
-<!--                  <div class="pricing-table-heading">-->
-<!--                    <div class="prt-p-blur-text">C</div>-->
-<!--                    <div class="pricing-head">-->
-<!--                      <div class="prt-p_table-title">-->
-<!--                        <h3>Car racing</h3>-->
-<!--                        <p>-->
-<!--                          Discover affordable pricing options tailored for car racing enthusiasts.-->
-<!--                          Join us and experience the thrill of the track without breaking the bank-->
-<!--                        </p>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                    <div class="prt-p_table-amount">-->
-<!--                      <div class="prt-p_table-price">$199</div>-->
-<!--                      <div class="prt-p-blur-text right">/p</div>-->
-<!--                    </div>-->
-<!--                    <div class="prt-p_table-button">-->
-<!--                      <a class="prt-button" href="contact-us.html"></a>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--                <div class="pricing-plan">-->
-<!--                  <div class="pricing-table-heading">-->
-<!--                    <div class="prt-p-blur-text">B</div>-->
-<!--                    <div class="pricing-head">-->
-<!--                      <div class="prt-p_table-title">-->
-<!--                        <h3>Bike racing</h3>-->
-<!--                        <p>-->
-<!--                          Explore our budget-friendly pricing plans, crafted for bike racing-->
-<!--                          aficionados seeking adrenaline-fueled adventures. Join now and unleash-->
-<!--                          your competitive spirit-->
-<!--                        </p>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                    <div class="prt-p_table-amount">-->
-<!--                      <div class="prt-p_table-price">$189</div>-->
-<!--                      <div class="prt-p-blur-text right">/p</div>-->
-<!--                    </div>-->
-<!--                    <div class="prt-p_table-button">-->
-<!--                      <a class="prt-button" href="contact-us.html"></a>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--                <div class="pricing-plan">-->
-<!--                  <div class="pricing-table-heading">-->
-<!--                    <div class="prt-p-blur-text">A</div>-->
-<!--                    <div class="pricing-head">-->
-<!--                      <div class="prt-p_table-title">-->
-<!--                        <h3>ATV bike racing</h3>-->
-<!--                        <p>-->
-<!--                          Dive into the excitement of ATV bike racing with our accessible pricing-->
-<!--                          options. Join our thrilling events and experience the thrill of the track-->
-<!--                          firsthand-->
-<!--                        </p>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                    <div class="prt-p_table-amount">-->
-<!--                      <div class="prt-p_table-price">$159</div>-->
-<!--                      <div class="prt-p-blur-text right">/p</div>-->
-<!--                    </div>-->
-<!--                    <div class="prt-p_table-button">-->
-<!--                      <a class="prt-button" href="contact-us.html"></a>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </section>-->
 
         <section class="prt-row bg-base-grey clearfix">
           <div class="container">

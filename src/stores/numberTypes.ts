@@ -12,9 +12,25 @@ export const useNumberStore = defineStore('numbers',  {
   }),
 
   actions: {
-    async getNumbers(language: string = 'ru'): Promise<void> {
+    async getNumbers(language: string = 'ru'): Promise<void>
+    {
       try {
         const response: AxiosResponse<any> = await axios.get('/numbers/all',{
+          params: {
+            language
+          }
+        })
+        this.numberTypes = response.data
+        console.log(response.data)
+
+      } catch (error: any) {
+        console.log('Error in event')
+      }
+
+    },
+    async getOneNumberType(language: string = 'ru', id: string): Promise<void> {
+      try {
+        const response: AxiosResponse<any> = await axios.get(`/numbers/show/${id}`,{
           params: {
             language
           }

@@ -21,7 +21,8 @@ export const useSettingStore = defineStore('setting', {
       this.openSidebar = !this.openSidebar
     },
 
-    async getToken(): Promise<any | null> {
+    async getToken(): Promise<any | null>
+    {
       try {
         const token = Cookies.get('auth_token')
         if (token) {
@@ -37,7 +38,8 @@ export const useSettingStore = defineStore('setting', {
       }
     },
 
-    formatDate(dateString: string): string | null {
+    formatDate(dateString: string): string | null
+    {
       const { t } = useI18n()
       const date = new Date(dateString)
 
@@ -54,7 +56,8 @@ export const useSettingStore = defineStore('setting', {
       return formatDate(date)
     },
 
-    formatEventDateRange(marathons: Array<{ date_event: string }>) {
+    formatEventDateRange(marathons: Array<{ date_event: string }>): string
+    {
       const { t } = useI18n()
       if (!marathons || marathons.length === 0) return 'Upcoming events'
 
@@ -84,7 +87,8 @@ export const useSettingStore = defineStore('setting', {
       return `${formattedStartDate} - ${formattedEndDate}`
     },
 
-    getInitials(name: string ): string {
+    getInitials(name: string ): string
+    {
       const words = name.trim().split(' ')
 
       if (words.length === 1) {
@@ -108,6 +112,29 @@ export const useSettingStore = defineStore('setting', {
       const hours = currentDate.getHours();
 
       return hours >= 12 ? 'PM' : 'AM';
+    },
+
+    maskPhone(input: string): string
+    {
+      const cleaned = input.replace(/\D/g, ''); // Remove all non-digit characters
+      const match = cleaned.match(/^(\d{0,3})(\d{0,2})(\d{0,3})(\d{0,2})(\d{0,2})$/);
+
+      if (match) {
+        return `+${match[1] ? match[1] : ''}${match[2] ? ` ${match[2]}` : ''}${match[3] ? ` ${match[3]}` : ''}${match[4] ? ` ${match[4]}` : ''}${match[5] ? ` ${match[5]}` : ''}`;
+      }
+
+      return '';
+    },
+
+    validatePhone(input: string) {
+      const phonePattern = /^\+\d{3} \d{2} \d{3} \d{2} \d{2}$/;
+      return phonePattern.test(input);
+    },
+
+    validateEmail(input: string): boolean
+    {
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailPattern.test(input);
     }
   }
 })

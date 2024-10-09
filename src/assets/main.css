@@ -337,3 +337,27 @@ nav.main-menu li ul.mega-submenu{
 .pricing-plan .pricing-head{
     width: 50%;
 }
+
+.numbers-item{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--base-white);
+}
+
+.numbers-item:hover{
+    background: var(--base-skin);
+    border: none;
+}
+
+.numbers-item.active{
+    background: var(--base-skin);
+    border: none;
+}
+
+.uniform-item{
+
+}

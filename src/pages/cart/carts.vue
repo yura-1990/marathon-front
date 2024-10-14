@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, onBeforeUnmount, onMounted, ref, watch} from "vue";
+import {computed, onBeforeUnmount, onMounted, ref} from "vue";
 import {useSettingStore} from "@/stores/setting";
 import {storeToRefs} from "pinia";
 import CartItem from "@/components/cartItem.vue";
@@ -7,7 +7,6 @@ import CartItem from "@/components/cartItem.vue";
 const settingStore = useSettingStore()
 const { carts } = storeToRefs(settingStore)
 const intervalIds  = ref<number[]>([]);
-const minutesAndSeconds = ref('');
 
 onMounted(() => {
   settingStore.getCarts();
@@ -39,7 +38,7 @@ const totalPrice = computed(() => {
               <div class="prt-blog-single-content">
                 <div class="entry-content">
                   <div class="blog-single-title">
-                    <h2 class="text-center">CART DETAILS</h2>
+                    <h2 class="text-center">{{ $t('cart_details') }}</h2>
                   </div>
                   <template v-if="carts.length > 0">
                     <CartItem v-for="(cart, index) in carts" :index="index" :cart="cart" :key="cart.number.number" />
@@ -47,10 +46,10 @@ const totalPrice = computed(() => {
                   <template v-else>
                     <blockquote>
                       <div class="qoute-text">
-                        Savatda xaridlar yoq
+                        {{ $t('no_purchases_in_cart') }}
                       </div>
                       <a class="prt-btn prt-btn-size-lg prt-btn-shape-rounded prt-btn-style-border prt-btn-color-whitecolor mt-20
-                                    " href="/events">Ishtirok etish</a>
+                                    " href="/events">{{ $t('participate') }}</a>
                     </blockquote>
                   </template>
                 </div>
@@ -61,7 +60,7 @@ const totalPrice = computed(() => {
                 <div class="featured-icon-box icon-align-top-content style6">
                   <div class="featured-icon d-flex justify-content-between">
                     <img src="/assets/images/logo_itog2.png" alt="" width="90px">
-                    <h3 class="float-end">Total</h3>
+                    <h3 class="float-end">{{ $t('total') }}</h3>
                   </div>
                   <div class="featured-content">
                     <div class="featured-title">
@@ -70,8 +69,8 @@ const totalPrice = computed(() => {
                     <div class="featured-desc">
                     </div>
                   </div>
-                  <a class="prt-btn prt-btn-size-lg prt-btn-shape-rounded prt-btn-style-border prt-btn-color-whitecolor w-100 mt-20
-                                    " href="/payment">PAYMENT</a>
+                  <a class="prt-btn prt-btn-size-lg text-uppercase prt-btn-shape-rounded prt-btn-style-border prt-btn-color-whitecolor w-100 mt-20
+                                    " href="/payment">{{ $t('payment') }}</a>
                 </div>
               </div>
             </div>

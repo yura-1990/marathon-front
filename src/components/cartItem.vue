@@ -4,6 +4,8 @@ import {useCartStore} from "@/stores/carts";
 import {useToast} from "vue-toast-notification";
 import {onMounted, onUnmounted, ref} from "vue";
 import {storeToRefs} from "pinia";
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n();
 const cartStore = useCartStore()
 const $toast = useToast();
 const settingStore = useSettingStore()
@@ -68,14 +70,14 @@ onUnmounted((): void => {
 
 async function deleteCart(): Promise<void>
 {
-  if (confirm('Are you sure you want to delete?')){
+  if (confirm(t('are_you_sure_you_want_to_delete'))){
     const data = {
       marathon_id: props.cart.marathon.id,
       number: props.cart.number.number,
       number_type_id: props.cart.number.numberType.id,
     }
     await cartStore.deleteNumberStatus(data)
-    $toast.info('Remove from cart')
+    $toast.info(t('remove_from_cart'))
     settingStore.deleteCarts(props.index)
   }
 }
@@ -90,7 +92,7 @@ async function onTimeOver (): Promise<void>
   await cartStore.deleteNumberStatus(data)
 
   if (cartStatus.value){
-    $toast.info('Remove from cart')
+    $toast.info(t('remove_from_cart'))
     settingStore.deleteCarts(props.index)
   }
 }
@@ -103,19 +105,19 @@ async function onTimeOver (): Promise<void>
       <div class="progress-bar bg-theme " :style="{ width: progressWidth + '%' }">{{ timeLeft }}</div>
     </div>
     <div class="qoute-text">
-      <div class="">
+      <div>
         <h3>{{ cart.marathon.marathon_type.name }}
           <span class="text-theme float-end">{{ cart.marathon ? settingStore.formatNumber(cart.marathon.price) : 0 }}  <small>sum</small></span>
         </h3>
         <h4>
-          <span>Date: </span>
+          <span>{{ $t('date') }}: </span>
           <span class="text-theme">
             {{ settingStore.formatDate(cart.marathon.event_has_marathon.date_event)  }}
                               <time>{{ cart.marathon.datetime_from }} - {{ cart.marathon.datetime_to }}</time>
           </span>
         </h4>
         <h4 class="prt-tags-links-title mt_10">
-          <span>Number: </span>
+          <span>{{ $t('number') }}: </span>
           <span class="me-3 text-theme">{{ cart.number.number }}</span>
           <span class="float-end text-theme"> {{ cart?.number?.numberType ? settingStore.formatNumber(cart?.number?.numberType?.pivot?.price) : 0 }} <small>sum</small></span>
         </h4>
@@ -124,7 +126,7 @@ async function onTimeOver (): Promise<void>
           <span class="float-end text-theme"> {{ cart.uniform.size }}</span>
         </h4>
         <h3>
-          <span>Total:</span>
+          <span>{{ $t('total') }}:</span>
           <span class="float-end text-theme">{{cart.number.numberType && cart.marathon.price ? settingStore.formatNumber(Number(cart.marathon.price) + (Number(cart.number.numberType.pivot.price) ?? 0)) : 0 }} <small>sum</small></span>
         </h3>
 

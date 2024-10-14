@@ -77,7 +77,7 @@
             <div class="widget widget-address clearfix">
               <h3 class="widget-title">{{ $t('contact_info') }}</h3>
               <div class="">
-                <p>{{ $t('address') }}</p>
+                <p>{{ $t('address1') }}</p>
                 <div class="pt-20">
                   <a href="mailto:info@example.com" class="email-info">info.support@gmail.com</a>
                   <div class="tel-number">

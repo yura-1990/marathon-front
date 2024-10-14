@@ -379,3 +379,15 @@ footer .circular-main img {
     right: 15px;
     cursor: pointer;
 }
+
+.numbers-item_continue{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--base-white);
+}
+
+.numbers-item_continue.active{
+    background: var(--base-skin);
+    border: none;
+}

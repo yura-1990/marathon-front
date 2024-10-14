@@ -8,6 +8,7 @@ import { useRoute } from 'vue-router'
 import { useToast } from 'vue-toast-notification'
 import {useCartStore} from "@/stores/carts";
 const singleMarathon = useMarathonStore()
+const { t } = useI18n();
 
 const { marathon } = storeToRefs(singleMarathon)
 const settingStore = useSettingStore()
@@ -129,44 +130,46 @@ function setNumber(numberType: { number: string; numberType: any }): void {
 }
 
 function validateField(field: string): void {
+
   switch (field) {
     case 'name':
-      errors.value.name = personInfo.value.name ? '' : 'Name is required.'
+      errors.value.name = personInfo.value.name ? '' : t('name_is_required')
       break
     case 'gender_id':
-      errors.value.gender_id = personInfo.value.gender_id ? '' : 'Please select a gender.'
+      errors.value.gender_id = personInfo.value.gender_id ? '' : t('please_select_a_gender')
       break
     case 'email':
       errors.value.email = settingStore.validateEmail(personInfo.value.email)
         ? ''
-        : 'Please select a email.'
+        : t('email_is_required')
       break
     case 'phone':
-      errors.value.phone = settingStore.validatePhone(personInfo.value.phone) ? '' : 'Fill phone.'
+      errors.value.phone = settingStore.validatePhone(personInfo.value.phone) ? '' : t('phone_is_required')
       break
     case 'region_id':
-      errors.value.region_id = personInfo.value.region_id ? '' : 'Please select a region.'
+      errors.value.region_id = personInfo.value.region_id ? '' : t('please_select_a_country')
       break
     case 'address':
-      errors.value.address = personInfo.value.address ? '' : 'Address is required.'
+      errors.value.address = personInfo.value.address ? '' : t('address_is_required')
       break
     case 'birth':
-      errors.value.birth = personInfo.value.birth ? '' : 'birth is required.'
+      errors.value.birth = personInfo.value.birth ? '' : t('birth_is_required')
       break
     case 'uniform_id':
-      errors.value.uniform = personInfo.value.uniform ? '' : 'uniform is required.'
+      errors.value.uniform = personInfo.value.uniform ? '' : t('choose_uniform_size')
       break
     case 'parent_name':
       hasParent.value
         ? (errors.value.parent_name = personInfo.value.parent_name
             ? ''
-            : 'parent_name is required.')
+            : t('parent_name_is_required'))
         : ''
       break
   }
 }
 
-async function addCard(): Promise<void> {
+async function addCard(): Promise<void>
+{
   personInfo.value.marathon = marathon.value.marathon
   personInfo.value.time = new Date()
 
@@ -178,6 +181,7 @@ async function addCard(): Promise<void> {
     if (isEmailValid.value && isPhoneValid.value) {
       localStorage.setItem('personalFields', JSON.stringify(personInfo.value))
       carts.value.push(personInfo.value)
+      carts.value = [...carts.value.map(el=>({...el, time: new Date()}))]
       const data = {
         number: Number(personInfo.value.number?.number),
         number_type_id: Number(personInfo.value.number.numberType.id),
@@ -187,13 +191,13 @@ async function addCard(): Promise<void> {
       await singleMarathon.getSingleMarathon(route.params.id, locale.value)
       localStorage.setItem('carts', JSON.stringify(carts.value))
       clearPersonalInfo()
-      $toast.success('Add to card')
+      $toast.success(t('add_to_cart'))
       settingStore.getCarts()
 
     }
   } else {
     console.log('Validation errors:', errors.value)
-    $toast.error('Fill form correctly.')
+    $toast.error(t('fill_form_correctly'))
   }
 }
 
@@ -268,7 +272,7 @@ function clearPersonalInfo() {
             <div class="bg-base-dark py-3 px-4 border-rad_30 res-991-mt-30">
               <div class="section-title title-style-center_text">
                 <div class="title-header">
-                  <h2 class="title">Personal Info</h2>
+                  <h2 class="title">{{ $t('personal_info') }}</h2>
                 </div>
               </div>
               <div class="contact-form-block p-5">
@@ -281,7 +285,7 @@ function clearPersonalInfo() {
                   <div class="row">
                     <div class="col-lg-6">
                       <span class="text-input">
-                        <span class="heading-name">name</span>
+                        <span class="heading-name">{{ $t('name') }}</span>
                         <input
                           v-model="personInfo.name"
                           class="username"
@@ -294,7 +298,7 @@ function clearPersonalInfo() {
                     </div>
                     <div class="col-lg-6">
                       <span class="text-input">
-                        <span class="heading-name">email</span>
+                        <span class="heading-name">{{ $t('email') }}</span>
                         <input
                           v-model="personInfo.email"
                           class="email"
@@ -308,7 +312,7 @@ function clearPersonalInfo() {
                     </div>
                     <div class="col-lg-6">
                       <span class="text-input">
-                        <span class="heading-name">phone number</span>
+                        <span class="heading-name">{{ $t('phone_number') }}</span>
                         <input
                           type="tel"
                           v-model="personInfo.phone"
@@ -321,7 +325,7 @@ function clearPersonalInfo() {
                     </div>
                     <div class="col-lg-6">
                       <span class="text-input">
-                        <span class="heading-name">Gender</span>
+                        <span class="heading-name">{{ $t('gender') }}</span>
                       </span>
                       <div class="d-flex align-items-center gap-3">
                         <template v-for="(gen, genIndex) in marathon?.genders" :key="genIndex">
@@ -348,7 +352,7 @@ function clearPersonalInfo() {
                     <div class="col-lg-6">
                       <span class="text-input">
                         <label for="regionIndex">
-                          <span class="heading-name">regions</span>
+                          <span class="heading-name">{{ $t('regions') }}</span>
                         </label>
                         <input
                           v-model="personInfo.region_id"
@@ -372,11 +376,11 @@ function clearPersonalInfo() {
                     </div>
                     <div class="col-lg-6">
                       <span class="text-input">
-                        <span class="heading-name">address</span>
+                        <span class="heading-name">{{ $t('address') }}</span>
                         <input
                           type="text"
                           v-model="personInfo.address"
-                          placeholder="City, Street, #Home number"
+                          :placeholder="$t('city') + ', ' + $t('street') + ', #' +  $t('home_number')"
                           @blur="validateField('address')"
                         />
                         <span v-if="errors.address" class="text-danger">{{ errors.address }}</span>
@@ -384,7 +388,7 @@ function clearPersonalInfo() {
                     </div>
                     <div class="col-lg-6">
                       <span class="text-input">
-                        <span class="heading-name">Birth</span>
+                        <span class="heading-name">{{ $t('birth') }}</span>
                         <input
                           type="date"
                           v-model="personInfo.birth"
@@ -405,7 +409,7 @@ function clearPersonalInfo() {
                           />
                           <label class="form-check-label text-theme" for="parent">
                             <span class="heading-name custom-parent">{{
-                              hasParent ? 'Parent Name' : 'If Child'
+                              hasParent ? $t('parent_name') : $t('if_child')
                             }}</span>
                           </label>
                         </div>
@@ -428,14 +432,14 @@ function clearPersonalInfo() {
                     <div class="col-lg-6">
                       <span class="text-input">
                         <label for="organizationIndex">
-                          <span class="heading-name">organization</span>
+                          <span class="heading-name">{{ $t('organization') }}</span>
                         </label>
                         <input
                           v-model="personInfo.organization_id"
                           class="form-control"
                           list="organizationOptions"
                           id="organizationIndex"
-                          placeholder="Type or choose ..."
+                          :placeholder="$t('type_or_choose')"
                         />
                         <datalist id="organizationOptions">
                           <option
@@ -450,14 +454,14 @@ function clearPersonalInfo() {
                     <div class="col-lg-6">
                       <span class="text-input">
                         <label for="participantCategoryIndex">
-                          <span class="heading-name">Category</span>
+                          <span class="heading-name">{{ $t('category') }}</span>
                         </label>
                         <input
                           v-model="personInfo.participant_category_id"
                           class="form-control"
                           list="participantCategoryOptions"
                           id="participantCategoryIndex"
-                          placeholder="Type to search..."
+                          :placeholder="$t('type_or_choose')"
                         />
                         <datalist id="participantCategoryOptions">
                           <option
@@ -472,11 +476,11 @@ function clearPersonalInfo() {
                     <div class="col-lg-12 mt-5 py-5">
                       <div class="section-title title-style-center_text">
                         <div class="title-header">
-                          <h2 class="title">Choose Uniform size</h2>
+                          <h2 class="title">{{ $t('choose_uniform_size') }}</h2>
                         </div>
                       </div>
 
-                      <div class="">
+                      <div>
                         <div
                           class="form-check"
                           v-for="(value, valueIndex) in marathon?.uniforms"
@@ -504,7 +508,7 @@ function clearPersonalInfo() {
                     <div class="col-lg-12 mt-5 py-5">
                       <div class="section-title title-style-center_text">
                         <div class="title-header">
-                          <h2 class="title">Choose Number</h2>
+                          <h2 class="title">{{ $t('choose_number') }}</h2>
                         </div>
                       </div>
                       <div
@@ -528,9 +532,22 @@ function clearPersonalInfo() {
                           <div class="prt-p_table-button"></div>
 
                           <ul class="numbers d-flex flex-wrap gap-3 list-unstyled">
-                            <template v-for="(n, ni) in num.options.filter((el:any) => marathon?.marathon.number_status ? !marathon?.marathon.number_status.find((it:any) => it.number == el) : true)" :key="n">
+                            <template v-for="n in num.options.filter((el:any) => marathon?.marathon.number_status ? !marathon?.marathon.number_status.find((it:any) => it.number == el) : true)" :key="n">
                               <li
-                                v-if="
+                                v-if="n < 1"
+                                class="prt-btn numbers-item_continue prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill"
+                                :class="{ 'active': personInfo.number.number == '0' }"
+                                @click="
+                                  setNumber({
+                                    number: n,
+                                    numberType: num
+                                  })
+                                "
+                              >
+                                {{ $t('continue') }}
+                              </li>
+                              <li
+                                v-else-if="
                                   marathon?.marathon?.marathon_type.number_order_from <= n &&
                                   marathon?.marathon?.marathon_type.number_order_to >= n
                                 "
@@ -545,19 +562,7 @@ function clearPersonalInfo() {
                               >
                                 {{ n }}
                               </li>
-                              <li
-                                v-else-if="n < 1"
-                                class="numbers-item"
-                                :class="{ 'active': personInfo.number.number == '0' }"
-                                @click="
-                                  setNumber({
-                                    number: n,
-                                    numberType: num
-                                  })
-                                "
-                              >
-                                0
-                              </li>
+
                             </template>
                           </ul>
                         </div>
@@ -570,7 +575,7 @@ function clearPersonalInfo() {
                           class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-skincolor"
                           type="submit"
                         >
-                          + Add to card
+                          {{ $t('add_to_cart') }}
                         </button>
                       </div>
                     </div>
@@ -584,15 +589,7 @@ function clearPersonalInfo() {
         <section class="prt-row bg-base-grey clearfix">
           <div class="container">
             <div class="row">
-              <div class="col-lg-4">
-                <div class="prt_single_image-wrapper">
-                  <img
-                    class="img-fluid border-rad_20"
-                    src="/assets/images/single-img-3-458x650.webp"
-                    alt="img"
-                  />
-                </div>
-              </div>
+
               <div class="col-lg-8">
                 <div class="ticket-box res-991-mt-30">
                   <div class="prt_single_image-wrapper d-inline-block">
@@ -604,16 +601,22 @@ function clearPersonalInfo() {
                   </div>
                   <div class="prt_single_image-wrapper style4"></div>
                   <div class="ticket-section">
-                    <h3>Money back guarantee to 100% your shopping cart or checkout page.</h3>
-                    <p>
-                      Shop worry-free knowing that every purchase made through your shopping cart or
-                      checkout page is backed by our 100% money-back guarantee. If you're not
-                      satisfied, we'll refund your money hassle-free
-                    </p>
+                    <h3>{{ $t('money_back_guarantee') }}</h3>
+                    <p>{{ $t('shop_worry_free') }}</p>
                   </div>
                   <div class="prt_single_image-wrapper pt-15">
                     <img class="img-fluid" src="/assets/images/card-image.webp" alt="img" />
                   </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4">
+                <div class="prt_single_image-wrapper">
+                  <img
+                    class="img-fluid border-rad_20 mb-5"
+                    src="/assets/images/sport-bg.jpg"
+                    alt="img"
+                  />
                 </div>
               </div>
             </div>

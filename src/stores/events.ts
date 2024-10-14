@@ -39,8 +39,6 @@ export const useEventStore = defineStore('events',  {
           }
         })
 
-        console.log(response.data)
-
         this.event = response.data
 
       } catch (error: any) {

@@ -6,14 +6,18 @@ import { useI18n } from 'vue-i18n'
 interface State {
   openSidebar: boolean
   token: string | undefined
-  user: any
+  user: any,
+  carts: Array<any>
+  totalPrice: number
 }
 
 export const useSettingStore = defineStore('setting', {
   state: (): State => ({
     openSidebar: true,
     token: '',
-    user: undefined
+    user: undefined,
+    carts: [],
+    totalPrice: 0
   }),
 
   actions: {
@@ -135,6 +139,44 @@ export const useSettingStore = defineStore('setting', {
     {
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return emailPattern.test(input);
+    },
+
+    getCarts():void
+    {
+      if (localStorage.getItem('carts')) {
+        const cartsPlus: string | null = localStorage.getItem('carts')
+
+        if (cartsPlus !== null) {
+          try {
+            this.carts = JSON.parse(cartsPlus)
+          } catch (error) {
+            console.error('Error parsing JSON from localStorage:', error)
+          }
+        }
+      }
+    },
+
+    deleteCarts(id: number): void
+    {
+      if (localStorage.getItem('carts')) {
+        const cartsPlus: string | null = localStorage.getItem('carts')
+        if (cartsPlus !== null) {
+          const deleteCart = JSON.parse(cartsPlus)
+
+          try {
+            this.carts = deleteCart.filter((el: any, i: number)=> id !== i)
+            localStorage.setItem('carts', JSON.stringify(this.carts))
+
+          } catch (error) {
+            console.error('Error parsing JSON from localStorage:', error)
+          }
+        }
+      }
+    },
+
+    formatNumber(number: number | string): string | number
+    {
+      return number ? number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") : 0
     }
   }
 })

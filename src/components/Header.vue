@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {useSettingStore} from "@/stores/setting";
 import { storeToRefs } from 'pinia'
-import {onMounted} from "vue";
+import {onMounted, ref} from "vue";
 import LanguageSwitcher from '@/components/language-switcher.vue'
 import Cart from '@/components/cart.vue'
 import { RouterLink } from 'vue-router'
@@ -12,12 +12,12 @@ const settings = useSettingStore()
 const { user } = storeToRefs(settings)
 const userStore = useAuthStore()
 
+
 const route = useRoute();
 
 const isActive = (path: string) => {
   return route.path === path;
 };
-
 onMounted(()=>{
   settings.getToken()
 })
@@ -61,9 +61,6 @@ onMounted(()=>{
                       <li class="mega-menu-item">
                         <RouterLink to="/about-us" class="mega-menu-link">{{ $t('about_us') }}</RouterLink>
                       </li>
-<!--                      <li class="mega-menu-item">-->
-<!--                        <RouterLink to="/contact-us" class="mega-menu-link">{{ $t('contact_us') }}</RouterLink>-->
-<!--                      </li>-->
                     </ul>
                   </nav><!-- menu end -->
                 </div>

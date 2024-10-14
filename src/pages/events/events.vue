@@ -18,6 +18,7 @@ onMounted(async ()=>{
 
 <template>
 <div>
+
   <div class="site-main">
 
     <section class="prt-row clearfix">
@@ -31,14 +32,14 @@ onMounted(async ()=>{
         <div class="tab-content" id="nav-tabContent">
           <div class="tab-pane fade show active" id="nav-live" role="tabpanel" aria-labelledby="nav-live-tab">
             <div class="row">
-              <template v-for="(event, eventIndex) in events.data" :key="eventIndex">
+              <template v-for="event in events.data" :key="event.id">
                 <div v-if="event.status" class="col-lg-4 col-md-6">
                   <div class="featured-imagebox featured-imagebox-blog style1">
                     <div class="featured-thumbnail">
                       <img class="img-fluid" :src="`https://api.roadrunning.uz/storage/${event.image}`" loading="lazy" alt="image">
                     </div>
                     <div class="featured-title">
-                      <h3><a href="blog-single.html">{{ event.name }}</a></h3>
+                      <h3><router-link :to="`/event/${event.id}`">{{ event.name }}</router-link></h3>
                     </div>
                     <div class="featured-content">
                       <div class="post-category">
@@ -60,7 +61,7 @@ onMounted(async ()=>{
                 <div v-if="!event?.status" class="col-lg-4 col-md-6">
                   <div class="featured-imagebox featured-imagebox-blog style1">
                     <div class="featured-thumbnail">
-                      <img class="img-fluid" :src="`http://api.roadrunning.uz/storage/${event.image}`" loading="lazy" alt="image">
+                      <img class="img-fluid" :src="`https://api.roadrunning.uz/storage/${event.image}`" loading="lazy" alt="image">
                     </div>
                     <div class="featured-title">
                       <h3><a href="blog-single.html">{{ event.name }}</a></h3>

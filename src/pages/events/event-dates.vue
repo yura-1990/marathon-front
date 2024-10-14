@@ -53,7 +53,7 @@ watch(()=>locale.value, async (language)=>{
 
     <div
       class="prt-page-title-row style1"
-      :style="`background: url(http://api.roadrunning.uz/storage/${event.image});
+      :style="`background: url(https://api.roadrunning.uz/storage/${event.image});
                background-size: cover;
                background-position: center center;
                background-attachment: fixed;
@@ -77,7 +77,7 @@ watch(()=>locale.value, async (language)=>{
     </div>
 
     <div class="site-main">
-      <template v-for="(date, dateIndex) in event.event_has_marathons" :key="dateIndex">
+      <template v-for="date in event.event_has_marathons" :key="date.id">
         <div class="py-3">
           <div class="container">
             <h3> {{ settings.formatDate(date.date_event) }} </h3>
@@ -112,7 +112,7 @@ watch(()=>locale.value, async (language)=>{
                         >
                           <img
                             class="img-fluid "
-                            :src="`http://api.roadrunning.uz/storage/${image}`"
+                            :src="`https://api.roadrunning.uz/storage/${image}`"
                             alt="image"
                           />
 
@@ -168,43 +168,43 @@ watch(()=>locale.value, async (language)=>{
                 >
                   <div class="featured-content" >
                     <div class="featured-title">
-                      <h3><a href="service-details.html">{{ type?.name }}</a></h3>
+                      <h3><a href="#">{{ type?.name }}</a></h3>
                     </div>
                     <div class="marquee-item style1">
                       <div class="marquee-block overflow-hidden">
                         <div class="marquee">
                           <div class="marquee-content">
                             <div class="marquee-text">
-                              <h3><a href="service-details.html">{{ type?.name }}</a></h3>
+                              <h3><a href="#">{{ type?.name }}</a></h3>
                             </div>
                             <div class="marquee-text">
-                              <h3><a href="service-details.html">Amount {{ type?.amount }}</a></h3>
+                              <h3><a href="#">Amount {{ type?.amount }}</a></h3>
                             </div>
                             <div class="marquee-text">
-                              <h3><a href="service-details.html">From {{ type?.number_order_from }}</a></h3>
+                              <h3><a href="#">From {{ type?.number_order_from }}</a></h3>
                             </div>
                             <div class="marquee-text">
-                              <h3><a href="service-details.html">To {{ type?.number_order_to }}</a></h3>
+                              <h3><a href="#">To {{ type?.number_order_to }}</a></h3>
                             </div>
                             <div class="marquee-text">
-                              <h3><a href="service-details.html">{{ type?.name }}</a></h3>
+                              <h3><a href="#">{{ type?.name }}</a></h3>
                             </div>
                           </div>
                           <div class="marquee-content">
                             <div class="marquee-text">
-                              <h3><a href="service-details.html">{{ type?.name }}</a></h3>
+                              <h3><a href="#">{{ type?.name }}</a></h3>
                             </div>
                             <div class="marquee-text">
-                              <h3><a href="service-details.html">Amount {{ type?.amount }}</a></h3>
+                              <h3><a href="#">Amount {{ type?.amount }}</a></h3>
                             </div>
                             <div class="marquee-text">
-                              <h3><a href="service-details.html">From {{ type?.number_order_from }}</a></h3>
+                              <h3><a href="#">From {{ type?.number_order_from }}</a></h3>
                             </div>
                             <div class="marquee-text">
-                              <h3><a href="service-details.html">To {{ type?.number_order_to }}</a></h3>
+                              <h3><a href="#">To {{ type?.number_order_to }}</a></h3>
                             </div>
                             <div class="marquee-text">
-                              <h3><a href="service-details.html">{{ type?.name }}</a></h3>
+                              <h3><a href="#">{{ type?.name }}</a></h3>
                             </div>
                           </div>
                         </div>
@@ -230,194 +230,6 @@ watch(()=>locale.value, async (language)=>{
         </div>
       </section>
 
-      <section class="prt-row routes-section clearfix">
-        <div class="winner-flag-2">
-          <img src="/assets/images/flag-3.webp" alt="" />
-        </div>
-        <div class="container position-relative">
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="prt_single_image-wrapper">
-                <img
-                  class="img-fluid"
-                  src="/assets/images/single-img-10-826x600.webp"
-                  alt="image"
-                />
-              </div>
-            </div>
-            <div class="col-lg-6 align-self-center pl-40 res-991-pl-15">
-              <div class="tm-scrollintetx-wrapper Frist">
-                <div class="big-title" style="transform: translateX(42.9621px)">RACCER</div>
-              </div>
-              <div class="route-location-wrapper mt_70">
-                <div class="section-title">
-                  <div class="title-header">
-                    <h3>TM racing</h3>
-                    <h2 class="title text-base-white">#Routes</h2>
-                  </div>
-                  <div class="title-desc">
-                    <p>
-                      Optimize Your Race by Racing Performance Services for Enhanced Speed and
-                      Precision on the Track
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <ul class="prt-list prt-list-style-icon style1 prt-list-icon-color-skincolor">
-                <li>
-                  <i class="fa fa-check-circle"></i>
-                  <span class="prt-list-li-content">Maximizing Power for Peak Performance</span>
-                </li>
-                <li>
-                  <i class="fa fa-check-circle"></i>
-                  <span class="prt-list-li-content">Streamlining for the Faster Lap Times</span>
-                </li>
-                <li>
-                  <i class="fa fa-check-circle"></i>
-                  <span class="prt-list-li-content"
-                    >Ensuring Grip Stability through Every Turn
-                  </span>
-                </li>
-                <li>
-                  <i class="fa fa-check-circle"></i>
-                  <span class="prt-list-li-content"
-                    >Enhancing Skills for Victory on the Track
-                  </span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="row pt-110 res-991-pt-60">
-            <div class="col-lg-6">
-              <div class="section-title">
-                <div class="title-header text-lg-end pl-155 res-991-pl-0">
-                  <h2 class="title">press and media</h2>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6 pt-15">
-              <div class="title-desc">
-                <p class="pr-215 res-1199-pr-0">
-                  Stay informed with Press and Media updates, and become part of our vibrant Racing
-                  Community Group. Join us now
-                </p>
-                <a
-                  class="prt-btn prt-btn-size-md btn-inline prt-btn-color-whitecolor res-991-mt-20 z-index-2"
-                  href="service-details.html"
-                  >Join our group</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="prt-row gallery-section clearfix">
-        <div class="container-fluid pl-65 pr-65 res-991-pr-15 res-991-pl-15">
-          <div class="row">
-            <div class="prt_single_image-wrapper">
-              <img
-                class="img-fluid border-rad_0"
-                src="/assets/images/single-img-11-1778x62.webp"
-                alt=""
-              />
-            </div>
-          </div>
-          <div class="grid-wrapper">
-            <div class="grid-item grid-item-1">
-              <a
-                class="prt_prettyphoto"
-                href="/assets/images/gallery/gallery-1-399x535.webp"
-                rel="prettyPhoto[coregallery]"
-                data-rel="prettyPhoto"
-              >
-                <img
-                  class="img-fluid"
-                  src="/assets/images/gallery/gallery-1-399x535.webp"
-                  alt="image"
-              /></a>
-            </div>
-            <div class="grid-item grid-item-2">
-              <a
-                class="prt_prettyphoto"
-                href="/assets/images/gallery/gallery-2-662x328.webp"
-                rel="prettyPhoto[coregallery]"
-                data-rel="prettyPhoto"
-              >
-                <img
-                  class="img-fluid"
-                  src="/assets/images/gallery/gallery-2-662x328.webp"
-                  alt="image"
-              /></a>
-            </div>
-            <div class="grid-item grid-item-3">
-              <a
-                class="prt_prettyphoto"
-                href="/assets/images/gallery/gallery-1-399x535.webp"
-                rel="prettyPhoto[coregallery]"
-                data-rel="prettyPhoto"
-              >
-                <img
-                  class="img-fluid"
-                  src="/assets/images/gallery/gallery-1-399x535.webp"
-                  alt="image"
-              /></a>
-            </div>
-            <div class="grid-item grid-item-4">
-              <a
-                class="prt_prettyphoto"
-                href="/assets/images/gallery/gallery-1-399x535.webp"
-                rel="prettyPhoto[coregallery]"
-                data-rel="prettyPhoto"
-              >
-                <img
-                  class="img-fluid"
-                  src="/assets/images/gallery/gallery-1-399x535.webp"
-                  alt="image"
-              /></a>
-            </div>
-            <div class="grid-item grid-item-5">
-              <a
-                class="prt_prettyphoto"
-                href="/assets/images/gallery/gallery-1-399x535.webp"
-                rel="prettyPhoto[coregallery]"
-                data-rel="prettyPhoto"
-              >
-                <img
-                  class="img-fluid"
-                  src="/assets/images/gallery/gallery-1-399x535.webp"
-                  alt="image"
-              /></a>
-            </div>
-            <div class="grid-item grid-item-6">
-              <a
-                class="prt_prettyphoto"
-                href="/assets/images/gallery/gallery-2-662x328.webp"
-                rel="prettyPhoto[coregallery]"
-                data-rel="prettyPhoto"
-              >
-                <img
-                  class="img-fluid"
-                  src="/assets/images/gallery/gallery-2-662x328.webp"
-                  alt="image"
-              /></a>
-            </div>
-            <div class="grid-item grid-item-7">
-              <a
-                class="prt_prettyphoto"
-                href="/assets/images/gallery/gallery-1-399x535.webp"
-                rel="prettyPhoto[coregallery]"
-                data-rel="prettyPhoto"
-              >
-                <img
-                  class="img-fluid"
-                  src="/assets/images/gallery/gallery-1-399x535.webp"
-                  alt="image"
-              /></a>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   </div>
 </template>

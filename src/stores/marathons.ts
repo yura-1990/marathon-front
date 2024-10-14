@@ -61,7 +61,6 @@ export const useMarathonStore = defineStore('marathons',  {
           }
         })
 
-        console.log(response.data)
         this.marathonTypes = response.data
 
       } catch (error: any) {

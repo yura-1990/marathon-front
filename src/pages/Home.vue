@@ -94,12 +94,12 @@ watch(()=>locale.value, async (language)=>{
                               <ul class="d-flex m-0 list-unstyled gap-3">
                                 <li v-for="(date, dateIndex) in dates" :key="dateIndex" class="register-wrapper  bg-theme">
                                   {{ new Date(date.date_event).getDate() }}
-                                  <div class="register">
-                                    <a
-                                      class="prt-btn  prt-btn-style-fill prt-btn-color-whitecolor text-nowrap text-start"
-                                      :href="`/marathon/${date.id}`"
-                                    >{{ $t('register_now') }}</a>
-                                  </div>
+<!--                                  <div class="register">-->
+<!--                                    <a-->
+<!--                                      class="prt-btn  prt-btn-style-fill prt-btn-color-whitecolor text-nowrap text-start"-->
+<!--                                      :href="`/marathon/${date.id}`"-->
+<!--                                    >{{ $t('register_now') }}</a>-->
+<!--                                  </div>-->
                                 </li>
 
                               </ul>

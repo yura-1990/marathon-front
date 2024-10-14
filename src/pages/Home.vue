@@ -206,7 +206,7 @@ watch(()=>locale.value, async (language)=>{
                         {{ $t('join_race') }}
                         <a
                           class="prt-btn prt-btn-size-md btn-inline prt-btn-color-whitecolor pl-10"
-                          href="about-us.html"
+                          href="/events"
                           >{{ $t('join_group') }}</a>
                       </h2>
                     </div>
@@ -318,7 +318,7 @@ watch(()=>locale.value, async (language)=>{
                         <div class="featured-thumbnail">
                           <img
                             class="img-fluid border-rad-50"
-                            :src="`http://api.roadrunning.uz/storage/${event.image[0]}`"
+                            :src="`https://api.roadrunning.uz/storage/${event.image}`"
                             alt="img"
                           />
                         </div>

@@ -65,9 +65,11 @@ watch(()=>locale.value, async (language)=>{
             <div class="col-lg-12">
               <div class="prt-page-title-row-heading">
                 <div class="section-title">
-                  <h2 class="">
-                    {{ event.name }}
+                  <h2 class="text-white mb-3">
+                    {{ event?.name }}
                   </h2>
+                  <p class="text-white float-start me-2"><i v-if="event?.address" class="fa-solid fa-location-dot"></i></p>
+                  <p class="text-white">{{ event?.address }}</p>
                 </div>
               </div>
             </div>

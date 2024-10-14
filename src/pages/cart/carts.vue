@@ -60,9 +60,7 @@ const totalPrice = computed(() => {
               <div class="p-0">
                 <div class="featured-icon-box icon-align-top-content style6">
                   <div class="featured-icon d-flex justify-content-between">
-                    <div class="prt-icon prt-icon_element-color-skincolor prt-icon_element-size-md">
-                      <img src="/assets/images/logo_itog.png" alt="" width="100%">
-                    </div>
+                    <img src="/assets/images/logo_itog2.png" alt="" width="90px">
                     <h3 class="float-end">Total</h3>
                   </div>
                   <div class="featured-content">

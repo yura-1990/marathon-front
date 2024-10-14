@@ -27,7 +27,7 @@ watch(()=>locale.value, async (language)=>{
 <template>
 <div>
   <div class="prt-page-title-row blog-single style2" :style="`
-      background-image: url(http://api.roadrunning.uz/storage/${marathon?.image});
+      background-image: url(https://api.roadrunning.uz/storage/${marathon?.image});
       background-size: cover;
       background-position: center center;
       background-attachment: fixed;

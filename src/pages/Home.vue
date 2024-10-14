@@ -59,7 +59,7 @@ watch(()=>locale.value, async (language)=>{
         <swiper-slide v-if="event.status" >
           <div
             class="slide custom-slide"
-            :style="`background-image: url(http://api.roadrunning.uz/storage/${event.image}); `"
+            :style="`background-image: url(https://api.roadrunning.uz/storage/${event.image}); `"
           >
 
             <div class="slide__content container text-base-white main-display mx-auto slide_style1">
@@ -425,110 +425,6 @@ watch(()=>locale.value, async (language)=>{
         </div>
       </section>
 
-<!--      <section class="prt-row event-section overflow-hidden clearfix">-->
-<!--        <div class="container">-->
-<!--          <div class="row">-->
-<!--            <div class="col-lg-6">-->
-<!--              <div class="featured-imagebox featured-imagebox-event style1">-->
-<!--                <div class="row">-->
-<!--                  <div class="col-md-5 col-lg-5">-->
-<!--                    <div class="featured-thumbnail">-->
-<!--                      <img-->
-<!--                        width="304"-->
-<!--                        height="304"-->
-<!--                        class="img-fluid"-->
-<!--                        src="/assets/images/Photo-5_resized.jpg"-->
-<!--                        alt="images"-->
-<!--                      />-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                  <div class="col-md-7 col-lg-7">-->
-<!--                    <div class="featured-content">-->
-<!--                      <div class="featured-title">-->
-<!--                        <h3>VELOCITY VORTEX SHOWDOWN</h3>-->
-<!--                      </div>-->
-<!--                      <div class="featured-desc">-->
-<!--                        <p>Starting : 07:00am & end : 10:00am</p>-->
-<!--                        <p>Host by : Willium agato</p>-->
-<!--                      </div>-->
-<!--                      <div class="featured-btn">-->
-<!--                        <a-->
-<!--                          class="prt-btn prt-btn-size-md btn-inline prt-btn-color-whitecolor"-->
-<!--                          href="contact-us.html"-->
-<!--                          >book ticket</a-->
-<!--                        >-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="featured-imagebox featured-imagebox-event style1 mt-35">-->
-<!--                <div class="row">-->
-<!--                  <div class="col-md-5 col-lg-5">-->
-<!--                    <div class="featured-thumbnail">-->
-<!--                      <img-->
-<!--                        width="304"-->
-<!--                        height="304"-->
-<!--                        class="img-fluid"-->
-<!--                        src="/assets/images/Photo-7_resized.jpg"-->
-<!--                        alt="images"-->
-<!--                      />-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                  <div class="col-md-7 col-lg-7">-->
-<!--                    <div class="featured-content">-->
-<!--                      <div class="featured-title">-->
-<!--                        <h3>TURBOCHARGED TRIUMPH TOURNAMENT</h3>-->
-<!--                      </div>-->
-<!--                      <div class="featured-desc">-->
-<!--                        <p>Starting : 07:00am & end : 10:00am</p>-->
-<!--                        <p>Host by : Willium agato</p>-->
-<!--                      </div>-->
-<!--                      <div class="featured-btn">-->
-<!--                        <a-->
-<!--                          class="prt-btn prt-btn-size-md btn-inline prt-btn-color-whitecolor"-->
-<!--                          href="contact-us.html"-->
-<!--                          >book ticket</a-->
-<!--                        >-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <div class="col-lg-6">-->
-<!--              <div class="featured-imagebox featured-imagebox-event style1 content">-->
-<!--                <div class="flag-right-img">-->
-<!--                  <img class="img-fluid" src="/assets/images/flag-right.png" alt="image" />-->
-<!--                </div>-->
-<!--                <div class="featured-thumbnail">-->
-<!--                  <img-->
-<!--                    class="img-fluid res-767-mt-0"-->
-<!--                    src="/assets/images/running.jpg"-->
-<!--                    alt="images"-->
-<!--                  />-->
-<!--                </div>-->
-<!--                <div class="featured-content">-->
-<!--                  <div class="featured-title">-->
-<!--                    <h3>SPEEDSTER SPECTACULAR CIRCUIT</h3>-->
-<!--                  </div>-->
-<!--                  <div class="featured-desc">-->
-<!--                    <p>Starting : 07:00am & end : 10:00am</p>-->
-<!--                    <p>Host by : Willium agato</p>-->
-<!--                  </div>-->
-<!--                  <div class="featured-btn">-->
-<!--                    <a-->
-<!--                      class="prt-btn prt-btn-size-md btn-inline prt-btn-color-whitecolor"-->
-<!--                      href="contact-us.html"-->
-<!--                      >book ticket</a-->
-<!--                    >-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </section>-->
 
       <section class="prt-row testimonial-section overflow-hidden clearfix">
         <div class="container">

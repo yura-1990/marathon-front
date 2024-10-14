@@ -194,7 +194,7 @@ async function submit(){
     <div
       class="prt-page-title-row style1 inner-pages pricing"
       :style="`
-      background-image: url(http://api.roadrunning.uz/storage/${marathon?.image});
+      background-image: url(https://api.roadrunning.uz/storage/${marathon?.image});
       background-size: cover;
       background-position: center center;
       background-attachment: fixed;

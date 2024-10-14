@@ -53,7 +53,7 @@ watch(()=>locale.value, async (language)=>{
 
     <div
       class="prt-page-title-row style1"
-      :style="`background: url(http://api.roadrunning.uz/storage/${event.image});
+      :style="`background: url(https://api.roadrunning.uz/storage/${event.image});
                background-size: cover;
                background-position: center center;
                background-attachment: fixed;
@@ -112,7 +112,7 @@ watch(()=>locale.value, async (language)=>{
                         >
                           <img
                             class="img-fluid "
-                            :src="`http://api.roadrunning.uz/storage/${image}`"
+                            :src="`https://api.roadrunning.uz/storage/${image}`"
                             alt="image"
                           />
 

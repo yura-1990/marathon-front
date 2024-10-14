@@ -6,6 +6,7 @@ interface State {
   marathons: any,
   marathonTypes: any,
   marathon: any,
+  singleMarathons: any
 }
 
 
@@ -13,7 +14,8 @@ export const useMarathonStore = defineStore('marathons',  {
   state: (): State => ({
     marathons: [],
     marathonTypes: [],
-    marathon: []
+    marathon: [],
+    singleMarathons: []
   }),
 
   actions: {
@@ -44,6 +46,24 @@ export const useMarathonStore = defineStore('marathons',  {
         })
 
         this.marathon = response.data
+
+        console.log(response.data)
+
+      } catch (error: any) {
+        console.log('Error in event')
+      }
+
+    },
+
+    async getMarathon(marathonId: string | string[], language: string = 'ru',): Promise<void> {
+      try {
+        const response: AxiosResponse<any> = await axios.get('/marathon/single/' + marathonId, {
+          params: {
+            language
+          }
+        })
+
+        this.singleMarathons = response.data
 
         console.log(response.data)
 

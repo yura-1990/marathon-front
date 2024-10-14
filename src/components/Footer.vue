@@ -48,7 +48,7 @@
               <h3 class="widget-title">{{ $t('leave_us_your_email') }}</h3>
               <form id="subscribe-form"  method="post" action="#" data-mailchimp="true">
                 <div class="d-flex align-items-center">
-                  <input type="email" name="email" placeholder="Get news & updates">
+                  <input type="email" name="email" :placeholder="$t('get_news_updates')">
                   <button class="text-black h3 rounded-pill" type="submit">
                     <i class="fa-thin fa-paper-plane"></i>
                   </button>

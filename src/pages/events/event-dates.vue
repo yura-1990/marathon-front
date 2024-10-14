@@ -140,14 +140,13 @@ watch(()=>locale.value, async (language)=>{
 
                     </div>
 
-                    <!-- featured-imagebox end-->
                   </div>
                 </SwiperSlide>
               </swiper>
             </template>
 
             <template v-else>
-                  <h5>upcoming marathons</h5>
+                  <h5>{{ $t('upcoming_marathons') }}</h5>
             </template>
 
           </div>
@@ -157,7 +156,7 @@ watch(()=>locale.value, async (language)=>{
 
       <section class="prt-row services-section_2 bg-base-dark clearfix py-4">
         <div class="container">
-          <h3>Marathon types</h3>
+          <h3>{{ $t('marathon_types') }}</h3>
           <template v-for="(type, typeIndex) in marathonTypes.data" :key="typeIndex">
             <div class="row">
               <div class="col-lg-12 position-relative">

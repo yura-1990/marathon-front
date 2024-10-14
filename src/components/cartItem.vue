@@ -19,7 +19,7 @@ const timeLeft = ref<string>('');
 const progressWidth = ref<number>(100);
 
 const initialTime = new Date(props.cart.time).getTime();
-const endTime = initialTime + 1 * 60 * 1000;
+const endTime = initialTime + 15 * 60 * 1000;
 let intervalId: number | null = null;
 
 

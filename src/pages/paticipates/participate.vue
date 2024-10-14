@@ -212,7 +212,8 @@ function clearPersonalInfo() {
     options: '',
     number: { number: '', numberType: {} },
     uniform: null,
-    marathon: ''
+    marathon: '',
+    time: ''
   }
 
   localStorage.setItem('personalFields', JSON.stringify(personInfo.value))
@@ -224,7 +225,7 @@ function clearPersonalInfo() {
     <div
       class="prt-page-title-row style1 inner-pages pricing"
       :style="`
-      background-image: url(https://api.roadrunning.uz/storage/${marathon?.image});
+      background-image: url(https://api.roadrunning.uz/storage/${marathon?.marathon?.image});
       background-size: cover;
       background-position: center center;
       background-attachment: fixed;
@@ -527,11 +528,11 @@ function clearPersonalInfo() {
                           <div class="prt-p_table-button"></div>
 
                           <ul class="numbers d-flex flex-wrap gap-3 list-unstyled">
-                            <template v-for="(n, ni) in num.options.filter((el:any) => marathon?.marathon.number_status ? !marathon?.marathon.number_status.find((it:any) => it.number == el) : true)" :key="ni">
+                            <template v-for="(n, ni) in num.options.filter((el:any) => marathon?.marathon.number_status ? !marathon?.marathon.number_status.find((it:any) => it.number == el) : true)" :key="n">
                               <li
                                 v-if="
-                                  marathon?.marathon.marathon_type.number_order_from <= n &&
-                                  marathon?.marathon.marathon_type.number_order_to >= n
+                                  marathon?.marathon?.marathon_type.number_order_from <= n &&
+                                  marathon?.marathon?.marathon_type.number_order_to >= n
                                 "
                                 class="numbers-item"
                                 :class="{ 'active': personInfo?.number?.number == n }"
@@ -545,7 +546,7 @@ function clearPersonalInfo() {
                                 {{ n }}
                               </li>
                               <li
-                                v-else-if="ni < 1"
+                                v-else-if="n < 1"
                                 class="numbers-item"
                                 :class="{ 'active': personInfo.number.number == '0' }"
                                 @click="

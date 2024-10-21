@@ -101,9 +101,8 @@ watch(()=>sendEmailStatusMessage.value, ()=>{
 
 <template>
   <div>
-
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-md modal-dialog-centered ">
+      <div class="modal-dialog  modal-md modal-dialog-centered ">
         <div class="modal-content modal-template overflow-hidden">
           <div class="modal-header">
             <div class="title-header">

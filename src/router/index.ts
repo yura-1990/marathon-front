@@ -8,6 +8,7 @@ import SingleMarathon from '@/pages/marathons/single-marathon.vue'
 import Marathons from '@/pages/marathons/marathons.vue'
 import Participate from '@/pages/paticipates/participate.vue'
 import Events from "@/pages/events/events.vue";
+import Payment from '@/pages/cart/payment.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -55,6 +56,11 @@ const router = createRouter({
           path: '/carts',
           name: 'Carts',
           component: Carts
+        },
+        {
+          path: '/payment',
+          name: 'Payment',
+          component: Payment
         },
       ]
     },

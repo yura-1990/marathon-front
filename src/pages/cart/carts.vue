@@ -3,14 +3,22 @@ import {computed, onBeforeUnmount, onMounted, ref} from "vue";
 import {useSettingStore} from "@/stores/setting";
 import {storeToRefs} from "pinia";
 import CartItem from "@/components/cartItem.vue";
+import Payment from '@/components/payment.vue'
 
 const settingStore = useSettingStore()
-const { carts } = storeToRefs(settingStore)
+const { carts, user } = storeToRefs(settingStore)
 const intervalIds  = ref<number[]>([]);
 
 onMounted(() => {
   settingStore.getCarts();
+
+
+  console.log(user.value)
 });
+
+onMounted(async() => {
+  await settingStore.getToken();
+})
 
 onBeforeUnmount(() => {
   intervalIds.value.forEach((id) => clearInterval(id));
@@ -24,7 +32,6 @@ const totalPrice = computed(() => {
     return total + priceFromNumberType + marathonPrice;
   }, 0);
 })
-
 
 </script>
 
@@ -69,15 +76,30 @@ const totalPrice = computed(() => {
                     <div class="featured-desc">
                     </div>
                   </div>
-                  <a class="prt-btn prt-btn-size-lg text-uppercase prt-btn-shape-rounded prt-btn-style-border prt-btn-color-whitecolor w-100 mt-20
-                                    " href="/payment">{{ $t('payment') }}</a>
+                  <template v-if="!user">
+
+                    <a type="button"
+                       data-bs-toggle="modal"
+                       data-bs-target="#exampleModal"
+                       class="prt-btn prt-btn-size-lg text-uppercase prt-btn-shape-rounded prt-btn-style-border prt-btn-color-whitecolor w-100 mt-20"
+                       href="#"
+                    >{{ $t('login') }}</a>
+
+                  </template>
+                  <template v-else>
+                    <a class="prt-btn prt-btn-size-lg text-uppercase prt-btn-shape-rounded prt-btn-style-border prt-btn-color-whitecolor w-100 mt-20"
+                       :href="carts.length > 0 ? '/payment' : '#' "
+                       role="button"
+                    >{{ $t('payment') }}</a>
+                  </template>
                 </div>
               </div>
             </div>
-          </div><!-- row end -->
+          </div>
         </div>
       </div>
     </div>
+    <Payment />
   </div>
 </template>
 

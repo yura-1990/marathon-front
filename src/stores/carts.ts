@@ -20,7 +20,6 @@ export const useCartStore = defineStore('carts',  {
                 const response: AxiosResponse<any> = await axios.post('/number-status/create',data)
                 this.carts = response.data
 
-
             } catch (error: any) {
                 console.log('Error in event')
             }

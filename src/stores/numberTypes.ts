@@ -28,7 +28,8 @@ export const useNumberStore = defineStore('numbers',  {
       }
 
     },
-    async getOneNumberType(language: string = 'ru', id: string): Promise<void> {
+    async getOneNumberType(language: string = 'ru', id: string): Promise<void>
+    {
       try {
         const response: AxiosResponse<any> = await axios.get(`/numbers/show/${id}`,{
           params: {

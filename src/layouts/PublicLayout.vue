@@ -11,7 +11,7 @@ const isActive = (path: string) => {
 </script>
 
 <template>
-  <div class="page" :class="{'sticky-column': isActive('/') || isActive('/carts')}">
+  <div class="page" :class="{'sticky-column': isActive('/') || isActive('/carts') || isActive('/payment')}">
     <Header />
 
     <RouterView />

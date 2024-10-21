@@ -90,7 +90,7 @@ watch(()=>locale.value, async (language)=>{
                 :slides-per-view="3"
                 :navigation="true"
                 :space-between="50"
-                :loop="true"
+                :loop="false"
               >
                 <SwiperSlide v-for="(marathon, marathonIndex) in date?.marathons" :key="marathonIndex">
                   <div>
@@ -98,7 +98,7 @@ watch(()=>locale.value, async (language)=>{
                       <div class="d-flex flex-column justify-content-center align-items-start ">
                         <h6>{{ marathon?.datetime_from }} - {{ marathon?.datetime_to }}</h6>
                       </div>
-                      <template v-if="event?.status">
+                      <template v-if="date?.status">
                         <RouterLink :to="`/participate/${marathon.id}`" class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-skincolor">
                           {{ $t('participate') }}
                         </RouterLink>
@@ -106,18 +106,15 @@ watch(()=>locale.value, async (language)=>{
                     </div>
                     <div :id="`carouselExampleControls-${marathon.id}`" class="carousel slide marathon-block" data-bs-ride="carousel">
 
-                      <RouterLink :to="`/marathon/${marathon?.id}`" class="carousel-inner rounded overflow-hidden " >
+                      <RouterLink :to="`/marathon/${marathon?.id}`" class="carousel-inner rounded overflow-hidden h-100 w-100" >
                         <div v-for="(image, imageIndex) in marathon.image "
-                             class="carousel-item marathon-content"
+                             class="carousel-item marathon-content "
                              :class="{'active': imageIndex === 0}"
                              :key="imageIndex"
                         >
-                          <img
-                            class="img-fluid "
-                            :src="`https://api.roadrunning.uz/storage/${image}`"
-                            alt="image"
-                          />
-
+                          <div class="featured-thumbnail">
+                            <img width="480" height="330" class="img-fluid" :src="`https://api.roadrunning.uz/storage/${image}`" alt="">
+                          </div>
                         </div>
                         <div class="carousel-caption d-none d-md-block">
                           <h4 class="text-white ">{{ marathon.name }}</h4>

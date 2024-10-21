@@ -9,7 +9,7 @@ import { useToast } from 'vue-toast-notification'
 import {useCartStore} from "@/stores/carts";
 const singleMarathon = useMarathonStore()
 const { t } = useI18n();
-
+const loading = ref<boolean>(false)
 const { marathon } = storeToRefs(singleMarathon)
 const settingStore = useSettingStore()
 const cartStore = useCartStore()
@@ -130,7 +130,6 @@ function setNumber(numberType: { number: string; numberType: any }): void {
 }
 
 function validateField(field: string): void {
-
   switch (field) {
     case 'name':
       errors.value.name = personInfo.value.name ? '' : t('name_is_required')
@@ -179,6 +178,7 @@ async function addCard(): Promise<void>
 
   if (Object.values(errors.value).every((err) => !err)) {
     if (isEmailValid.value && isPhoneValid.value) {
+      loading.value = true
       localStorage.setItem('personalFields', JSON.stringify(personInfo.value))
       carts.value.push(personInfo.value)
       carts.value = [...carts.value.map(el=>({...el, time: new Date()}))]
@@ -189,11 +189,13 @@ async function addCard(): Promise<void>
       }
       await cartStore.createNumberStatus(data)
       await singleMarathon.getSingleMarathon(route.params.id, locale.value)
+      setTimeout(()=>{
+        loading.value = false
+      },1000)
       localStorage.setItem('carts', JSON.stringify(carts.value))
       clearPersonalInfo()
       $toast.success(t('add_to_cart'))
       settingStore.getCarts()
-
     }
   } else {
     console.log('Validation errors:', errors.value)
@@ -572,9 +574,13 @@ function clearPersonalInfo() {
                     <div class="col-lg-12">
                       <div class="d-flex align-items-center justify-content-between gap-3">
                         <button
+                          :disabled="loading"
                           class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-skincolor"
                           type="submit"
                         >
+                          <div v-if="loading" class="spinner-border spinner-border-sm" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                          </div>
                           {{ $t('add_to_cart') }}
                         </button>
                       </div>

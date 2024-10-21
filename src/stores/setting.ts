@@ -9,6 +9,9 @@ interface State {
   user: any,
   carts: Array<any>
   totalPrice: number
+  cardInput: string;
+  isValid: boolean;
+  maskedCard: string;
 }
 
 export const useSettingStore = defineStore('setting', {
@@ -17,7 +20,10 @@ export const useSettingStore = defineStore('setting', {
     token: '',
     user: undefined,
     carts: [],
-    totalPrice: 0
+    totalPrice: 0,
+    cardInput: '',
+    isValid: false,
+    maskedCard: '',
   }),
 
   actions: {
@@ -139,6 +145,25 @@ export const useSettingStore = defineStore('setting', {
     {
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return emailPattern.test(input);
+    },
+
+    maskCreditCard(cardNumber: string): string {
+      let sanitizedInput = cardNumber.replace(/\D/g, '');
+
+      if (sanitizedInput.length > 16) {
+        sanitizedInput = sanitizedInput.slice(0, 16);
+      }
+
+      const parts = sanitizedInput.match(/.{1,4}/g) || [];
+
+      return parts.join(' ');
+    },
+
+    formatNumberInput(input: string) {
+      const sanitizedInput = input.replace(/\D/g, '');
+
+      const regex = /(\d{1,3})(?=(\d{3})+(?!\d))/g;
+      return sanitizedInput.replace(regex, '$1 ');
     },
 
     getCarts():void

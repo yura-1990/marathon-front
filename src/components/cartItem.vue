@@ -14,7 +14,6 @@ const props = defineProps<{
   index: number;
 }>();
 
-
 const { cartStatus } = storeToRefs(cartStore)
 
 const timeLeft = ref<string>('');

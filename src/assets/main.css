@@ -391,3 +391,8 @@ footer .circular-main img {
     background: var(--base-skin);
     border: none;
 }
+
+.payment-type{
+    cursor: pointer;
+}
+

@@ -6,14 +6,11 @@ import CartItem from "@/components/cartItem.vue";
 import Payment from '@/components/payment.vue'
 
 const settingStore = useSettingStore()
-const { carts, user } = storeToRefs(settingStore)
+const { user, carts } = storeToRefs(settingStore)
 const intervalIds  = ref<number[]>([]);
 
-onMounted(() => {
-  settingStore.getCarts();
-
-
-  console.log(user.value)
+onMounted( () => {
+  settingStore.getCarts()
 });
 
 onMounted(async() => {
@@ -26,8 +23,8 @@ onBeforeUnmount(() => {
 
 const totalPrice = computed(() => {
   return carts.value.reduce((total, participant) => {
-    const priceFromNumberType = Number(participant.number.numberType.pivot.price) || 0;
-    const marathonPrice = Number(participant.marathon.price) || 0;
+    const priceFromNumberType = Number(participant.number_price) || 0;
+    const marathonPrice = Number(participant.marathon.marathon_type.price) || 0;
 
     return total + priceFromNumberType + marathonPrice;
   }, 0);
@@ -48,7 +45,7 @@ const totalPrice = computed(() => {
                     <h2 class="text-center">{{ $t('cart_details') }}</h2>
                   </div>
                   <template v-if="carts.length > 0">
-                    <CartItem v-for="(cart, index) in carts" :index="index" :cart="cart" :key="cart.number.number" />
+                    <CartItem v-for="(cart, index) in carts" :index="index" :cart="cart" :key="cart.id" />
                   </template>
                   <template v-else>
                     <blockquote>

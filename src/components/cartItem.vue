@@ -23,7 +23,6 @@ const initialTime = new Date(props.cart.time).getTime();
 const endTime = initialTime + 15 * 60 * 1000;
 let intervalId: number | null = null;
 
-
 function updateTimeLeft(): void
 {
   const now: number = new Date().getTime();
@@ -48,8 +47,6 @@ function updateTimeLeft(): void
   progressWidth.value = (timeDiff / totalDuration) * 100;
 }
 
-
-
 onMounted((): void => {
   updateTimeLeft();
   intervalId = window.setInterval(updateTimeLeft, 1000);
@@ -70,25 +67,16 @@ onUnmounted((): void => {
 async function deleteCart(): Promise<void>
 {
   if (confirm(t('are_you_sure_you_want_to_delete'))){
-    const data = {
-      marathon_id: props.cart.marathon.id,
-      number: props.cart.number.number,
-      number_type_id: props.cart.number.numberType.id,
-    }
-    await cartStore.deleteNumberStatus(data)
+
+    await cartStore.deleteNumberStatus(props.cart.id)
     $toast.info(t('remove_from_cart'))
-    settingStore.deleteCarts(props.index)
+    settingStore.deleteCarts(props.cart.id)
   }
 }
 
 async function onTimeOver (): Promise<void>
 {
-  const data = {
-    marathon_id: props.cart.marathon.id,
-    number: props.cart.number.number,
-    number_type_id: props.cart.number.numberType.id,
-  }
-  await cartStore.deleteNumberStatus(data)
+  await cartStore.deleteNumberStatus(props.cart.id)
 
   if (cartStatus.value){
     $toast.info(t('remove_from_cart'))
@@ -106,7 +94,7 @@ async function onTimeOver (): Promise<void>
     <div class="qoute-text">
       <div>
         <h3>{{ cart.marathon.marathon_type.name }}
-          <span class="text-theme float-end">{{ cart.marathon ? settingStore.formatNumber(cart.marathon.price) : 0 }}  <small>sum</small></span>
+          <span class="text-theme float-end">{{ cart.marathon.marathon_type ? settingStore.formatNumber(cart?.marathon?.marathon_type?.price) : 0 }}  <small>sum</small></span>
         </h3>
         <h4>
           <span>{{ $t('date') }}: </span>
@@ -117,16 +105,16 @@ async function onTimeOver (): Promise<void>
         </h4>
         <h4 class="prt-tags-links-title mt_10">
           <span>{{ $t('number') }}: </span>
-          <span class="me-3 text-theme">{{ cart.number.number }}</span>
-          <span class="float-end text-theme"> {{ cart?.number?.numberType ? settingStore.formatNumber(cart?.number?.numberType?.pivot?.price) : 0 }} <small>sum</small></span>
+          <span class="me-3 text-theme">{{ cart.number }}</span>
+          <span class="float-end text-theme"> {{ cart?.number_price ? settingStore.formatNumber(cart?.number_price) : 0 }} <small>sum</small></span>
         </h4>
         <h4 class="prt-tags-links-title mt_10">
-          <span>{{ cart.uniform.type }}: </span>
-          <span class="float-end text-theme"> {{ cart.uniform.size }}</span>
+          <span>{{ cart.participant.uniform.type }}: </span>
+          <span class="float-end text-theme"> {{ cart.participant.uniform.size }}</span>
         </h4>
         <h3>
           <span>{{ $t('total') }}:</span>
-          <span class="float-end text-theme">{{cart.number.numberType && cart.marathon.price ? settingStore.formatNumber(Number(cart.marathon.price) + (Number(cart.number.numberType.pivot.price) ?? 0)) : 0 }} <small>sum</small></span>
+          <span class="float-end text-theme">{{ settingStore.formatNumber(Number(cart.description)) }} <small>sum</small></span>
         </h3>
 
       </div>

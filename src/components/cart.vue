@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {onMounted} from "vue";
+import { onMounted, watch } from 'vue'
 import {useSettingStore} from "@/stores/setting";
 import {storeToRefs} from "pinia";
 
@@ -10,6 +10,7 @@ const { carts } = storeToRefs(settingStore)
 onMounted(()=>{
   settingStore.getCarts()
 })
+
 
 </script>
 

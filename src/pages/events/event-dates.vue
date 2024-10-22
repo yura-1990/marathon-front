@@ -98,7 +98,7 @@ watch(()=>locale.value, async (language)=>{
                       <div class="d-flex flex-column justify-content-center align-items-start ">
                         <h6>{{ marathon?.datetime_from }} - {{ marathon?.datetime_to }}</h6>
                       </div>
-                      <template v-if="date?.status">
+                      <template v-if="date?.status && marathon.participants.length <= Number(marathon.marathon_type.amount) ">
                         <RouterLink :to="`/participate/${marathon.id}`" class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-skincolor">
                           {{ $t('participate') }}
                         </RouterLink>

@@ -6,7 +6,7 @@ import { useMarathonStore } from '@/stores/marathons'
 import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
 import { useToast } from 'vue-toast-notification'
-import {useCartStore} from "@/stores/carts";
+import { useCartStore } from "@/stores/carts";
 const singleMarathon = useMarathonStore()
 const { t } = useI18n();
 const loading = ref<boolean>(false)
@@ -93,18 +93,7 @@ onMounted(() => {
     localStorage.setItem('personalFields', JSON.stringify(personInfo.value))
   }
 
-  if (localStorage.getItem('carts')) {
-    const cartsPlus: string | null = localStorage.getItem('carts')
-
-    if (cartsPlus !== null) {
-      try {
-        carts.value = JSON.parse(cartsPlus)
-      } catch (error) {
-        console.error('Error parsing JSON from localStorage:', error)
-      }
-    }
-  }
-  else {
+  if (!localStorage.getItem('carts')) {
     localStorage.setItem('carts', JSON.stringify(carts.value))
   }
 })
@@ -180,22 +169,30 @@ async function addCard(): Promise<void>
     if (isEmailValid.value && isPhoneValid.value) {
       loading.value = true
       localStorage.setItem('personalFields', JSON.stringify(personInfo.value))
-      carts.value.push(personInfo.value)
-      carts.value = [...carts.value.map(el=>({...el, time: new Date()}))]
       const data = {
         number: Number(personInfo.value.number?.number),
-        number_type_id: Number(personInfo.value.number.numberType.id),
         marathon_id: Number(route.params.id),
+        number_type_id: Number(personInfo.value.number.numberType.id),
+        participant_name: personInfo.value.name,
+        participant_email: personInfo.value.email,
+        participant_phone: personInfo.value.phone,
+        gender_id: Number(personInfo.value.gender_id),
+        participant_region_id: Number(personInfo.value.region_id),
+        participant_address: personInfo.value.address,
+        participant_birth: personInfo.value.birth,
+        participant_parent_name: personInfo.value.parent_name,
+        participant_organization_id: personInfo.value.organization_id,
+        participant_category_id: personInfo.value.participant_category_id,
+        participant_uniform_id: Number(personInfo.value.uniform.id),
       }
       await cartStore.createNumberStatus(data)
       await singleMarathon.getSingleMarathon(route.params.id, locale.value)
       setTimeout(()=>{
         loading.value = false
       },1000)
-      localStorage.setItem('carts', JSON.stringify(carts.value))
+      settingStore.getCarts()
       clearPersonalInfo()
       $toast.success(t('add_to_cart'))
-      settingStore.getCarts()
     }
   } else {
     console.log('Validation errors:', errors.value)
@@ -534,9 +531,9 @@ function clearPersonalInfo() {
                           <div class="prt-p_table-button"></div>
 
                           <ul class="numbers d-flex flex-wrap gap-3 list-unstyled">
-                            <template v-for="n in num.options.filter((el:any) => marathon?.marathon.number_status ? !marathon?.marathon.number_status.find((it:any) => it.number == el) : true)" :key="n">
+                            <template v-for="n in num.options.filter((el:any) => marathon?.marathon.number_status ? !marathon?.marathon.number_status.find((it:any) => it.number == el && el !== 0) : true)" :key="n">
                               <li
-                                v-if="n < 1"
+                                v-if="n === 0"
                                 class="prt-btn numbers-item_continue prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill"
                                 :class="{ 'active': personInfo.number.number == '0' }"
                                 @click="
@@ -546,6 +543,7 @@ function clearPersonalInfo() {
                                   })
                                 "
                               >
+
                                 {{ $t('continue') }}
                               </li>
                               <li

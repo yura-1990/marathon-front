@@ -18,7 +18,11 @@ export const useCartStore = defineStore('carts',  {
         {
             try {
                 const response: AxiosResponse<any> = await axios.post('/number-status/create',data)
-                this.carts = response.data
+                const getCarts = JSON.parse(<string>localStorage.getItem('carts'))
+                getCarts.push(response.data)
+                this.carts = [...getCarts.map((el:any)=>({...el, time: new Date()}))]
+
+                localStorage.setItem('carts', JSON.stringify(this.carts))
 
             } catch (error: any) {
                 console.log('Error in event')
@@ -26,10 +30,10 @@ export const useCartStore = defineStore('carts',  {
 
         },
 
-        async deleteNumberStatus(data: any): Promise<void>
+        async deleteNumberStatus(data: number): Promise<void>
         {
             try {
-                const response: AxiosResponse<any> = await axios.post('/number-status/delete', data)
+                const response: AxiosResponse<any> = await axios.delete(`/number-status/delete/${data}`)
                 this.cartStatus = true
                 console.log(response.data)
                 setTimeout(()=>this.carts = false, 1000)

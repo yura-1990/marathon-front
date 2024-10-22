@@ -147,7 +147,8 @@ export const useSettingStore = defineStore('setting', {
       return emailPattern.test(input);
     },
 
-    maskCreditCard(cardNumber: string): string {
+    maskCreditCard(cardNumber: string): string
+    {
       let sanitizedInput = cardNumber.replace(/\D/g, '');
 
       if (sanitizedInput.length > 16) {
@@ -159,7 +160,8 @@ export const useSettingStore = defineStore('setting', {
       return parts.join(' ');
     },
 
-    formatNumberInput(input: string) {
+    formatNumberInput(input: string): string
+    {
       const sanitizedInput = input.replace(/\D/g, '');
 
       const regex = /(\d{1,3})(?=(\d{3})+(?!\d))/g;
@@ -189,7 +191,7 @@ export const useSettingStore = defineStore('setting', {
           const deleteCart = JSON.parse(cartsPlus)
 
           try {
-            this.carts = deleteCart.filter((el: any, i: number)=> id !== i)
+            this.carts = deleteCart.filter((el: any)=> id !== el.id)
             localStorage.setItem('carts', JSON.stringify(this.carts))
 
           } catch (error) {

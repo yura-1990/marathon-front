@@ -7,6 +7,9 @@ import Cart from '@/components/cart.vue'
 import { RouterLink } from 'vue-router'
 import { useRoute } from 'vue-router';
 import { useAuthStore } from '@/stores/auth'
+import { usePaymentStore } from '@/stores/payment'
+const paymentStore = usePaymentStore()
+const {invoices} = storeToRefs(paymentStore)
 
 const settings = useSettingStore()
 const { user } = storeToRefs(settings)
@@ -26,6 +29,7 @@ function isActive(path: string): boolean
 
 onMounted(()=>{
   settings.getToken()
+  paymentStore.getInvoice()
 })
 
 </script>
@@ -92,6 +96,9 @@ onMounted(()=>{
                               <li>
                                 {{ user?.email }}
                                 <hr class="mb-1">
+                              </li>
+                              <li v-if="invoices.invoices.length > 0">
+                                <RouterLink to="/invoices" class="mega-menu-link">{{ $t('invoices') }}</RouterLink>
                               </li>
                               <li>
                                 <a href="#" @click="userStore.logout()">Logout</a>

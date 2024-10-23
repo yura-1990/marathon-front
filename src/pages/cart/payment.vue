@@ -3,11 +3,14 @@ import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useSettingStore } from '@/stores/setting'
 import { storeToRefs } from 'pinia'
 import { usePaymentStore } from '@/stores/payment'
+import { useTimeStore } from '@/stores/counter'
+import Swal from 'sweetalert2'
+import 'sweetalert2/src/sweetalert2.scss'
 
 const settingStore = useSettingStore()
 const { carts } = storeToRefs(settingStore)
 const paymentStore = usePaymentStore()
-const { payment } = storeToRefs(paymentStore)
+const { payment, error, invoiceStatus, errorCode } = storeToRefs(paymentStore)
 
 const cardInput = ref<string>('');
 const expirationDate = ref<string>('')
@@ -16,9 +19,8 @@ const isValid = ref<boolean>(false)
 const paymentStatus = ref<boolean>(false)
 const codes = ref<string[]>(['', '', '', '', '', '']);
 const inputs = ref<HTMLInputElement[]>([]);
-const timeLeft = ref<number>(120);
 let timer: any;
-
+const timeStore = useTimeStore()
 
 function onCardInput()
 {
@@ -34,6 +36,7 @@ onMounted(()=>{
 
   if (localStorage.getItem('invoice_number')){
     paymentStatus.value = true
+    timeStore.startCountdown()
   }
 })
 
@@ -67,17 +70,6 @@ function expirationDateInput()
   }
 }
 
-function startTimer()
-{
-  timer = setInterval(() => {
-    if (timeLeft.value > 0) {
-      timeLeft.value--;
-    } else {
-      clearInterval(timer);
-    }
-  }, 1000);
-}
-
 const totalPrice = computed(() => {
   return carts.value.reduce((total, participant) => {
     const priceFromNumberType = Number(participant.description) || 0;
@@ -101,7 +93,27 @@ watch(()=>payment.value, ()=>{
   paymentStatus.value = true
   inputs.value[0]?.focus();
   localStorage.setItem('invoice_number', JSON.stringify(payment.value))
-  startTimer();
+  timeStore.resetCountdown()
+})
+
+watch(()=>invoiceStatus.value, async ()=>{
+  paymentStatus.value = false
+  if (invoiceStatus.value.is_paid){
+
+    timeStore.clearCountdown()
+    localStorage.removeItem('invoice_number')
+    localStorage.setItem('carts', JSON.stringify([]))
+    localStorage.removeItem('cart_time')
+    settingStore.getCarts()
+
+    await Swal.fire({
+      title: 'Success!',
+      text: 'Operation was successful!',
+      icon: 'success',
+      confirmButtonText: 'OK',
+      confirmButtonColor: '#304310',
+    });
+  }
 })
 
 function onInputChange (index: number)
@@ -114,33 +126,40 @@ function onInputChange (index: number)
 function verifyCode ()
 {
   const enteredCode = codes.value.join('')
+  const invoiceNumber = JSON.parse(localStorage.getItem('invoice_number'))
+
+  const data = {
+    invoice_id: invoiceNumber.id,
+    code: enteredCode,
+    invoices: carts.value.map(el=>({invoice_item_id: el.id}))
+  }
+
+  paymentStore.checkInvoice(data)
 
 }
 
-function resendCode ()
+async function resendCode()
 {
   codes.value = ['', '', '', '', '', ''];
-  timeLeft.value = 120;
-  startTimer();
-
+  timeStore.resetCountdown();
+  const invoiceId = JSON.parse(localStorage.getItem('invoice_number'));
+  await paymentStore.resetInvoice(invoiceId.id)
 }
 
 async function canselPayment()
 {
   paymentStatus.value = false
   const invoiceId = JSON.parse(localStorage.getItem('invoice_number'));
-
   await paymentStore.deleteInvoice(invoiceId.id)
+  localStorage.removeItem('invoice_number')
 }
 
 </script>
 
 <template>
 <div class="site-main ">
-
     <div class="prt-row table-section clearfix">
       <div class="container">
-
         <div class="row">
           <div class="col-lg-8">
             <div class="section-title title-style-center_text">
@@ -220,88 +239,92 @@ async function canselPayment()
 
                   <div class="time-zone-table1 table-responsive text-center mt_40 res-991-mt-0">
                     <div class="layer-content contact-form-block p-5 shadow-lg rounded-5">
-                    <template v-if="paymentStatus">
+                      <template v-if="carts.length === 0">
+                        <h3>No invoices</h3>
+                      </template>
+                      <template v-else-if="paymentStatus">
+                        <div class="code">
+                          <form @submit.prevent="verifyCode">
+                            <div class="d-flex justify-content-center">
+                              <input
+                                v-for="(code, index) in codes"
+                                :key="index"
+                                v-model="codes[index]"
+                                ref="inputs"
+                                type="text"
+                                maxlength="1"
+                                class="otp-input form-control"
+                                @input="onInputChange(index)"
+                              />
+                            </div>
+                            <span class="text-danger">{{ errorCode }}</span>
+                            <p class="text-danger mt-2" v-if="timeStore.timeLeft > 0">
+                              Time remaining: {{ timeStore.formattedTime }} seconds
+                            </p>
+                            <div v-if="timeStore.timeLeft === 0" class="mt-3">
+                              <small class="">Didn't receive the code? </small>
+                              <a href="#" class="text-decoration-none text-theme" @click.prevent="resendCode" >Resend</a>
+                            </div>
+                            <div v-if="timeStore.timeLeft > 0" class="d-flex justify-content-center">
+                              <button type="submit" class="prt-btn prt-btn-size-md mt-10 w-100 text-uppercase prt-btn-shape-rounded prt-btn-style-border prt-btn-color-whitecolor">
+                                verify
+                              </button>
+                              <button @click="canselPayment" type="button" class="prt-btn prt-btn-size-md mt-10 w-100 text-uppercase prt-btn-shape-rounded prt-btn-style-border prt-btn-color-whitecolor">
+                                cansel
+                              </button>
+                            </div>
+                          </form>
+                        </div>
 
-                      <div class="code">
-                        <form @submit.prevent="verifyCode">
-                          <div class="d-flex justify-content-center">
+
+                      </template>
+                      <template v-else>
+                        <form
+                            id="self-participation"
+                            @submit.prevent="submit"
+                            class="wrap-form query_form-1 needs-validation contact_form"
+                            novalidate
+                          >
+                          <span class="text-input">
+                            <span class="heading-name">{{ $t('cart_number') }}</span>
                             <input
-                              v-for="(code, index) in codes"
-                              :key="index"
-                              v-model="codes[index]"
-                              ref="inputs"
+                              class="username"
                               type="text"
-                              maxlength="1"
-                              class="otp-input form-control"
-                              @input="onInputChange(index)"
+                              placeholder="____ ____ _____ ____"
+                              v-model="cardInput"
+                              maxlength="19"
+                              @input="onCardInput"
                             />
-                          </div>
-                          <p class="text-danger mt-2" v-if="timeLeft > 0">
-                            Time remaining: {{ timeLeft }} seconds
-                          </p>
-                          <div v-if="timeLeft === 0" class="mt-3">
-                            <small class="">Didn't receive the code? </small>
-                            <a href="#" class="text-decoration-none text-theme" @click.prevent="resendCode" >Resend</a>
-                          </div>
-                          <div v-if="timeLeft > 0" class="d-flex justify-content-center">
-                            <button type="submit" class="prt-btn prt-btn-size-md mt-10 w-100 text-uppercase prt-btn-shape-rounded prt-btn-style-border prt-btn-color-whitecolor">
-                              verify
+                            <span v-if="isValid" class="error">Invalid credit card number</span>
+                          </span>
+                            <span class="text-input">
+                            <span class="heading-name">{{ $t('expire_date') }}</span>
+                            <input
+                              class="email"
+                              type="text"
+                              placeholder="MM / YY"
+                              v-model="expirationDate"
+                              @input="expirationDateInput"
+                              maxlength="7"
+                            />
+                            <span v-if="dateError" class="error">{{ dateError }}</span>
+                          </span>
+                            <span class="text-input">
+                            <span class="heading-name">{{ $t('amount') }}</span>
+                            <input
+                              readonly
+                              class="email"
+                              type="text"
+                              :value="settingStore.formatNumber(totalPrice).toString()"
+                              :placeholder="settingStore.formatNumber(totalPrice).toString()"
+                            />
+                              <span class="text-danger ">{{ error }}</span>
+                          </span>
+                            <button class="prt-btn prt-btn-size-lg text-uppercase prt-btn-shape-rounded prt-btn-style-border prt-btn-color-whitecolor w-100 mt-20">
+                              pay
                             </button>
-                            <button @click="canselPayment" type="button" class="prt-btn prt-btn-size-md mt-10 w-100 text-uppercase prt-btn-shape-rounded prt-btn-style-border prt-btn-color-whitecolor">
-                              cansel
-                            </button>
-                          </div>
-                        </form>
-                      </div>
-
-
-                    </template>
-                    <template v-else>
-                      <form
-                          id="self-participation"
-                          @submit.prevent="submit"
-                          class="wrap-form query_form-1 needs-validation contact_form"
-                          novalidate
-                        >
-                        <span class="text-input">
-                          <span class="heading-name">{{ $t('cart_number') }}</span>
-                          <input
-                            class="username"
-                            type="text"
-                            placeholder="____ ____ _____ ____"
-                            v-model="cardInput"
-                            maxlength="19"
-                            @input="onCardInput"
-                          />
-                          <span v-if="isValid" class="error">Invalid credit card number</span>
-                        </span>
-                          <span class="text-input">
-                          <span class="heading-name">{{ $t('expire_date') }}</span>
-                          <input
-                            class="email"
-                            type="text"
-                            placeholder="MM / YY"
-                            v-model="expirationDate"
-                            @input="expirationDateInput"
-                            maxlength="7"
-                          />
-                          <span v-if="dateError" class="error">{{ dateError }}</span>
-                        </span>
-                          <span class="text-input">
-                          <span class="heading-name">{{ $t('amount') }}</span>
-                          <input
-                            readonly
-                            class="email"
-                            type="text"
-                            :value="settingStore.formatNumber(totalPrice).toString()"
-                            :placeholder="settingStore.formatNumber(totalPrice).toString()"
-                          />
-                        </span>
-                          <button class="prt-btn prt-btn-size-lg text-uppercase prt-btn-shape-rounded prt-btn-style-border prt-btn-color-whitecolor w-100 mt-20">
-                            pay
-                          </button>
-                        </form>
-                    </template>
+                          </form>
+                      </template>
                     </div>
                   </div>
                 </div>

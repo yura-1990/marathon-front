@@ -19,6 +19,7 @@ const settings = useSettingStore()
 const hoveredIndex = ref<number|null>(null);
 const { locale } = useI18n();
 import { RouterLink } from 'vue-router'
+const settingStore = useSettingStore()
 
 const elementStyle = ref({
   backgroundColor: '',
@@ -29,6 +30,8 @@ const elementStyle = ref({
 onMounted(async () => {
   await eventStore.getOneEvent(route.params.id, locale.value)
   await marathon.getMarathonTypes(locale.value)
+
+  settingStore.getCarts()
 })
 
 const onMouseOver = (color: string, index: number) => {

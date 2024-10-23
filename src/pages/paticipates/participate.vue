@@ -28,7 +28,7 @@ interface Form {
   gender_id: number | null
   participant_category_id: number | null
   organization_id: number | null
-  region_id: string | null
+  region_id: number | null
   address: string
   email: string
   phone: string
@@ -177,7 +177,7 @@ async function addCard(): Promise<void>
         participant_email: personInfo.value.email,
         participant_phone: personInfo.value.phone,
         gender_id: Number(personInfo.value.gender_id),
-        participant_region_id: Number(personInfo.value.region_id),
+        participant_region_id: personInfo.value.region_id,
         participant_address: personInfo.value.address,
         participant_birth: personInfo.value.birth,
         participant_parent_name: personInfo.value.parent_name,
@@ -353,21 +353,12 @@ function clearPersonalInfo() {
                         <label for="regionIndex">
                           <span class="heading-name">{{ $t('regions') }}</span>
                         </label>
-                        <input
-                          v-model="personInfo.region_id"
-                          class="form-control"
-                          list="regionOptions"
-                          id="regionIndex"
-                          placeholder="Type or choose ..."
-                          @blur="validateField('region_id')"
-                        />
-                        <datalist id="regionOptions">
-                          <option
-                            v-for="(value, valueIndex) in marathon?.regions"
-                            :value="value.name"
-                            :key="valueIndex"
-                          />
-                        </datalist>
+                        <select v-model="personInfo.region_id" class="form-control-lg participant-bg-color" id="regionIndex" @blur="validateField('region_id')">
+                          <option v-for="(value, valueIndex) in marathon?.regions"
+                                  :value="value.id"
+                                  :key="valueIndex"
+                          >{{ value.name }}</option>
+                        </select>
                         <span v-if="errors.region_id" class="text-danger">{{
                           errors.region_id
                         }}</span>
@@ -531,7 +522,7 @@ function clearPersonalInfo() {
                           <div class="prt-p_table-button"></div>
 
                           <ul class="numbers d-flex flex-wrap gap-3 list-unstyled">
-                            <template v-for="n in num.options.filter((el:any) => marathon?.marathon.number_status ? !marathon?.marathon.number_status.find((it:any) => it.number == el && el !== 0) : true)" :key="n">
+                            <template v-for="n in num.options.filter((el:any) => !marathon?.marathon.number_status.status ? !marathon?.marathon.number_status.find((it:any) => it.number == el && el !== 0) : true)" :key="n">
                               <li
                                 v-if="n === 0"
                                 class="prt-btn numbers-item_continue prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill"

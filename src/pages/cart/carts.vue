@@ -1,13 +1,16 @@
 <script setup lang="ts">
-import {computed, onBeforeUnmount, onMounted, ref} from "vue";
+import { computed, onMounted, ref, watch } from 'vue'
 import {useSettingStore} from "@/stores/setting";
 import {storeToRefs} from "pinia";
 import CartItem from "@/components/cartItem.vue";
 import Payment from '@/components/payment.vue'
+import { usePaymentStore } from '@/stores/payment'
+const paymentStore = usePaymentStore()
 
+const { invoiceStatus } = storeToRefs(paymentStore)
 const settingStore = useSettingStore()
 const { user, carts } = storeToRefs(settingStore)
-const intervalIds  = ref<number[]>([]);
+
 
 onMounted( () => {
   settingStore.getCarts()
@@ -16,11 +19,6 @@ onMounted( () => {
 onMounted(async() => {
   await settingStore.getToken();
 })
-
-onBeforeUnmount(() => {
-  intervalIds.value.forEach((id) => clearInterval(id));
-});
-
 const totalPrice = computed(() => {
   return carts.value.reduce((total, participant) => {
     const priceFromNumberType = Number(participant.number_price) || 0;
@@ -28,6 +26,12 @@ const totalPrice = computed(() => {
 
     return total + priceFromNumberType + marathonPrice;
   }, 0);
+})
+
+watch(()=>invoiceStatus.value, async ()=>{
+  if (invoiceStatus.value.is_paid){
+    settingStore.getCarts()
+  }
 })
 
 </script>
@@ -45,7 +49,7 @@ const totalPrice = computed(() => {
                     <h2 class="text-center">{{ $t('cart_details') }}</h2>
                   </div>
                   <template v-if="carts.length > 0">
-                    <CartItem v-for="(cart, index) in carts" :index="index" :cart="cart" :key="cart.id" />
+                    <CartItem v-for="cart in carts" :cart="cart" :key="cart.id" />
                   </template>
                   <template v-else>
                     <blockquote>

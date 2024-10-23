@@ -9,6 +9,8 @@ import Marathons from '@/pages/marathons/marathons.vue'
 import Participate from '@/pages/paticipates/participate.vue'
 import Events from "@/pages/events/events.vue";
 import Payment from '@/pages/cart/payment.vue'
+import Invoices from '@/pages/cart/invoices.vue'
+import Cookies from 'js-cookie'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -62,28 +64,29 @@ const router = createRouter({
           name: 'Payment',
           component: Payment
         },
+        {
+          path: '/invoices',
+          name: 'Invoices',
+          component: Invoices,
+          meta: { requiresAuth: true }
+        },
       ]
     },
   ]
 })
 
-// router.beforeEach(async (to, from, next)=>{
-//   const isAuthenticated = !!Cookies.get('auth_token')
-//
-//   if (to.matched.some(record => record.meta.requiresAuth)) {
-//     if (!isAuthenticated) {
-//       next({ name: 'Login' })
-//     } else {
-//       next()
-//     }
-//   } else {
-//     if (isAuthenticated && to.name === 'Login') {
-//       next({ name: 'Home' })
-//     } else {
-//       next()
-//     }
-//   }
-//
-// })
+router.beforeEach(async (to, from, next)=>{
+  const isAuthenticated = !!Cookies.get('auth_token')
+
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!isAuthenticated) {
+      next({ name: 'Home' })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
 
 export default router

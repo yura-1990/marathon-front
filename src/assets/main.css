@@ -405,3 +405,26 @@ footer .circular-main img {
     justify-content: center;
     transition: 0.5s linear;
 }
+
+.participant-bg-color{
+    background-color: #1c1a18 !important;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 20px;
+    background-color: #e0e0e0;
+    overflow: hidden;
+    margin-top: 10px;
+    position: absolute;
+    z-index: -1;
+    top: -10px;
+    left: 0;
+}
+
+.progress-bar {
+    height: 100%;
+    transition: width 1s linear;
+}

@@ -12,6 +12,7 @@ const settingStore = useSettingStore()
 onMounted(async ()=>{
   await eventStore.getEvents()
 
+
 })
 
 </script>

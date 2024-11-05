@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { usePaymentStore } from '@/stores/payment'
 import { storeToRefs } from 'pinia'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useSettingStore } from '@/stores/setting'
 import { useI18n } from 'vue-i18n'
 
@@ -9,17 +9,19 @@ const { locale } = useI18n();
 const paymentStore = usePaymentStore()
 const settingStore = useSettingStore()
 const { invoices } = storeToRefs(paymentStore)
-const { user } = storeToRefs(settingStore)
 const invoiceId = ref<number|null>(null)
 
 onMounted(async ()=>{
-  await paymentStore.getInvoice()
-  await settingStore.getToken()
+  await paymentStore.getInvoice(locale.value)
 })
 
 function getInvoice(id: number){
   invoiceId.value = id
 }
+
+watch(()=>locale.value, async (language)=>{
+  await paymentStore.getInvoice(language)
+})
 
 </script>
 

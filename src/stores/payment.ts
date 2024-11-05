@@ -75,10 +75,14 @@ export const usePaymentStore = defineStore('payment', {
       }
     },
 
-    async getInvoice(): Promise<void>
+    async getInvoice(language: string): Promise<void>
     {
       try {
-        const response: AxiosResponse<any> = await axios.get(`/invoice/all`)
+        const response: AxiosResponse<any> = await axios.get(`/invoice/all`, {
+          params: {
+            language
+          }
+        })
         this.invoices = response.data
         console.log(response.data)
 

@@ -108,5 +108,10 @@
   "remove_from_cart": "Remove from cart",
   "date": "Date",
   "number": "Number",
-  "continue": "Continue"
+  "continue": "Continue",
+  "no_active_event": "No active event",
+  "invoices": "Invoices",
+  "invoice_info": "Invoice info",
+  "cost": "Cost",
+  "logout": "Logout"
 }

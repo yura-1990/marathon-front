@@ -108,5 +108,10 @@
   "remove_from_cart": "Savatdan olib tashlash",
   "date": "Sana",
   "number": "Raqam",
-  "continue": "Davom etish"
+  "continue": "Davom etish",
+  "no_active_event": "Faol tadbir yo'q",
+  "invoices": "Hisob-fakturalar",
+  "invoice_info": "Hisob-faktura ma'lumotlari",
+  "cost": "Narx",
+  "logout": "Chiqish"
 }

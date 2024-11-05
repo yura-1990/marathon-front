@@ -28,7 +28,7 @@
           <div class="row">
             <div class="col-lg-12 text-center">
               <div class="section-title title-style-center_text style2">
-                <div class="title-header">
+                <div class="title-header mt-5">
                   <h2 class="title">{{ $t('something_about_road_running') }}</h2>
                 </div>
               </div>

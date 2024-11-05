@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useEventStore } from '@/stores/events'
 import { useMarathonStore } from '@/stores/marathons'
-import { onMounted, watch } from 'vue'
+import { computed, onMounted, watch } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
@@ -16,6 +16,7 @@ const marathon = useMarathonStore()
 const { events } = storeToRefs(eventStore)
 const { locale } = useI18n();
 const settingStore = useSettingStore()
+const data = computed(()=>events.value?.data?.filter(el=>el?.status))
 
 onMounted(async () => {
   await eventStore.getEvents(locale.value)
@@ -47,86 +48,125 @@ watch(()=>locale.value, async (language)=>{
 
 <template>
   <div>
-    <swiper
-      :modules="[Navigation]"
-      :slides-per-view="1"
-      :navigation="true"
-      :space-between="50"
-      :loop="true"
-    >
-      <template v-for="(event, index) in events.data" :key="index">
+    <template v-if="data?.length > 0">
+      <swiper
+        :modules="[Navigation]"
+        :slides-per-view="1"
+        :navigation="true"
+        :space-between="50"
+        :loop="true"
+      >
+        <template v-for="(event, index) in events.data" :key="index">
+          <swiper-slide v-if="event.status" >
+            <div
+              class="slide custom-slide"
+              :style="`background-image: url(https://api.roadrunning.uz/storage/${event.image}); `"
+            >
 
-        <swiper-slide v-if="event.status" >
-          <div
-            class="slide custom-slide"
-            :style="`background-image: url(https://api.roadrunning.uz/storage/${event.image}); `"
-          >
-
-            <div class="slide__content container text-base-white main-display mx-auto slide_style1">
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="slide__content--headings d-block">
-                    <div data-animation="fadeInLeft" class="fade-main"></div>
-                    <div data-animation="fadeInLeft" class="fade-in-main bg-base-white"></div>
-                    <div
-                      class="w-100 pt-140 pb-40 res-1199-pb-80 res-1199-pt-80 res-991-pt-100 "
-                    >
-                      <div class="position-relative">
-                        <img
-                          class="img-fluid"
-                          src="/assets/images/slider/slide-img-1-409x89.webp"
-                          alt="image"
-                        />
-                        <div data-animation="fadeInDown" class="first-letter ">
-                          {{ event.name }}
+              <div class="slide__content container text-base-white main-display mx-auto slide_style1">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="slide__content--headings d-block">
+                      <div data-animation="fadeInLeft" class="fade-main"></div>
+                      <div data-animation="fadeInLeft" class="fade-in-main bg-base-white"></div>
+                      <div
+                        class="w-100 pt-140 pb-40 res-1199-pb-80 res-1199-pt-80 res-991-pt-100 "
+                      >
+                        <div class="position-relative">
+                          <img
+                            class="img-fluid"
+                            src="/assets/images/slider/slide-img-1-409x89.webp"
+                            alt="image"
+                          />
+                          <div data-animation="fadeInDown" class="first-letter ">
+                            {{ event.name }}
+                          </div>
                         </div>
-                      </div>
-                      <div class="">
-                        <div data-animation="fadeInDown" class="second-letter">
-                          {{ event.address }}
-                        </div>
-                        <ul class="list-unstyled d-flex flex-wrap gap-3">
-                          <template v-for="(dates, month, index) in groupedDatesByMonth(event.event_has_marathons)" :key="index">
-                            <li>
+                        <div class="">
+                          <div data-animation="fadeInDown" class="second-letter">
+                            {{ event.address }}
+                          </div>
+                          <ul class="list-unstyled d-flex flex-wrap gap-3">
+                            <template v-for="(dates, month, index) in groupedDatesByMonth(event.event_has_marathons)" :key="index">
+                              <li>
                               <span class="prt-btn-color-whitecolor fw-bold">
                                 {{ month }}
                               </span>
-                              <ul class="d-flex m-0 list-unstyled gap-3">
-                                <li v-for="(date, dateIndex) in dates" :key="dateIndex" class="register-wrapper  bg-theme">
-                                  {{ new Date(date.date_event).getDate() }}
-<!--                                  <div class="register">-->
-<!--                                    <a-->
-<!--                                      class="prt-btn  prt-btn-style-fill prt-btn-color-whitecolor text-nowrap text-start"-->
-<!--                                      :href="`/marathon/${date.id}`"-->
-<!--                                    >{{ $t('register_now') }}</a>-->
-<!--                                  </div>-->
-                                </li>
+                                <ul class="d-flex m-0 list-unstyled gap-3">
+                                  <li v-for="(date, dateIndex) in dates" :key="dateIndex" class="register-wrapper  bg-theme">
+                                    {{ new Date(date.date_event).getDate() }}
+                                    <!--                                  <div class="register">-->
+                                    <!--                                    <a-->
+                                    <!--                                      class="prt-btn  prt-btn-style-fill prt-btn-color-whitecolor text-nowrap text-start"-->
+                                    <!--                                      :href="`/marathon/${date.id}`"-->
+                                    <!--                                    >{{ $t('register_now') }}</a>-->
+                                    <!--                                  </div>-->
+                                  </li>
 
-                              </ul>
-                            </li>
-                          </template>
-                        </ul>
+                                </ul>
+                              </li>
+                            </template>
+                          </ul>
 
-                      </div>
+                        </div>
 
-                      <div data-animation="fadeInDown" class="slider-btn">
-                        <RouterLink
-                          class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-whitecolor mt-20 res-991-mb-30 mt-40 text-start"
-                          :to="`/event/${event.id}`"
-                        >
-                          {{ $t('more_about') }}
-                        </RouterLink>
+                        <div data-animation="fadeInDown" class="slider-btn">
+                          <RouterLink
+                            class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-whitecolor mt-20 res-991-mb-30 mt-40 text-start"
+                            :to="`/event/${event.id}`"
+                          >
+                            {{ $t('more_about') }}
+                          </RouterLink>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </swiper-slide>
-      </template>
+          </swiper-slide>
+        </template>
+      </swiper>
+    </template>
+    <template v-else>
+      <div
+        class="slide custom-slide"
+        :style="`background-image: url(/assets/images/pre.jpg); background-repeat: no-repeat; background-position: top center; background-size: cover;`"
+      >
 
-    </swiper>
+        <div class="slide__content container text-base-white main-display mx-auto slide_style1">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="slide__content--headings d-block">
+                <div data-animation="fadeInLeft" class="fade-main"></div>
+                <div data-animation="fadeInLeft" class="fade-in-main bg-base-white"></div>
+                <div
+                  class="w-100 pt-140 pb-40 res-1199-pb-80 res-1199-pt-80 res-991-pt-100 "
+                >
+                  <div class="position-relative">
+                    <img
+                      class="img-fluid"
+                      src="/assets/images/slider/slide-img-1-409x89.webp"
+                      alt="image"
+                    />
+                    <div data-animation="fadeInDown" class="first-letter ">
+                      ROAD RUNNING
+                    </div>
+                  </div>
+                  <div class="">
+                    <div data-animation="fadeInDown" class="second-letter">
+                      {{ $t('no_active_event') }}
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+
 
     <div class="site-main">
       <section class="prt-row first-section overflow-hidden clearfix">

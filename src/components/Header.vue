@@ -97,11 +97,11 @@ onMounted(()=>{
                                 {{ user?.email }}
                                 <hr class="mb-1">
                               </li>
-                              <li v-if="invoices.invoices.length > 0">
+                              <li v-if="invoices.length > 0">
                                 <RouterLink to="/invoices" class="mega-menu-link">{{ $t('invoices') }}</RouterLink>
                               </li>
                               <li>
-                                <a href="#" @click="userStore.logout()">Logout</a>
+                                <a href="#" @click="userStore.logout()">{{ $t('logout') }}</a>
                               </li>
                             </ul>
                           </li>

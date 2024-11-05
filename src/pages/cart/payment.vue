@@ -164,12 +164,12 @@ async function canselPayment()
           <div class="col-lg-8">
             <div class="section-title title-style-center_text">
               <div class="title-header">
-                <h2 class="title">INVOICE</h2>
+                <h2 class="title">{{ $t('invoices') }}</h2>
               </div>
             </div>
             <div class="about-text res-991-mt-0">
               <div class="tm-scrollintetx-wrapper Frist">
-                <div class="big-title" style="transform: translateX(13.8062px);"> INVOICE </div>
+                <div class="big-title" style="transform: translateX(13.8062px);"> {{ $t('invoices') }} </div>
               </div>
             </div>
             <div class="prt-bg prt-col-bgimage-yes prt-col-bgcolor-yes
@@ -185,10 +185,10 @@ async function canselPayment()
                       <thead>
                       <tr >
                         <th>
-                          <div class="classes-days">Invoice info</div>
+                          <div class="classes-days">{{ $t('invoice_info') }}</div>
                         </th>
                         <th>
-                          <div class="classes-days">Cost</div>
+                          <div class="classes-days">{{ $t('cost') }}</div>
                         </th>
                       </tr>
                       </thead>

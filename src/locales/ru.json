@@ -108,5 +108,10 @@
   "remove_from_cart": "Удалить из корзины",
   "date": "Дата",
   "number": "Номер",
-  "continue": "Продолжить"
+  "continue": "Продолжить",
+  "no_active_event": "Нет активного события",
+  "invoices": "Счета",
+  "invoice_info": "Информация о счете",
+  "cost": "Стоимость",
+  "logout": "Выйти"
 }

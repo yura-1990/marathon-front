@@ -8,7 +8,7 @@ interface State {
   error: string,
   invoiceStatus: Array<any>,
   errorCode: string,
-  invoices: Array<any>
+  invoices: any
 }
 
 export const usePaymentStore = defineStore('payment', {

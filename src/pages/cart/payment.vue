@@ -218,7 +218,7 @@ async function canselPayment()
               </div>
             </div>
           </div>
-          <div class="col-4 prt-sticky-column">
+          <div class="col-lg-4 mt-responsive prt-sticky-column">
             <div class="section-title title-style-center_text">
               <div class="title-header">
                 <h2 class="title">Cart</h2>

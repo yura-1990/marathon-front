@@ -122,6 +122,8 @@
               </div>
             </div>
           </div>
+          <br>
+          <a class="text-active float-end h6 px-3" href="https://wellsoft.uz/" target="_blank"> Well Soft Group</a>
         </div>
       </div>
     </div>

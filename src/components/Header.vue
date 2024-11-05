@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import {useSettingStore} from "@/stores/setting";
 import { storeToRefs } from 'pinia'
-import {onMounted} from "vue";
+import { computed, onMounted } from 'vue'
 import LanguageSwitcher from '@/components/language-switcher.vue'
 import Cart from '@/components/cart.vue'
 import { RouterLink } from 'vue-router'
 import { useRoute } from 'vue-router';
 import { useAuthStore } from '@/stores/auth'
 import { usePaymentStore } from '@/stores/payment'
+import { useI18n } from 'vue-i18n'
 const paymentStore = usePaymentStore()
 const {invoices} = storeToRefs(paymentStore)
 
@@ -32,6 +33,15 @@ onMounted(()=>{
   paymentStore.getInvoice()
 })
 
+const { locale, availableLocales } = useI18n();
+const languages = computed(()=>availableLocales.filter(lang=>lang !== locale.value))
+
+function switcherLanguage(lang: string): void
+{
+  localStorage.setItem('language', lang)
+  locale.value = lang
+}
+
 </script>
 
 <template>
@@ -51,10 +61,11 @@ onMounted(()=>{
                     </h1>
                   </div>
                   <div class="btn-show-menu-mobile menubar menubar--squeeze">
-                      <span class="menubar-box">
-                        <span class="menubar-inner"></span>
-                      </span>
+                    <span class="menubar-box">
+                      <span class="menubar-inner"></span>
+                    </span>
                   </div>
+
                   <nav class="main-menu menu-mobile" id="menu">
                     <ul class="menu slide-menu">
                       <li class="mega-menu-item megamenu-fw" :class="{ 'active': isActive('/') }">
@@ -71,8 +82,48 @@ onMounted(()=>{
                       <li class="mega-menu-item">
                         <RouterLink to="/about-us" class="mega-menu-link">{{ $t('about_us') }}</RouterLink>
                       </li>
+
+                      <li class="mega-menu-item mobile-responsive">
+                        <a href="#" class="mega-menu-link">{{ locale }}</a>
+                        <ul class="mega-submenu">
+                          <li v-for="(lang, index) in languages"
+                              :key="index"
+                              @click="switcherLanguage(lang)"
+                          >
+                            <a href="#">{{ lang }}</a>
+
+                          </li>
+                        </ul>
+                      </li>
+
+                      <li class="mega-menu-item ps-1 pb-1 mobile-responsive">
+                        <template v-if="!user">
+                          <div>
+                            <a class="login" type="button" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                              <i class="fa-regular fa-user"></i>
+                            </a>
+                          </div>
+                        </template>
+                        <template v-else>
+                          <a href="#" class="user-login d-flex align-items-center justify-content-center mega-menu-link">
+                            <span class="login">{{ settings.getInitials(user?.name ?? 'No Name') }}</span>
+                          </a>
+                          <ul class="mega-submenu w-100">
+                            <li> {{ user?.email }} <hr class="mb-1"> </li>
+                            <li v-if="invoices?.invoices?.length > 0">
+                              <a href="/invoices" class="mega-menu-link">{{ $t('invoices') }}</a>
+                            </li>
+                            <li>
+                              <a href="#" @click="userStore.logout()">{{ $t('logout') }}</a>
+                            </li>
+                          </ul>
+                        </template>
+                      </li>
                     </ul>
                   </nav><!-- menu end -->
+                </div>
+                <div class="cart-fixed ">
+                  <Cart />
                 </div>
                 <div class="d-flex align-items-center justify-content-end">
                   <!-- header_extra -->
@@ -97,8 +148,8 @@ onMounted(()=>{
                                 {{ user?.email }}
                                 <hr class="mb-1">
                               </li>
-                              <li v-if="invoices.length > 0">
-                                <RouterLink to="/invoices" class="mega-menu-link">{{ $t('invoices') }}</RouterLink>
+                              <li v-if="invoices?.invoices?.length > 0">
+                                <a href="/invoices" class="mega-menu-link">{{ $t('invoices') }}</a>
                               </li>
                               <li>
                                 <a href="#" @click="userStore.logout()">{{ $t('logout') }}</a>

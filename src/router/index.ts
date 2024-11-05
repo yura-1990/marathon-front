@@ -62,7 +62,8 @@ const router = createRouter({
         {
           path: '/payment',
           name: 'Payment',
-          component: Payment
+          component: Payment,
+          meta: { requiresAuth: true }
         },
         {
           path: '/invoices',

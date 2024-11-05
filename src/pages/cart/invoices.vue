@@ -1,240 +1,141 @@
 <script setup lang="ts">
 import { usePaymentStore } from '@/stores/payment'
 import { storeToRefs } from 'pinia'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useSettingStore } from '@/stores/setting'
+import { useI18n } from 'vue-i18n'
 
+const { locale } = useI18n();
 const paymentStore = usePaymentStore()
 const settingStore = useSettingStore()
 const { invoices } = storeToRefs(paymentStore)
 const { user } = storeToRefs(settingStore)
+const invoiceId = ref<number|null>(null)
 
 onMounted(async ()=>{
   await paymentStore.getInvoice()
   await settingStore.getToken()
 })
 
+function getInvoice(id: number){
+  invoiceId.value = id
+}
+
 </script>
 
 <template>
   <div class="site-main">
-    <div class="prt-row blog-details-section clearfix">
-      <div class="container">
-        <section class="prt-row table-section clearfix">
-          <div class="container">
-            <div class="section-title title-style-center_text">
-              <div class="title-header">
-                <h2 class="title">{{ $t('invoices') }}</h2>
-              </div>
-            </div>
-            <div class="about-text res-991-mt-0">
-              <div class="tm-scrollintetx-wrapper Frist">
-                <div class="big-title" style="transform: translateX(91.0049px);">{{ $t('invoices') }}</div>
-              </div>
-            </div>
-            <div class="row">
-              <template v-for="invoice in invoices" :key="invoice.id">
+    <section class="prt-row overflow-hidden pricing-section-1 bg-layer-equal-height clearfix">
+      <div class="container mt-50">
+        <div class="section-title title-style-center_text">
+          <div class="title-header">
+            <h2 class="title">{{ $t('invoices') }}</h2>
+          </div>
+        </div>
+        <div class="about-text res-991-mt-0">
+          <div class="tm-scrollintetx-wrapper Frist">
+            <div class="big-title" style="transform: translateX(91.0049px);">{{ $t('invoices') }}</div>
+          </div>
+        </div>
 
-                <div class="col-lg-12 mb-90">
+        <div class="prt-tabs prt-tab-style-01">
+          <ul class="tabs active" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <li><h3>{{ $t('invoice_number') }}</h3></li>
+            <template v-for="item in invoices.invoices" :key="item.id">
+              <li class="tab border-bottom" @click="getInvoice(item.id)" id="v-pills-home-tab" data-bs-toggle="pill" :data-bs-target="`#v-pills-${item.id}`" type="button" role="tab" :aria-controls="`v-pills-${item.id}`" aria-selected="true">
+                <div class="d-flex align-items-center justify-content-between">
+                  <div class="d-flex flex-column">
+                    <span>#{{ item?.invoice_number }}</span>
+                    <span class="text-theme">{{ item?.total_sum }} sum</span>
+                  </div>
+                  <div class="d-flex flex-column">
+                    <span class="h6">Cart type</span>
+                    <span class="px-2 bg-theme rounded">{{ item?.type }}</span>
+                  </div>
+                </div>
+              </li>
+            </template>
+          </ul>
+          <div class="content-tab w-100" id="v-pills-tabContent">
+            <template v-for="item in invoices?.invoices?.filter(el=>el?.id === invoiceId)" :key="item.id">
+              <div class="tab-pane content-inner fade show active" :id="`v-pills-${item.id}`" role="tabpanel" :aria-labelledby="`v-pills-${item.id}-tab`">
 
-                  <div class="prt-bg prt-col-bgimage-yes prt-col-bgcolor-yes
-                            col-bg-img-four border-rad_30 h-auto">
-                    <div class="prt-col-wrapper-bg-layer prt-bg-layer">
-                      <div class="prt-col-wrapper-bg-layer-inner"></div>
-                    </div>
-                    <div class="layer-content">
-                      <div class="section-content position-relative">
-                        <div class="time-zone-table1 table-responsive mt_40 res-991-mt-0">
-                          <div class="d-flex gap-5">
-                            <div class="featured-icon">
-                              <p># {{ invoice.invoice.invoice_number }}</p>
-                              <img :src="invoice.qrcode" alt="">
-                            </div>
-
-                            <div class="featured-content text-end">
-                              <h4>{{ invoice.invoice.total_sum }} sum</h4>
-                              <div class="featured-desc">
-                                <p>Paid with <span class="px-1 bg-theme text-white rounded">{{ invoice.invoice.type }}</span></p>
-                              </div>
-                              <div class="featured-desc">
-                              </div>
-                            </div>
-                          </div>
-                          <table class="table">
-                            <thead>
-                            <tr>
-                              <th>
-                                <div class="classes-days">Time</div>
-                              </th>
-                              <th>
-                                <div class="classes-days">17 nov 2024</div>
-                              </th>
-                              <th>
-                                <div class="classes-days">18 nov 2024</div>
-                              </th>
-                              <th>
-                                <div class="classes-days">19 nov 2024</div>
-                              </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <!--row one-->
-                            <tr>
-                              <td class="hours">
-                                <div class="classes-time">8:00 am </div>
-                              </td>
-                              <td rowspan="1">
-                                <div class="hover">
-                                  <div class="content-data">
-                                    <p class="margin_bottom0">Velocity vanguard challenge</p>
-                                  </div>
-                                </div>
-                              </td>
-                              <td rowspan="1">
-                                <div class="content-data">
-                                  <p class="margin_bottom0">Adrenaline rush grand prix</p>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="content-blank"></div>
-                              </td>
-                            </tr>
-
-                            <!--row two-->
-                            <tr>
-                              <td class="hours">
-                                <div class="classes-time">9:00 am </div>
-                              </td>
-                              <td>
-                                <div class="content-blank"></div>
-                              </td>
-                              <td rowspan="1">
-                                <div class="content-data">
-                                  <p class="margin_bottom0">Turbocharged thunder showdown</p>
-                                </div>
-                              </td>
-                              <td rowspan="1">
-                                <div class="content-data">
-                                  <p class="margin_bottom0">Ultimate velocity championship</p>
-                                </div>
-                              </td>
-                            </tr>
-
-                            <!--row three-->
-                            <tr>
-                              <td class="hours">
-                                <div class="classes-time">10:00 am </div>
-                              </td>
-                              <td rowspan="1">
-                                <div class="content-data">
-                                  <p class="margin_bottom0">Supersonic speed spectacular</p>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="content-blank"></div>
-                              </td>
-                              <td rowspan="1">
-                                <div class="content-data">
-                                  <p class="margin_bottom0">Speedster sprint showdown series</p>
-                                </div>
-                              </td>
-                            </tr>
-
-                            <!--row four-->
-                            <tr>
-                              <td class="hours">
-                                <div class="classes-time">11:00 am </div>
-                              </td>
-                              <td>
-                                <div class="content-blank"></div>
-                              </td>
-                              <td>
-                                <div class="content-blank"></div>
-                              </td>
-                              <td rowspan="1">
-                                <div class="content-data">
-                                  <p class="margin_bottom0">Rapid rumble rally championship</p>
-                                </div>
-                              </td>
-                            </tr>
-
-                            <!--row five-->
-                            <tr>
-                              <td class="hours">
-                                <div class="classes-time">2:00 pm </div>
-                              </td>
-                              <td rowspan="1">
-                                <div class="content-data">
-                                  <p class="margin_bottom0">Lightning-fast velocity challenge</p>
-                                </div>
-                              </td>
-                              <td rowspan="1">
-                                <div class="content-data">
-                                  <p class="margin_bottom0">High-octane turbo thrust showdown</p>
-                                </div>
-                              </td>
-                              <td rowspan="1">
-                                <div class="content-data">
-                                  <p class="margin_bottom0">Rapid rumble rally championship circuit</p>
-                                </div>
-                              </td>
-                            </tr>
-
-                            <!--row six-->
-                            <tr>
-                              <td class="hours">
-                                <div class="classes-time">3:00 pm </div>
-                              </td>
-                              <td>
-                                <div class="content-blank"></div>
-                              </td>
-                              <td rowspan="1">
-                                <div class="content-data">
-                                  <p class="margin_bottom0">Velocity vanguard vortex showdown</p>
-                                </div>
-                              </td>
-                              <td rowspan="1">
-                                <div class="content-data">
-                                  <p class="margin_bottom0">Speedster sprint spectacular series</p>
-                                </div>
-                              </td>
-                            </tr>
-
-                            <!--row seven-->
-                            <tr>
-                              <td class="hours">
-                                <div class="classes-time">4:00 pm </div>
-                              </td>
-                              <td rowspan="1">
-                                <div class="content-data">
-                                  <p class="margin_bottom0">Turbocharged thunder grand prix</p>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="content-blank"></div>
-                              </td>
-                              <td rowspan="1">
-                                <div class="content-data">
-                                  <p class="margin_bottom0">Adrenaline rush challenge</p>
-                                </div>
-                              </td>
-                              <td class="border-0">
-                                <div class="content-blank"></div>
-                              </td>
-                            </tr>
-                            </tbody>
-                          </table>
-                        </div>
+                <div class="prt-pricing-plan">
+                  <div class="prt-p_table-body d-flex justify-content-between pb-3 border-bottom  ">
+                    <div>
+<!--                      <img :src="item.qrcode" alt="">-->
+                      <div class="prt-p_table-amount pricing-price">
+                        <h3>{{ $t('total') }}</h3>
                       </div>
+                    </div>
+
+                    <div>
+                      <div class="prt-p_table-amount pricing-price">
+                        <h3>{{ item.total_sum }}</h3>
+                        <span class="pac_frequency"> UZS </span>
+                      </div>
+                      <ul class="prt-p_table-features">
+                        <li>
+                          <i class="ti ti-check"></i>
+                          <span v-if="item.is_paid">
+                            <template v-if="locale === 'en' || locale === 'ru'">
+                              {{ $t('paid_with') }}
+                              <span class="px-2 bg-theme rounded">{{ item.type }}</span>
+                            </template>
+
+                             <template v-else>
+                               <span class="px-2 bg-theme rounded">{{ item.type }}</span>
+                              {{ $t('paid_with') }}
+                            </template>
+                          </span>
+                          <span v-else>
+                            {{ $t('not_paid') }}
+                          </span>
+                        </li>
+                        <li v-if="item.is_paid">
+                          <i class="ti ti-check"></i>
+                          <template v-if="locale === 'en' || locale === 'ru'">
+                            {{ $t('paid') }} {{ settingStore.formatDate(item.updated_at)}}
+                          </template>
+                          <template v-else>
+                             {{ settingStore.formatDate(item.updated_at)}} {{ $t('paid') }}
+                          </template>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div v-if="item.is_paid">
+                    <h3>{{ $t('payment_composition') }}</h3>
+                    <div  class="pb-2">
+                      <ul class="prt-p_table-features list-unstyled">
+                        <li v-for="value in item.invoice_items" :key="value.id" class="shadow">
+                          <div class="d-flex justify-content-between py-2">
+                            <span>{{ value.marathon.marathon_type.name }} <br> {{ value?.marathon?.name }}</span>
+                            <span class="text-end text-theme">{{ value.marathon.marathon_type.price }} <br> {{ settingStore.formatDate(value?.marathon?.event_has_marathon?.date_event) }}</span>
+                          </div>
+                          <div class="d-flex justify-content-between py-2">
+                            <span class="text-uppercase " :style="`color: ${value?.number_type.number_color}`" >
+                              {{ value?.number_type?.type }}
+                            </span>
+                            <span class="text-uppercase text-end" :style="`color: ${value?.number_type.number_color}`">
+                              {{ value.number }} <br>  {{ value?.number_price ? value?.number_price + ' sum' : '' }}
+                            </span>
+                          </div>
+                          <hr />
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 </div>
-              </template>
-            </div>
+              </div>
+            </template>
+
           </div>
-        </section>
+        </div>
+
       </div>
-    </div>
+
+    </section>
   </div>
 </template>
 

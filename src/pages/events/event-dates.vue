@@ -53,7 +53,6 @@ watch(()=>locale.value, async (language)=>{
 
 <template>
   <div>
-
     <div
       class="prt-page-title-row style1"
       :style="`background: url(https://api.roadrunning.uz/storage/${event.image});
@@ -94,6 +93,24 @@ watch(()=>locale.value, async (language)=>{
                 :navigation="true"
                 :space-between="50"
                 :loop="false"
+                :breakpoints="{
+                  960: {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                  },
+                  760: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                  },
+                  520: {
+                    slidesPerView: 1.5,
+                    spaceBetween: 20,
+                  },
+                  0: {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                  }
+                }"
               >
                 <SwiperSlide v-for="(marathon, marathonIndex) in date?.marathons" :key="marathonIndex">
                   <div>

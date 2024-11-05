@@ -428,3 +428,50 @@ footer .circular-main img {
     height: 100%;
     transition: width 1s linear;
 }
+
+.cart-fixed{
+    display: none;
+}
+
+.menu .mega-menu-item.mobile-responsive{
+    display: none;
+}
+
+@media (max-width: 1199px) {
+
+    .menu .mega-menu-item.mobile-responsive{
+        display: block;
+    }
+
+    .cart-fixed{
+        display: block;
+        position: fixed;
+        z-index: 999;
+        bottom: 50px;
+        right: 10px;
+        background: var(--base-skin);
+        border-radius: 50%;
+    }
+
+    .cart-fixed .cart-text{
+        color: white;
+    }
+
+    .custom{
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width: 1199px) {
+    .prt-page-title-row.style2.blog-single{
+        padding: 0;
+    }
+}
+
+
+@media (max-width: 991px) {
+    .mt-responsive{
+        margin-top: 60px;
+    }
+}

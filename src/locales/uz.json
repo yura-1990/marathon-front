@@ -113,5 +113,10 @@
   "invoices": "Hisob-fakturalar",
   "invoice_info": "Hisob-faktura ma'lumotlari",
   "cost": "Narx",
-  "logout": "Chiqish"
+  "logout": "Chiqish",
+  "invoice_number": "Hisob-faktura raqami",
+  "paid_with": "orqali to'langan",
+  "paid": "da to'langan",
+  "not_paid": "To'lanmagan",
+  "payment_composition": "To'lov tarkibi"
 }

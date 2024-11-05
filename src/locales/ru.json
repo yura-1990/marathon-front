@@ -113,5 +113,10 @@
   "invoices": "Счета",
   "invoice_info": "Информация о счете",
   "cost": "Стоимость",
-  "logout": "Выйти"
+  "logout": "Выйти",
+  "invoice_number": "Номер счета",
+  "paid_with": "Оплачено с помощью",
+  "paid": "Оплачено",
+  "not_paid": "Не оплачено",
+  "payment_composition": "Состав платежа"
 }

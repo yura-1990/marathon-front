@@ -113,5 +113,10 @@
   "invoices": "Invoices",
   "invoice_info": "Invoice info",
   "cost": "Cost",
-  "logout": "Logout"
+  "logout": "Logout",
+  "invoice_number": "Invoice number",
+  "paid_with": "Paid with",
+  "paid": "Paid on",
+  "not_paid": "Not Paid",
+  "payment_composition": "Payment composition"
 }

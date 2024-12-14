@@ -15,8 +15,7 @@ const {invoices} = storeToRefs(paymentStore)
 const settings = useSettingStore()
 const { user } = storeToRefs(settings)
 const userStore = useAuthStore()
-
-
+const { locale, availableLocales } = useI18n();
 const route = useRoute();
 
 function isActive(path: string): boolean
@@ -30,10 +29,10 @@ function isActive(path: string): boolean
 
 onMounted(()=>{
   settings.getToken()
-  paymentStore.getInvoice()
+  paymentStore.getInvoice(locale.value)
 })
 
-const { locale, availableLocales } = useI18n();
+
 const languages = computed(()=>availableLocales.filter(lang=>lang !== locale.value))
 
 function switcherLanguage(lang: string): void

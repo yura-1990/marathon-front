@@ -31,7 +31,7 @@ export const usePaymentStore = defineStore('payment', {
         this.payment = response.data
 
       } catch (error: any) {
-        this.error = 'No enough amount of money'
+        this.error = 'not_enough_funds'
         console.log('Error in event')
       }
     },
@@ -45,7 +45,7 @@ export const usePaymentStore = defineStore('payment', {
         console.log(response.data)
 
       } catch (error: any) {
-        this.errorCode = 'Code is not correct';
+        this.errorCode = 'code_not_correct';
         console.log('Error in event')
       }
     },

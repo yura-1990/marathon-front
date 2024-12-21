@@ -30,7 +30,6 @@ const elementStyle = ref({
 onMounted(async () => {
   await eventStore.getOneEvent(route.params.id, locale.value)
   await marathon.getMarathonTypes(locale.value)
-
   settingStore.getCarts()
 })
 

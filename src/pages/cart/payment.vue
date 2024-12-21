@@ -6,11 +6,13 @@ import { usePaymentStore } from '@/stores/payment'
 import { useTimeStore } from '@/stores/counter'
 import Swal from 'sweetalert2'
 import 'sweetalert2/src/sweetalert2.scss'
+import { useI18n } from 'vue-i18n'
 
 const settingStore = useSettingStore()
 const { carts } = storeToRefs(settingStore)
 const paymentStore = usePaymentStore()
 const { payment, error, invoiceStatus, errorCode } = storeToRefs(paymentStore)
+const { t } = useI18n();
 
 const cardInput = ref<string>('');
 const expirationDate = ref<string>('')
@@ -64,7 +66,7 @@ function expirationDateInput()
   expirationDate.value = formatExpirationDate(expirationDate.value);
 
   if (expirationDate.value.length < 5 && expirationDate.value.length >= 7) {
-    dateError.value = 'Expiration date must be in the format MM/YY';
+    dateError.value = t('expiration_date_format');
   } else {
     dateError.value = '';
   }
@@ -107,8 +109,8 @@ watch(()=>invoiceStatus.value, async ()=>{
     settingStore.getCarts()
 
     await Swal.fire({
-      title: 'Success!',
-      text: 'Operation was successful!',
+      title: t('success'),
+      text: t('operation_successful'),
       icon: 'success',
       confirmButtonText: 'OK',
       confirmButtonColor: '#304310',
@@ -126,7 +128,8 @@ function onInputChange (index: number)
 function verifyCode ()
 {
   const enteredCode = codes.value.join('')
-  const invoiceNumber = JSON.parse(localStorage.getItem('invoice_number'))
+  const storedValue = localStorage.getItem('invoice_number')
+  const invoiceNumber = storedValue ? JSON.parse(storedValue) : null
 
   const data = {
     invoice_id: invoiceNumber.id,
@@ -142,14 +145,16 @@ async function resendCode()
 {
   codes.value = ['', '', '', '', '', ''];
   timeStore.resetCountdown();
-  const invoiceId = JSON.parse(localStorage.getItem('invoice_number'));
+  const storedValue = localStorage.getItem('invoice_number');
+  const invoiceId = storedValue ? JSON.parse(storedValue) : null;
   await paymentStore.resetInvoice(invoiceId.id)
 }
 
 async function canselPayment()
 {
   paymentStatus.value = false
-  const invoiceId = JSON.parse(localStorage.getItem('invoice_number'));
+  const storedValue = localStorage.getItem('invoice_number');
+  const invoiceId = storedValue ? JSON.parse(storedValue) : null;
   await paymentStore.deleteInvoice(invoiceId.id)
   localStorage.removeItem('invoice_number')
 }
@@ -196,19 +201,19 @@ async function canselPayment()
                       <!--row one-->
                       <tr v-for="(item, index) in carts" :key="index">
                         <td>
-                          <p class="text-white text-start px-3 m-0 ">Name: <span class="fw-500 text-theme float-end">{{ item.participant.name }}</span></p>
-                          <p class="text-white text-start px-3 m-0 ">Phone: <span class="fw-500 text-theme float-end">{{ item.participant.phone }}</span></p>
-                          <p class="text-white text-start px-3 m-0 ">Email: <span class="fw-500 text-theme float-end">{{ item.participant.email }}</span></p>
-                          <p class="text-white text-start px-3 m-0 ">Address: <span class="fw-500 text-theme float-end">{{ item.participant.address }}</span></p>
-                          <p class="text-white text-start px-3 m-0 ">Number: <span class="fw-500 text-theme float-end">{{ item.number }}</span></p>
-                          <p class="text-white text-start px-3 m-0 ">Uniform: <span class="fw-500 text-theme float-end">{{ item.participant.uniform.size }}</span></p>
+                          <p class="text-white text-start px-3 m-0 ">{{ $t('name') }}: <span class="fw-500 text-theme float-end">{{ item.participant.name }}</span></p>
+                          <p class="text-white text-start px-3 m-0 ">{{ $t('phone_number') }}: <span class="fw-500 text-theme float-end">{{ item.participant.phone }}</span></p>
+                          <p class="text-white text-start px-3 m-0 ">{{ $t('email') }}: <span class="fw-500 text-theme float-end">{{ item.participant.email }}</span></p>
+                          <p class="text-white text-start px-3 m-0 ">{{ $t('address') }}: <span class="fw-500 text-theme float-end">{{ item.participant.address }}</span></p>
+                          <p class="text-white text-start px-3 m-0 ">{{ $t('number') }}: <span class="fw-500 text-theme float-end">{{ item.number }}</span></p>
+                          <p class="text-white text-start px-3 m-0 ">{{ $t('uniform') }}: <span class="fw-500 text-theme float-end">{{ item.participant.uniform.size }}</span></p>
                         </td>
                         <td rowspan="1">
                             <p class="margin_bottom0 text-white">{{ settingStore.formatNumber(item.description)  }} sum</p>
                         </td>
                       </tr>
                       <tr>
-                        <td><h4>Total </h4></td>
+                        <td><h4>{{ $t('total') }} </h4></td>
                         <td><h4>{{ settingStore.formatNumber(totalPrice) }}</h4></td>
                       </tr>
                       </tbody>
@@ -221,12 +226,12 @@ async function canselPayment()
           <div class="col-lg-4 mt-responsive prt-sticky-column">
             <div class="section-title title-style-center_text">
               <div class="title-header">
-                <h2 class="title">Cart</h2>
+                <h2 class="title">{{ $t('card') }}</h2>
               </div>
             </div>
             <div class="about-text res-991-mt-0">
               <div class="tm-scrollintetx-wrapper Frist">
-                <div class="big-title" style="transform: translateX(13.8062px);"> Cart </div>
+                <div class="big-title" style="transform: translateX(13.8062px);"> {{ $t('card') }} </div>
               </div>
             </div>
             <div class="prt-bg prt-col-bgimage-yes prt-col-bgcolor-yes  col-bg-img-four border-rad_30 h-auto">
@@ -259,18 +264,18 @@ async function canselPayment()
                             </div>
                             <span class="text-danger">{{ errorCode }}</span>
                             <p class="text-danger mt-2" v-if="timeStore.timeLeft > 0">
-                              Time remaining: {{ timeStore.formattedTime }} seconds
+                              {{ $t('time_remaining') }} {{ timeStore.formattedTime }} {{ $t('seconds') }}
                             </p>
                             <div v-if="timeStore.timeLeft === 0" class="mt-3">
-                              <small class="">Didn't receive the code? </small>
-                              <a href="#" class="text-decoration-none text-theme" @click.prevent="resendCode" >Resend</a>
+                              <small class="">{{ $t('didnt_receive_code') }} </small>
+                              <a href="#" class="text-decoration-none text-theme" @click.prevent="resendCode" >{{ $t('resend') }}</a>
                             </div>
                             <div v-if="timeStore.timeLeft > 0" class="d-flex justify-content-center">
                               <button type="submit" class="prt-btn prt-btn-size-md mt-10 w-100 text-uppercase prt-btn-shape-rounded prt-btn-style-border prt-btn-color-whitecolor">
-                                verify
+                                {{ $t('verify') }}
                               </button>
                               <button @click="canselPayment" type="button" class="prt-btn prt-btn-size-md mt-10 w-100 text-uppercase prt-btn-shape-rounded prt-btn-style-border prt-btn-color-whitecolor">
-                                cansel
+                                {{ $t('cancel') }}
                               </button>
                             </div>
                           </form>
@@ -286,7 +291,7 @@ async function canselPayment()
                             novalidate
                           >
                           <span class="text-input">
-                            <span class="heading-name">{{ $t('cart_number') }}</span>
+                            <span class="heading-name">{{ $t('card_number') }}</span>
                             <input
                               class="username"
                               type="text"
@@ -295,7 +300,7 @@ async function canselPayment()
                               maxlength="19"
                               @input="onCardInput"
                             />
-                            <span v-if="isValid" class="error">Invalid credit card number</span>
+                            <span v-if="isValid" class="error">{{ $t('invalid_credit_card_number') }}</span>
                           </span>
                             <span class="text-input">
                             <span class="heading-name">{{ $t('expire_date') }}</span>
@@ -318,10 +323,10 @@ async function canselPayment()
                               :value="settingStore.formatNumber(totalPrice).toString()"
                               :placeholder="settingStore.formatNumber(totalPrice).toString()"
                             />
-                              <span class="text-danger ">{{ error }}</span>
+                              <span class="text-danger ">{{ $t(error) }}</span>
                           </span>
                             <button class="prt-btn prt-btn-size-lg text-uppercase prt-btn-shape-rounded prt-btn-style-border prt-btn-color-whitecolor w-100 mt-20">
-                              pay
+                              {{ $t('pay') }}
                             </button>
                           </form>
                       </template>

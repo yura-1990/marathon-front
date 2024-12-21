@@ -35,7 +35,7 @@ interface Form {
   birth: string
   parent_name: string
   options: string
-  number: { number: string, numberType: any }
+  number: { number: string | number, numberType: any }
   uniform: any
   marathon: any,
   time: any
@@ -185,6 +185,7 @@ async function addCard(): Promise<void>
         participant_category_id: personInfo.value.participant_category_id,
         participant_uniform_id: Number(personInfo.value.uniform.id),
       }
+
       await cartStore.createNumberStatus(data)
       await singleMarathon.getSingleMarathon(route.params.id, locale.value)
       setTimeout(()=>{

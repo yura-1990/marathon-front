@@ -31,7 +31,7 @@ async function deleteCart(): Promise<void>
     <div class="qoute-text">
       <div>
         <h3>{{ cart.marathon.marathon_type.name }}
-          <span class="text-theme float-end">{{ cart.marathon.marathon_type ? settingStore.formatNumber(cart?.marathon?.marathon_type?.price) : 0 }}  <small>sum</small></span>
+          <span class="text-theme float-end">{{ cart.marathon.marathon_type ? settingStore.formatNumber(cart?.marathon?.price) : 0 }}  <small>sum</small></span>
         </h3>
         <h4>
           <span>{{ $t('date') }}: </span>

@@ -22,7 +22,7 @@ onMounted(async() => {
 const totalPrice = computed(() => {
   return carts.value.reduce((total, participant) => {
     const priceFromNumberType = Number(participant.number_price) || 0;
-    const marathonPrice = Number(participant.marathon.marathon_type.price) || 0;
+    const marathonPrice = Number(participant.marathon.price) || 0;
 
     return total + priceFromNumberType + marathonPrice;
   }, 0);
@@ -56,8 +56,7 @@ watch(()=>invoiceStatus.value, async ()=>{
                       <div class="qoute-text">
                         {{ $t('no_purchases_in_cart') }}
                       </div>
-                      <a class="prt-btn prt-btn-size-lg prt-btn-shape-rounded prt-btn-style-border prt-btn-color-whitecolor mt-20
-                                    " href="/events">{{ $t('participate') }}</a>
+                      <a class="prt-btn prt-btn-size-lg prt-btn-shape-rounded prt-btn-style-border prt-btn-color-whitecolor mt-20" href="/events">{{ $t('participate') }}</a>
                     </blockquote>
                   </template>
                 </div>

@@ -137,5 +137,7 @@
   "expiration_date_format": "Expiration date must be in the format MM/YY",
   "code_not_correct": "Code is not correct",
   "pay": "Pay",
-  "not_enough_funds": "Not enough funds"
+  "not_enough_funds": "Not enough funds",
+  "linked_phone_number_warning": "Attention! You will need to enter the phone number linked to your card.",
+  "no_active_invoices": "No active invoices"
 }

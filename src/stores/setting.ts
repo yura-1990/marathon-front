@@ -136,7 +136,7 @@ export const useSettingStore = defineStore('setting', {
       return '';
     },
 
-    validatePhone(input: string) {
+    validatePhone(input: string): boolean {
       const phonePattern = /^\+\d{3} \d{2} \d{3} \d{2} \d{2}$/;
       return phonePattern.test(input);
     },

@@ -3,7 +3,7 @@ import { ref, computed } from 'vue';
 
 export const useTimeStore = defineStore('timer', () => {
   const timeLeft = ref(0);
-  const timer = ref(null);
+  const timer = ref<any | number | null>(null);
 
   // Computed property to format timeLeft in "HH:MM" format
   const formattedTime = computed(() => {

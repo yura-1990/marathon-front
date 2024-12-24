@@ -136,5 +136,7 @@
   "expiration_date_format": "Срок действия должен быть в формате MM/YY",
   "code_not_correct": "Код неверный",
   "pay": "Платить",
-  "not_enough_funds": "Недостаточно средств"
+  "not_enough_funds": "Недостаточно средств",
+  "linked_phone_number_warning": "Внимание! Вам потребуется ввести номер телефона, привязанный к вашей карте.",
+  "no_active_invoices": "Нет активных счетов"
 }

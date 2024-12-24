@@ -11,7 +11,8 @@ const cartStore = useCartStore()
 const $toast = useToast();
 const settingStore = useSettingStore()
 const { cartStatus } = storeToRefs(cartStore)
-const timer = JSON.parse(localStorage.getItem('cart_time'))
+const timeData = localStorage.getItem('cart_time')
+const timer = timeData ?  JSON.parse(timeData) : ''
 
 const props = defineProps<{
   cart: any;
@@ -24,7 +25,6 @@ onMounted((): void => {
 
 const timeLeft = ref<string>('');
 const progressWidth = ref<number>(100);
-
 
 const initialTime = new Date(timer.time).getTime();
 console.log(new Date(timer.value))
@@ -57,7 +57,7 @@ function updateTimeLeft(): void
 }
 
 onUnmounted((): void => {
-  if (intervalId !== undefined) {
+  if (intervalId !== null) {
     clearInterval(intervalId);
   }
 });
@@ -69,6 +69,7 @@ async function onTimeOver (): Promise<void>
 
   if (cartStatus.value){
     $toast.info(t('remove_from_cart'))
+
     settingStore.deleteCarts(props.cart.id)
   }
 }

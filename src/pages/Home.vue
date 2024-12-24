@@ -16,7 +16,7 @@ const marathon = useMarathonStore()
 const { events } = storeToRefs(eventStore)
 const { locale } = useI18n();
 const settingStore = useSettingStore()
-const data = computed(()=>events.value?.data?.filter(el=>el?.status))
+const data = computed(()=>events.value?.data?.filter((el:any)=>el?.status))
 
 onMounted(async () => {
   await eventStore.getEvents(locale.value)

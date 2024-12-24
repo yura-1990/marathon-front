@@ -59,7 +59,7 @@ watch(()=>locale.value, async (language)=>{
             </template>
           </ul>
           <div class="content-tab w-100" id="v-pills-tabContent">
-            <template v-for="item in invoices?.invoices?.filter(el=>el?.id === invoiceId)" :key="item.id">
+            <template v-for="item in invoices?.invoices?.filter((el:any)=>el?.id === invoiceId)" :key="item.id">
               <div class="tab-pane content-inner fade show active" :id="`v-pills-${item.id}`" role="tabpanel" :aria-labelledby="`v-pills-${item.id}-tab`">
 
                 <div class="prt-pricing-plan">

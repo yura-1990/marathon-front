@@ -21,6 +21,9 @@ const isValid = ref<boolean>(false)
 const paymentStatus = ref<boolean>(false)
 const codes = ref<string[]>(['', '', '', '', '', '']);
 const inputs = ref<HTMLInputElement[]>([]);
+const phoneNumber = ref<string>('')
+const phoneErrors = ref<string>('')
+const isPhoneValid = ref(true)
 let timer: any;
 const timeStore = useTimeStore()
 
@@ -31,6 +34,11 @@ function onCardInput()
     isValid.value = !(digitsCount >= 15 && digitsCount <= 16)
   }
   cardInput.value = settingStore.maskCreditCard(cardInput.value)
+}
+
+function applyPhoneMask() {
+  phoneNumber.value = settingStore.maskPhone(phoneNumber.value)
+  isPhoneValid.value = settingStore.validatePhone(phoneNumber.value)
 }
 
 onMounted(()=>{
@@ -80,12 +88,18 @@ const totalPrice = computed(() => {
   }, 0);
 })
 
+function checkPhoneMask(){
+  phoneErrors.value = settingStore.validatePhone(phoneNumber.value) ? '' : t('phone_is_required')
+}
+
 async function submit(){
+
   const data = {
     cart_number: cardInput.value.toString(),
     expired_date: expirationDate.value.toString(),
     total_sum: totalPrice.value.toString(),
-    type: "Humo"
+    phone_number: phoneNumber.value.toString(),
+    type: "Marathone uz"
   }
 
   await paymentStore.createTransaction(data)
@@ -245,7 +259,7 @@ async function canselPayment()
                   <div class="time-zone-table1 table-responsive text-center mt_40 res-991-mt-0">
                     <div class="layer-content contact-form-block p-5 shadow-lg rounded-5">
                       <template v-if="carts.length === 0">
-                        <h3>No invoices</h3>
+                        <h3>{{ $t('no_active_invoices') }}</h3>
                       </template>
                       <template v-else-if="paymentStatus">
                         <div class="code">
@@ -280,8 +294,6 @@ async function canselPayment()
                             </div>
                           </form>
                         </div>
-
-
                       </template>
                       <template v-else>
                         <form
@@ -290,6 +302,7 @@ async function canselPayment()
                             class="wrap-form query_form-1 needs-validation contact_form"
                             novalidate
                           >
+                          <span class="text-danger ">{{ error.title }}</span>
                           <span class="text-input">
                             <span class="heading-name">{{ $t('card_number') }}</span>
                             <input
@@ -302,7 +315,8 @@ async function canselPayment()
                             />
                             <span v-if="isValid" class="error">{{ $t('invalid_credit_card_number') }}</span>
                           </span>
-                            <span class="text-input">
+
+                          <span class="text-input">
                             <span class="heading-name">{{ $t('expire_date') }}</span>
                             <input
                               class="email"
@@ -314,7 +328,7 @@ async function canselPayment()
                             />
                             <span v-if="dateError" class="error">{{ dateError }}</span>
                           </span>
-                            <span class="text-input">
+                          <span class="text-input">
                             <span class="heading-name">{{ $t('amount') }}</span>
                             <input
                               readonly
@@ -323,12 +337,28 @@ async function canselPayment()
                               :value="settingStore.formatNumber(totalPrice).toString()"
                               :placeholder="settingStore.formatNumber(totalPrice).toString()"
                             />
-                              <span class="text-danger ">{{ $t(error) }}</span>
+
                           </span>
-                            <button class="prt-btn prt-btn-size-lg text-uppercase prt-btn-shape-rounded prt-btn-style-border prt-btn-color-whitecolor w-100 mt-20">
-                              {{ $t('pay') }}
-                            </button>
-                          </form>
+                          <span class="text-input">
+                            <span class="heading-name">
+                               {{ $t('phone_number') }}
+                            </span>
+                            <input
+                              type="tel"
+                              v-model="phoneNumber"
+                              placeholder="+000 00 000 00 00"
+                              @input="applyPhoneMask"
+                              @blur="checkPhoneMask"
+                            />
+                            <span v-if="phoneErrors && !isPhoneValid" class="text-danger">{{ phoneErrors }}</span>
+                          </span>
+                          <span class="text-theme d-flex text-start">
+                            <span>{{ $t('linked_phone_number_warning') }}</span>
+                          </span>
+                          <button class="prt-btn prt-btn-size-lg text-uppercase prt-btn-shape-rounded prt-btn-style-border prt-btn-color-whitecolor w-100 mt-20">
+                            {{ $t('pay') }}
+                          </button>
+                        </form>
                       </template>
                     </div>
                   </div>

@@ -137,5 +137,7 @@
   "expiration_date_format": "Amal qilish muddati MM/YY formatida bo'lishi kerak",
   "code_not_correct": "Kod noto'g'ri",
   "pay": "To'lash",
-  "not_enough_funds": "Yetarli mablag' mavjud emas"
+  "not_enough_funds": "Yetarli mablag' mavjud emas",
+  "linked_phone_number_warning": "Diqqat! Kartangizga ulangan telefon raqamini kiritishingiz kerak bo‘ladi.",
+  "no_active_invoices": "Faol hisob-fakturalar mavjud emas"
 }

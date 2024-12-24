@@ -523,7 +523,7 @@ function clearPersonalInfo() {
                           <div class="prt-p_table-button"></div>
 
                           <ul class="numbers d-flex flex-wrap gap-3 list-unstyled">
-                            <template v-for="n in num.options.filter((el:any) => !marathon?.marathon.number_status.status ? !marathon?.marathon.number_status.find((it:any) => it.number == el && el !== 0) : true)" :key="n">
+                            <template v-for="n in num.options" :key="n">
                               <li
                                 v-if="n === 0"
                                 class="prt-btn numbers-item_continue prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill"
@@ -535,25 +535,23 @@ function clearPersonalInfo() {
                                   })
                                 "
                               >
-
                                 {{ $t('continue') }}
                               </li>
-                              <li
-                                v-else-if="
-                                  marathon?.marathon?.marathon_type.number_order_from <= n &&
-                                  marathon?.marathon?.marathon_type.number_order_to >= n
-                                "
-                                class="numbers-item"
-                                :class="{ 'active': personInfo?.number?.number == n }"
-                                @click="
+                              <template v-if="!marathon?.marathon.number_status.find((it:any) => it.number == n && n != 0)">
+                                <li
+                                  v-if=" Number(marathon?.marathon?.marathon_type.number_order_from) <= n && Number(marathon?.marathon?.marathon_type.number_order_to) >= n "
+                                  class="numbers-item"
+                                  :class="{ 'active': personInfo?.number?.number == n }"
+                                  @click="
                                   setNumber({
                                     number: n,
                                     numberType: num
                                   })
                                 "
-                              >
-                                {{ n }}
-                              </li>
+                                >
+                                  {{ n }}
+                                </li>
+                              </template>
 
                             </template>
                           </ul>

@@ -27,7 +27,6 @@ const timeLeft = ref<string>('');
 const progressWidth = ref<number>(100);
 
 const initialTime = new Date(timer.time).getTime();
-console.log(new Date(timer.value))
 
 const endTime = initialTime + 15 * 60 * 1000;
 let intervalId: number | null = null;

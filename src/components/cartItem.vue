@@ -37,7 +37,7 @@ async function deleteCart(): Promise<void>
           <span>{{ $t('date') }}: </span>
           <span class="text-theme">
             {{ settingStore.formatDate(cart.marathon.event_has_marathon.date_event)  }}
-                              <time>{{ cart.marathon.datetime_from }} - {{ cart.marathon.datetime_to }}</time>
+            <time>{{ cart.marathon.datetime_from }} - {{ cart.marathon.datetime_to }}</time>
           </span>
         </h4>
         <h4 class="prt-tags-links-title mt_10">

@@ -234,9 +234,9 @@ watch(()=>sendEmailStatusMessage.value, ()=>{
                      type="submit"
                      form="register"
             >
-              <div v-if="loading" class="spinner-border spinner-border-sm" role="status">
+              <span v-if="loading" class="spinner-border spinner-border-sm" role="status">
                 <span class="visually-hidden">Loading...</span>
-              </div>
+              </span>
             submit form
           </button>
           </div>

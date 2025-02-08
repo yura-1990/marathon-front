@@ -252,10 +252,13 @@ function clearPersonalInfo() {
                         settingStore?.formatDate(marathon?.marathon?.event_has_marathon?.date_event)
                       }}
                     </span>
-                    <span
-                      >{{ marathon?.marathon?.datetime_from }} -
-                      {{ marathon?.marathon?.datetime_to }}</span
-                    >
+                    <span>
+                      {{ marathon?.marathon?.datetime_from }}
+                      <template v-if="marathon?.marathon?.datetime_to">
+                        - {{ marathon?.marathon?.datetime_to }}
+                      </template>
+
+                    </span>
                   </h4>
                 </div>
               </div>
@@ -471,7 +474,7 @@ function clearPersonalInfo() {
                         </div>
                       </div>
 
-                      <div>
+                      <div class="d-flex flex-wrap align-items-center gap-4">
                         <div
                           class="form-check"
                           v-for="(value, valueIndex) in marathon?.uniforms"
@@ -487,11 +490,9 @@ function clearPersonalInfo() {
                             @blur="validateField('uniform_id')"
                           />
                           <label class="form-check-label" :for="'size-' + value.id">
-                            {{ value?.size }} - {{ value?.type }}
+                            {{ value?.size }}
                           </label>
-                          <span v-if="errors.uniform" class="text-danger">{{
-                            errors.uniform
-                          }}</span>
+                          <span v-if="errors.uniform" class="text-danger">{{ errors.uniform }}</span>
                         </div>
                       </div>
                     </div>
@@ -514,11 +515,11 @@ function clearPersonalInfo() {
                               <h3>{{ num?.type }}</h3>
                             </div>
                           </div>
-                          <div class="prt-p_table-amount float-end">
-                            <div class="prt-p_table-price">
+                          <div class="prt-p_table-amount float-custom-end">
+                            <div class="prt-p_table-price text-nowrap">
                               {{ num?.pivot?.price ? num.pivot.price + ' UZS' : 0 }}
                             </div>
-                            <div class="prt-p-blur-text right">/p</div>
+                            <div class="prt-p-blur-text right">{{ num?.type.charAt(0) }}</div>
                           </div>
                           <div class="prt-p_table-button"></div>
 

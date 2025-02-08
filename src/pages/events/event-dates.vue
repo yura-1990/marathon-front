@@ -115,7 +115,12 @@ watch(()=>locale.value, async (language)=>{
                   <div>
                     <div class="d-flex align-items-start justify-content-between py-2">
                       <div class="d-flex flex-column justify-content-center align-items-start ">
-                        <h6>{{ marathon?.datetime_from }} - {{ marathon?.datetime_to }}</h6>
+                        <h6>
+                          {{ marathon?.datetime_from }}
+                          <template v-if="marathon?.datetime_to">
+                            - {{ marathon?.datetime_to }}
+                          </template>
+                        </h6>
                       </div>
                       <template v-if="date?.status && marathon.participants.length <= Number(marathon.marathon_type.amount) ">
                         <RouterLink :to="`/participate/${marathon.id}`" class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-skincolor">
@@ -136,7 +141,7 @@ watch(()=>locale.value, async (language)=>{
                           </div>
                         </div>
                         <div class="carousel-caption d-none d-md-block">
-                          <h4 class="text-white ">{{ marathon.name }}</h4>
+                          <h4 class="text-white ">{{ marathon?.marathon_type?.name}}</h4>
                           <h6>{{ marathon?.gender?.type }}</h6>
                           <h6 class="text-white ">{{ marathon.price }} UZS</h6>
                         </div>

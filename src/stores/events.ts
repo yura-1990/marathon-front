@@ -11,7 +11,7 @@ interface State {
 export const useEventStore = defineStore('events',  {
   state: (): State => ({
     events: [],
-    event: []
+    event: [],
   }),
 
   actions: {
@@ -23,9 +23,7 @@ export const useEventStore = defineStore('events',  {
           }
         })
         this.events = response.data
-        console.log(response.data)
-
-      } catch (error: any) {
+       } catch (error: any) {
         console.log('Error in event')
       }
 
@@ -40,6 +38,8 @@ export const useEventStore = defineStore('events',  {
         })
 
         this.event = response.data
+
+        console.log(response.data)
 
       } catch (error: any) {
         console.log('Error in event')

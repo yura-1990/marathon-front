@@ -139,5 +139,6 @@
   "pay": "To'lash",
   "not_enough_funds": "Yetarli mablag' mavjud emas",
   "linked_phone_number_warning": "Diqqat! Kartangizga ulangan telefon raqamini kiritishingiz kerak bo‘ladi.",
-  "no_active_invoices": "Faol hisob-fakturalar mavjud emas"
+  "no_active_invoices": "Faol hisob-fakturalar mavjud emas",
+  "additional_options": "Qo‘shimcha variantlar"
 }

@@ -238,7 +238,7 @@ menu, ol, ul {
 }
 
 /** Typo Colors **/
-.border-color: { color: #CEC9C1;}
+.border-color { color: #CEC9C1;}
 .bodyfont-color { color: var(--base-bodyfont-color);}
 .headingfont-color { color: var(--base-headingfont-color); }
 
@@ -3027,4 +3027,18 @@ body .page.sticky-column {
     background-repeat: no-repeat;
     padding: 40px 40px 0;
     overflow: hidden;
+}
+
+.float-custom-end{
+    float: right !important;
+}
+
+.vh-30{
+    height: 30vh;
+}
+
+@media (min-width: 425px) {
+    .float-custom-end{
+        float: none !important;
+    }
 }

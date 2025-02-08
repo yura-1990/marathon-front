@@ -140,5 +140,8 @@
   "not_enough_funds": "Етарли маблағ мавжуд эмас",
   "linked_phone_number_warning": "Диққат! Картангизга уланган телефон рақамини киритишингиз керак бўлади.",
   "no_active_invoices": "Фаол ҳисоб-фактуралар мавжуд эмас",
-  "additional_options": "Қўшимча вариантлар"
+  "additional_options": "Қўшимча вариантлар",
+  "process": "Жараён",
+  "seat_left": "жой қолди",
+  "choose_date": "Санани танланг"
 }

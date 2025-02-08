@@ -139,5 +139,8 @@
   "not_enough_funds": "Недостаточно средств",
   "linked_phone_number_warning": "Внимание! Вам потребуется ввести номер телефона, привязанный к вашей карте.",
   "no_active_invoices": "Нет активных счетов",
-  "additional_options": "Дополнительные опции"
+  "additional_options": "Дополнительные опции",
+  "process": "Процесс",
+  "seat_left": "место осталось",
+  "choose_date": "Выберите дату"
 }

@@ -12,9 +12,9 @@ import { RouterLink } from 'vue-router'
 const eventStore = useEventStore()
 const marathon = useMarathonStore()
 const { events } = storeToRefs(eventStore)
-const { locale } = useI18n();
+const { locale, t } = useI18n();
 const settingStore = useSettingStore()
-const message = ref('&larr; Choose date')
+const message = ref('&larr; ' + t('choose_date'))
 const indexEvent = ref(0)
 const indexMarathon = ref(0)
 const marathons = ref([])
@@ -70,7 +70,6 @@ function showNumber(num){
 
 <template>
   <div>
-
     <div class="site-main">
       <section class="prt-row sticky-section clearfix">
         <div class="container">
@@ -89,7 +88,7 @@ function showNumber(num){
                                   <h4>{{ event.name }}</h4>
                                 </div>
                                 <div class="d-flex flex-column gap-1 ">
-                                  <template v-for="(date, marathonId) in event?.event_has_marathons" :key="id">
+                                  <template v-for="(date, marathonId) in event?.event_has_marathons" :key="marathonId">
                                     <div class="prt-btn prt-btn-size-md rounded-2 prt-btn-style-fill "
                                          :class="indexMarathon === marathonId ? 'prt-btn-color-skincolor' : 'border text-white'"
                                          @click="showEvent(date, eventIndex, marathonId)"
@@ -111,13 +110,13 @@ function showNumber(num){
                         <div class="col-lg-7">
                           <template v-if="marathons.length > 0">
                             <div class="featured-thumbnail mb-2">
-                              <div class="accordion" id="accordionPanelsStayOpenExample">
+                              <div class="accordion" :id="`accordionPanelsStayOpenExample-${eventIndex}`">
                                 <template v-for="(marathon, marathonIndex) in marathons" :key="marathonIndex">
                                   <div class="accordion-item">
-                                    <h2 class="accordion-header" :id="`panelsStayOpen-headingOne-${marathonIndex}`">
-                                      <button class="accordion-button d-flex align-items-center gap-3"
+                                    <h2 class="accordion-header" :id="`panelsStayOpen-headingOne-${marathon.id}`">
+                                      <button class="accordion-button collapsed d-flex align-items-center gap-3"
                                               type="button" data-bs-toggle="collapse"
-                                              :data-bs-target="`#panelsStayOpen-collapseOne-${marathonIndex}`"
+                                              :data-bs-target="`#panelsStayOpen-collapseOne-${marathon.id}`"
                                               aria-expanded="true" aria-controls="panelsStayOpen-collapseOne"
                                       >
                                         <span>{{ marathon?.marathon_type?.name }}</span>
@@ -140,25 +139,23 @@ function showNumber(num){
 
                                     </h2>
 
-                                    <div :id="`panelsStayOpen-collapseOne-${marathonIndex}`"
-                                         class="accordion-collapse collapse show"
-                                         :aria-labelledby="`panelsStayOpen-headingOne-${marathonIndex}`"
-                                         data-bs-parent="#accordionPanelsStayOpenExample"
+                                    <div :id="`panelsStayOpen-collapseOne-${marathon.id}`"
+                                         class="accordion-collapse collapse"
+                                         :aria-labelledby="`panelsStayOpen-headingOne-${marathon.id}`"
+                                         :data-bs-parent="`#accordionPanelsStayOpenExample-${eventIndex}`"
                                     >
                                       <div class="accordion-body">
-                                        <h5 class="text-dark">{{ $t('additional_options') }}:</h5>
+                                        <h5 class="text-dark d-flex align-items-center justify-content-between">{{ $t('additional_options') }}: <small class="text-info"> {{ marathon?.marathon_type?.amount - marathon?.participants_count }} {{ $t('seat_left') }}</small></h5>
+
                                         <template v-if="marathon.number_types.length > 0">
                                           <ul class="list-group">
                                             <template v-for="(number, numberIndex) in marathon.number_types" :key="numberIndex">
-                                              <li class="list-group-item list-group-item-action d-flex align-items-center justify-content-between"
-
-                                              >
+                                              <li class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">
                                                 <div class="d-flex gap-3 ">
                                                   <input :id="`number-${number.id}`"
                                                          @click="showNumber(number)"
                                                          :checked="checkedNumber?.id===number.id"
                                                          class="form-check-input me-1" type="checkbox"
-
                                                   >
                                                   <label  :for="`number-${number.id}`"><h5 class="text-theme ">{{ number.type }}</h5></label>
                                                 </div>
@@ -173,7 +170,7 @@ function showNumber(num){
                                         <RouterLink :to="`/participate/${marathon.id}`"  v-if="checkedNumber"
                                                     class="prt-btn d-flex align-items-center p-2 justify-content-center prt-btn-size-sm prt-btn-shape-rounded mt-3 prt-btn-style-fill prt-btn-color-skincolor"
                                         >
-                                          Process
+                                          {{ $t('participate') }}
                                         </RouterLink>
                                       </div>
                                     </div>
@@ -209,6 +206,199 @@ function showNumber(num){
           </div>
         </div>
       </section>
+
+<!--      <section class="bg-img6 pt-5 prt-bgimage-yes clearfix">-->
+<!--        <div class="container">-->
+<!--          <h3 class="mt-5 pt-5">News</h3>-->
+<!--          <div class="row">-->
+<!--            <div class="col-lg-12">-->
+<!--              <div class="pr-0">-->
+<!--                <div class="prt-tabs prt-tab-style-02">-->
+<!--                  <ul class="tabs">-->
+<!--                    <li class="tab">-->
+<!--                      <div class="featured-imagebox featured-imagebox-blog style3">-->
+<!--                        <div class="row g-0">-->
+<!--                          <div class="col-sm-4">-->
+<!--                            <div class="prt_single_image-wrapper">-->
+<!--                              <img class="img-fluid border-rad_15" src="/assets/images/flag-image.webp" alt="image"></div>-->
+<!--                          </div>-->
+<!--                          <div class="col-sm-8">-->
+<!--                            <div class="featured-box-content">-->
+<!--                              <div class="featured-heading">-->
+<!--                                July 21, 2024-->
+<!--                              </div>-->
+<!--                              <div class="featured-title">-->
+<!--                                <h3>-->
+<!--                                  Find Your Distance Below and Get Ready for the-->
+<!--                                  Summer’s Big Challenge</h3>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </li>-->
+<!--                    <li class="tab">-->
+<!--                      <div class="featured-imagebox featured-imagebox-blog style3">-->
+<!--                        <div class="row g-0">-->
+<!--                          <div class="col-sm-4">-->
+<!--                            <div class="prt_single_image-wrapper">-->
+<!--                              <img class="img-fluid border-rad_15" src="/assets/images/flag-3.webp" alt="image"></div>-->
+<!--                          </div>-->
+<!--                          <div class="col-sm-8">-->
+<!--                            <div class="featured-box-content">-->
+<!--                              <div class="featured-heading">-->
+<!--                                Jun 12, 2024-->
+<!--                              </div>-->
+<!--                              <div class="featured-title">-->
+<!--                                <h3>-->
+<!--                                  EXPLORING THE WORLD OF HIGH-OCTANE RACING ADVENTURES AND ENJOY</h3>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </li>-->
+<!--                    <li class="tab active">-->
+<!--                      <div class="featured-imagebox featured-imagebox-blog style3 mr-0">-->
+<!--                        <div class="row g-0">-->
+<!--                          <div class="col-sm-4">-->
+<!--                            <div class="prt_single_image-wrapper">-->
+<!--                              <img class="img-fluid border-rad_15" src="/assets/images/flag-2.webp" alt="image"></div>-->
+<!--                          </div>-->
+<!--                          <div class="col-sm-8">-->
+<!--                            <div class="featured-box-content ml_10 res-1199-ml-0">-->
+<!--                              <div class="featured-heading">-->
+<!--                                May 10, 2024-->
+<!--                              </div>-->
+<!--                              <div class="featured-title">-->
+<!--                                <h3>SPEED, THRILLS, AND VICTORY: EXPLORING THE WORLD OF-->
+<!--                                  HIGH-OCTANE RACING ADVENTURES</h3>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--                  <div class="content-tab">-->
+<!--                    &lt;!&ndash; content-inner &ndash;&gt;-->
+<!--                    <div class="content-inner" style="display: none;">-->
+<!--                      <div class="row g-0">-->
+<!--                        <div class="col-lg-5">-->
+<!--                          <div class="featured-imagebox featured-imagebox-blog style2">-->
+<!--                            <div class="featured-box-content">-->
+<!--                              <div class="featured-heading">-->
+<!--                                Latest articles-->
+<!--                              </div>-->
+<!--                              <div class="featured-title">-->
+<!--                                <h3><a href="blog-single.html" tabindex="0">-->
+<!--                                  Find Your Distance Below and Get Ready for the-->
+<!--                                  Summer’s Big Challenge</a></h3>-->
+<!--                              </div>-->
+<!--                              <div class="featured-box-desc">-->
+<!--                                <p>Delve into the Thrills of High-Speed Racing: Rev up-->
+<!--                                  Your Engines for an Unforgettable Journey on the Track</p>-->
+<!--                              </div>-->
+<!--                              <div class="prt-horizontal_sep mt-25 mb-20"></div>-->
+<!--                              <div class="post-meta">-->
+<!--                                <span class="prt-meta-line">Posted by</span>-->
+<!--                                <span class="prt-auther-name">Michel morron</span>-->
+<!--                              </div>-->
+<!--                              <div class="post-meta">-->
+<!--                                <span class="prt-meta-line">Posted date</span>-->
+<!--                                <span class="prt-auther-name"> July 21, 2024</span>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-lg-7">-->
+<!--                          <div class="prt_single_image-wrapper text-lg-end">-->
+<!--                            <img class="img-fluid" src="/assets/images/Photo-2_resized.jpg" alt="image">-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </div>&lt;!&ndash; content-inner end&ndash;&gt;-->
+<!--                    &lt;!&ndash; content-inner &ndash;&gt;-->
+<!--                    <div class="content-inner" style="display: none;">-->
+<!--                      <div class="row g-0">-->
+<!--                        <div class="col-md-5">-->
+<!--                          <div class="featured-imagebox featured-imagebox-blog style2">-->
+<!--                            <div class="featured-box-content">-->
+<!--                              <div class="featured-heading">-->
+<!--                                Latest articles-->
+<!--                              </div>-->
+<!--                              <div class="featured-title">-->
+<!--                                <h3><a href="blog-single.html" tabindex="0">-->
+<!--                                  EXPLORING THE WORLD OF HIGH-OCTANE RACING ADVENTURES AND ENJOY</a></h3>-->
+<!--                              </div>-->
+<!--                              <div class="featured-box-desc">-->
+<!--                                <p>Delve into the Thrills of High-Speed Racing: Rev up-->
+<!--                                  Your Engines for an Unforgettable Journey on the Track</p>-->
+<!--                              </div>-->
+<!--                              <div class="prt-horizontal_sep mt-25 mb-20"></div>-->
+<!--                              <div class="post-meta">-->
+<!--                                <span class="prt-meta-line">Posted by</span>-->
+<!--                                <span class="prt-auther-name">Spaler michel</span>-->
+<!--                              </div>-->
+<!--                              <div class="post-meta">-->
+<!--                                <span class="prt-meta-line">Posted date</span>-->
+<!--                                <span class="prt-auther-name"> Jun 12, 2024</span>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-7">-->
+<!--                          <div class="prt_single_image-wrapper text-lg-end">-->
+<!--                            <img class="img-fluid" src="/assets/images/sport-bg.jpg" alt="image">-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </div>&lt;!&ndash; content-inner end&ndash;&gt;-->
+<!--                    &lt;!&ndash; content-inner &ndash;&gt;-->
+<!--                    <div class="content-inner active" style="">-->
+<!--                      <div class="row g-0">-->
+<!--                        <div class="col-md-5">-->
+<!--                          <div class="featured-imagebox featured-imagebox-blog style2">-->
+<!--                            <div class="featured-box-content">-->
+<!--                              <div class="featured-heading">-->
+<!--                                Latest articles-->
+<!--                              </div>-->
+<!--                              <div class="featured-title">-->
+<!--                                <h3><a href="blog-single.html" tabindex="0">-->
+<!--                                  SPEED, THRILLS, AND VICTORY: EXPLORING THE WORLD OF-->
+<!--                                  HIGH-OCTANE RACING ADVENTURES</a></h3>-->
+<!--                              </div>-->
+<!--                              <div class="featured-box-desc">-->
+<!--                                <p>Delve into the Thrills of High-Speed Racing: Rev up-->
+<!--                                  Your Engines for an Unforgettable Journey on the Track</p>-->
+<!--                              </div>-->
+<!--                              <div class="prt-horizontal_sep mt-25 mb-20"></div>-->
+<!--                              <div class="post-meta">-->
+<!--                                <span class="prt-meta-line">Posted by</span>-->
+<!--                                <span class="prt-auther-name">henry stuf</span>-->
+<!--                              </div>-->
+<!--                              <div class="post-meta">-->
+<!--                                <span class="prt-meta-line">Posted date</span>-->
+<!--                                <span class="prt-auther-name">May 10, 2024</span>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-7">-->
+<!--                          <div class="prt_single_image-wrapper text-lg-end">-->
+<!--                            <img class="img-fluid" src="/assets/images/pre.jpg" alt="image">-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </div>&lt;!&ndash; content-inner end&ndash;&gt;-->
+<!--                  </div>-->
+
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </section>-->
     </div>
   </div>
 </template>

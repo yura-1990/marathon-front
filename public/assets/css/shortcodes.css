@@ -47,7 +47,7 @@
 /* ===============================================
     1.prt-row
 ------------------------*/
-.prt-row { padding: 120px 0;}
+.prt-row { padding-top: 120px;}
 .prt-row.padding_bottom_zero-section { padding: 120px 0 0; }
 .prt-row.padding_top_zero-section { padding: 0 0 120px; }
 .prt-row.padding_zero-section { padding: 0 0; }

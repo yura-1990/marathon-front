@@ -293,7 +293,7 @@ function clearPersonalInfo() {
                           placeholder="Habib"
                           @blur="validateField('name')"
                         />
-                        <span v-if="errors.name" class="text-danger">{{ errors.name }}</span>
+                        <span v-if="errors?.name" class="text-danger">{{ errors?.name }}</span>
                       </span>
                     </div>
                     <div class="col-lg-6">

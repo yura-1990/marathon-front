@@ -6,8 +6,6 @@ import Modal from '@/components/modal.vue'
 import { useSettingStore } from '@/stores/setting'
 import { onMounted, watch } from 'vue'
 import { storeToRefs } from 'pinia'
-import Timer from '@/components/timer.vue'
-import Offcanvas from '@/components/offcanvas.vue'
 const route = useRoute();
 const settingStore = useSettingStore()
 const { carts } = storeToRefs(settingStore)

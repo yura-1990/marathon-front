@@ -25,6 +25,7 @@ const isPhoneValid = ref(true)
 
 interface Form {
   name: string
+  last_name: string
   gender_id: number | null
   participant_category_id: number | null
   organization_id: number | null
@@ -43,6 +44,7 @@ interface Form {
 
 const personInfo = ref<Form>({
   name: '',
+  last_name: '',
   email: '',
   phone: '',
   gender_id: null,
@@ -61,6 +63,7 @@ const personInfo = ref<Form>({
 
 const errors = ref({
   name: '',
+  last_name: '',
   email: '',
   phone: '',
   gender_id: '',
@@ -96,6 +99,7 @@ onMounted(() => {
   if (!localStorage.getItem('carts')) {
     localStorage.setItem('carts', JSON.stringify(carts.value))
   }
+
 })
 
 watch(
@@ -122,6 +126,9 @@ function validateField(field: string): void {
   switch (field) {
     case 'name':
       errors.value.name = personInfo.value.name ? '' : t('name_is_required')
+      break
+    case 'last_name':
+      errors.value.name = personInfo.value.last_name ? '' : t('last_name_required')
       break
     case 'gender_id':
       errors.value.gender_id = personInfo.value.gender_id ? '' : t('please_select_a_gender')
@@ -174,6 +181,7 @@ async function addCard(): Promise<void>
         marathon_id: Number(route.params.id),
         number_type_id: Number(personInfo.value.number.numberType.id),
         participant_name: personInfo.value.name,
+        participant_last_name: personInfo.value.last_name,
         participant_email: personInfo.value.email,
         participant_phone: personInfo.value.phone,
         gender_id: Number(personInfo.value.gender_id),
@@ -204,6 +212,7 @@ async function addCard(): Promise<void>
 function clearPersonalInfo() {
   personInfo.value = {
     name: '',
+    last_name: '',
     email: '',
     phone: '',
     gender_id: null,
@@ -247,19 +256,16 @@ function clearPersonalInfo() {
                   >
                     <span>{{ marathon?.marathon?.marathon_type?.name }}</span>
                     <span>{{ marathon?.marathon?.price }} UZS</span>
-                    <span
-                      >{{
-                        settingStore?.formatDate(marathon?.marathon?.event_has_marathon?.date_event)
-                      }}
+                    <span>{{ settingStore?.formatDate(marathon?.marathon?.event_has_marathon?.date_event)}}
                     </span>
                     <span>
                       {{ marathon?.marathon?.datetime_from }}
                       <template v-if="marathon?.marathon?.datetime_to">
                         - {{ marathon?.marathon?.datetime_to }}
                       </template>
-
                     </span>
                   </h4>
+
                 </div>
               </div>
             </div>
@@ -267,8 +273,8 @@ function clearPersonalInfo() {
         </div>
       </div>
     </div>
-
     <div class="site-main">
+    <template v-if="marathon?.marathon?.marathon_type?.amount - marathon?.marathon?.participants_count > 0">
       <div class="position-relative top_130">
         <section class="prt-row from-section clearfix">
           <div class="container">
@@ -280,35 +286,48 @@ function clearPersonalInfo() {
               </div>
               <div class="contact-form-block p-5">
                 <form
-                  @submit.prevent="addCard"
-                  id="self-participation"
-                  class="wrap-form query_form-1 needs-validation contact_form"
-                  novalidate
+                    @submit.prevent="addCard"
+                    id="self-participation"
+                    class="wrap-form query_form-1 needs-validation contact_form"
+                    novalidate
                 >
                   <div class="row">
                     <div class="col-lg-6">
                       <span class="text-input">
                         <span class="heading-name">{{ $t('name') }}</span>
                         <input
-                          v-model="personInfo.name"
-                          class="username"
-                          type="text"
-                          placeholder="Habib"
-                          @blur="validateField('name')"
+                            v-model="personInfo.name"
+                            class="username"
+                            type="text"
+                            placeholder="Habib"
+                            @blur="validateField('name')"
                         />
                         <span v-if="errors?.name" class="text-danger">{{ errors?.name }}</span>
                       </span>
                     </div>
                     <div class="col-lg-6">
                       <span class="text-input">
+                        <span class="heading-name">{{ $t('last_name') }}</span>
+                        <input
+                            v-model="personInfo.last_name"
+                            class="username"
+                            type="text"
+                            placeholder="Maxmudov"
+                            @blur="validateField('last_name')"
+                        />
+                        <span v-if="errors?.last_name" class="text-danger">{{ errors?.last_name }}</span>
+                      </span>
+                    </div>
+                    <div class="col-lg-6">
+                      <span class="text-input">
                         <span class="heading-name">{{ $t('email') }}</span>
                         <input
-                          v-model="personInfo.email"
-                          class="email"
-                          type="text"
-                          placeholder="example@gmail.com"
-                          @input="validateEmailInput"
-                          @blur="validateField('email')"
+                            v-model="personInfo.email"
+                            class="email"
+                            type="text"
+                            placeholder="example@gmail.com"
+                            @input="validateEmailInput"
+                            @blur="validateField('email')"
                         />
                         <span v-if="errors.email && !isEmailValid" class="text-danger">{{ errors.email }}</span>
                       </span>
@@ -317,11 +336,11 @@ function clearPersonalInfo() {
                       <span class="text-input">
                         <span class="heading-name">{{ $t('phone_number') }}</span>
                         <input
-                          type="tel"
-                          v-model="personInfo.phone"
-                          placeholder="+000 00 000 00 00"
-                          @input="applyPhoneMask"
-                          @blur="validateField('phone')"
+                            type="tel"
+                            v-model="personInfo.phone"
+                            placeholder="+000 00 000 00 00"
+                            @input="applyPhoneMask"
+                            @blur="validateField('phone')"
                         />
                         <span v-if="errors.phone && !isPhoneValid" class="text-danger">{{ errors.phone }}</span>
                       </span>
@@ -334,13 +353,13 @@ function clearPersonalInfo() {
                         <template v-for="(gen, genIndex) in marathon?.genders" :key="genIndex">
                           <div class="form-check">
                             <input
-                              class="form-check-input"
-                              :value="gen.id"
-                              type="radio"
-                              name="gender"
-                              :id="'type' + gen.id"
-                              v-model="personInfo.gender_id"
-                              @blur="validateField('gender_id')"
+                                class="form-check-input"
+                                :value="gen.id"
+                                type="radio"
+                                name="gender"
+                                :id="'type' + gen.id"
+                                v-model="personInfo.gender_id"
+                                @blur="validateField('gender_id')"
                             />
                             <label class="custom-radio" :for="'type' + gen.id">
                               {{ gen.type }}
@@ -349,13 +368,13 @@ function clearPersonalInfo() {
                         </template>
                       </div>
                       <span v-if="errors.gender_id" class="text-danger">{{
-                        errors.gender_id
-                      }}</span>
+                          errors.gender_id
+                        }}</span>
                     </div>
                     <div class="col-lg-6">
                       <span class="text-input">
                         <label for="regionIndex">
-                          <span class="heading-name">{{ $t('regions') }}</span>
+                          <span class="heading-name">{{ $t('country') }}</span>
                         </label>
                         <select v-model="personInfo.region_id" class="form-control-lg participant-bg-color" id="regionIndex" @blur="validateField('region_id')">
                           <option v-for="(value, valueIndex) in marathon?.regions"
@@ -364,18 +383,18 @@ function clearPersonalInfo() {
                           >{{ value.name }}</option>
                         </select>
                         <span v-if="errors.region_id" class="text-danger">{{
-                          errors.region_id
-                        }}</span>
+                            errors.region_id
+                          }}</span>
                       </span>
                     </div>
                     <div class="col-lg-6">
                       <span class="text-input">
                         <span class="heading-name">{{ $t('address') }}</span>
                         <input
-                          type="text"
-                          v-model="personInfo.address"
-                          :placeholder="$t('city') + ', ' + $t('street') + ', #' +  $t('home_number')"
-                          @blur="validateField('address')"
+                            type="text"
+                            v-model="personInfo.address"
+                            :placeholder="$t('city') + ', ' + $t('street') + ', #' +  $t('home_number')"
+                            @blur="validateField('address')"
                         />
                         <span v-if="errors.address" class="text-danger">{{ errors.address }}</span>
                       </span>
@@ -384,43 +403,13 @@ function clearPersonalInfo() {
                       <span class="text-input">
                         <span class="heading-name">{{ $t('birth') }}</span>
                         <input
-                          type="date"
-                          v-model="personInfo.birth"
-                          @blur="validateField('birth')"
+                            type="date"
+                            v-model="personInfo.birth"
+                            @blur="validateField('birth')"
                         />
 
                         <span v-if="errors.birth" class="text-danger">{{ errors.birth }}</span>
                       </span>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-check m-0 p-0">
-                        <div class="d-flex align-items-center gap-3">
-                          <input
-                            class="form-check-input m-0"
-                            type="checkbox"
-                            v-model="hasParent"
-                            id="parent"
-                          />
-                          <label class="form-check-label text-theme" for="parent">
-                            <span class="heading-name custom-parent">{{
-                              hasParent ? $t('parent_name') : $t('if_child')
-                            }}</span>
-                          </label>
-                        </div>
-                        <template v-if="hasParent">
-                          <span class="text-input">
-                            <input
-                              type="text"
-                              v-model="personInfo.parent_name"
-                              placeholder="Habib Mahmudov"
-                              @blur="validateField('parent_name')"
-                            />
-                            <span v-if="hasParent && errors.parent_name" class="text-danger">{{
-                              errors.parent_name
-                            }}</span>
-                          </span>
-                        </template>
-                      </div>
                     </div>
 
                     <div class="col-lg-6">
@@ -429,17 +418,17 @@ function clearPersonalInfo() {
                           <span class="heading-name">{{ $t('organization') }}</span>
                         </label>
                         <input
-                          v-model="personInfo.organization_id"
-                          class="form-control"
-                          list="organizationOptions"
-                          id="organizationIndex"
-                          :placeholder="$t('type_or_choose')"
+                            v-model="personInfo.organization_id"
+                            class="form-control"
+                            list="organizationOptions"
+                            id="organizationIndex"
+                            :placeholder="$t('type_or_choose')"
                         />
                         <datalist id="organizationOptions">
                           <option
-                            v-for="(value, valueIndex) in marathon?.organizations"
-                            :value="value.name"
-                            :key="valueIndex"
+                              v-for="(value, valueIndex) in marathon?.organizations"
+                              :value="value.name"
+                              :key="valueIndex"
                           />
                         </datalist>
                       </span>
@@ -451,20 +440,51 @@ function clearPersonalInfo() {
                           <span class="heading-name">{{ $t('category') }}</span>
                         </label>
                         <input
-                          v-model="personInfo.participant_category_id"
-                          class="form-control"
-                          list="participantCategoryOptions"
-                          id="participantCategoryIndex"
-                          :placeholder="$t('type_or_choose')"
+                            v-model="personInfo.participant_category_id"
+                            class="form-control"
+                            list="participantCategoryOptions"
+                            id="participantCategoryIndex"
+                            :placeholder="$t('type_or_choose')"
                         />
                         <datalist id="participantCategoryOptions">
                           <option
-                            v-for="(value, valueIndex) in marathon?.participantCategories"
-                            :value="value.type"
-                            :key="valueIndex"
+                              v-for="(value, valueIndex) in marathon?.participantCategories"
+                              :value="value.type"
+                              :key="valueIndex"
                           />
                         </datalist>
                       </span>
+                    </div>
+
+                    <div class="col-lg-6">
+                      <div class="form-check m-0 p-0">
+                        <div class="d-flex align-items-center gap-3">
+                          <input
+                              class="form-check-input m-0"
+                              type="checkbox"
+                              v-model="hasParent"
+                              id="parent"
+                          />
+                          <label class="form-check-label text-theme" for="parent">
+                            <span class="heading-name custom-parent">{{
+                                hasParent ? $t('parent_name') : $t('if_child')
+                              }}</span>
+                          </label>
+                        </div>
+                        <template v-if="hasParent">
+                          <span class="text-input">
+                            <input
+                                type="text"
+                                v-model="personInfo.parent_name"
+                                placeholder="Habib Mahmudov"
+                                @blur="validateField('parent_name')"
+                            />
+                            <span v-if="hasParent && errors.parent_name" class="text-danger">{{
+                                errors.parent_name
+                              }}</span>
+                          </span>
+                        </template>
+                      </div>
                     </div>
 
                     <div class="col-lg-12 mt-5 py-5">
@@ -476,18 +496,18 @@ function clearPersonalInfo() {
 
                       <div class="d-flex flex-wrap align-items-center gap-4">
                         <div
-                          class="form-check"
-                          v-for="(value, valueIndex) in marathon?.uniforms"
-                          :key="valueIndex"
+                            class="form-check"
+                            v-for="(value, valueIndex) in marathon?.uniforms"
+                            :key="valueIndex"
                         >
                           <input
-                            class="form-check-input"
-                            v-model="personInfo.uniform"
-                            type="radio"
-                            name="uniform"
-                            :value="value"
-                            :id="'size-' + value.id"
-                            @blur="validateField('uniform_id')"
+                              class="form-check-input"
+                              v-model="personInfo.uniform"
+                              type="radio"
+                              name="uniform"
+                              :value="value"
+                              :id="'size-' + value.id"
+                              @blur="validateField('uniform_id')"
                           />
                           <label class="form-check-label" :for="'size-' + value.id">
                             {{ value?.size }}
@@ -504,9 +524,9 @@ function clearPersonalInfo() {
                         </div>
                       </div>
                       <div
-                        v-for="(num, numIndex) in marathon?.marathon?.number_types"
-                        :key="numIndex"
-                        class="pricing-plan"
+                          v-for="(num, numIndex) in marathon?.marathon?.number_types"
+                          :key="numIndex"
+                          class="pricing-plan"
                       >
                         <div class="pricing-table-heading">
                           <div class="prt-p-blur-text">{{ num?.type.charAt(0) }}</div>
@@ -526,10 +546,10 @@ function clearPersonalInfo() {
                           <ul class="numbers d-flex flex-wrap gap-3 list-unstyled">
                             <template v-for="n in num.options" :key="n">
                               <li
-                                v-if="n === 0"
-                                class="prt-btn numbers-item_continue prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill"
-                                :class="{ 'active': personInfo.number.number == '0' }"
-                                @click="
+                                  v-if="n === 0"
+                                  class="prt-btn numbers-item_continue prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill"
+                                  :class="{ 'active': personInfo.number.number == '0' }"
+                                  @click="
                                   setNumber({
                                     number: n,
                                     numberType: num
@@ -540,10 +560,10 @@ function clearPersonalInfo() {
                               </li>
                               <template v-if="!marathon?.marathon.number_status.find((it:any) => it.number == n && n != 0)">
                                 <li
-                                  v-if=" Number(marathon?.marathon?.marathon_type.number_order_from) <= n && Number(marathon?.marathon?.marathon_type.number_order_to) >= n "
-                                  class="numbers-item"
-                                  :class="{ 'active': personInfo?.number?.number == n }"
-                                  @click="
+                                    v-if=" Number(marathon?.marathon?.marathon_type.number_order_from) <= n && Number(marathon?.marathon?.marathon_type.number_order_to) >= n "
+                                    class="numbers-item"
+                                    :class="{ 'active': personInfo?.number?.number == n }"
+                                    @click="
                                   setNumber({
                                     number: n,
                                     numberType: num
@@ -563,9 +583,9 @@ function clearPersonalInfo() {
                     <div class="col-lg-12">
                       <div class="d-flex align-items-center justify-content-between gap-3">
                         <button
-                          :disabled="loading"
-                          class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-skincolor"
-                          type="submit"
+                            :disabled="loading"
+                            class="prt-btn prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-skincolor"
+                            type="submit"
                         >
                           <div v-if="loading" class="spinner-border spinner-border-sm" role="status">
                             <span class="visually-hidden">Loading...</span>
@@ -589,9 +609,9 @@ function clearPersonalInfo() {
                 <div class="ticket-box res-991-mt-30">
                   <div class="prt_single_image-wrapper d-inline-block">
                     <img
-                      class="img-fluid"
-                      src="/assets/images/single-img-12-158x158.webp"
-                      alt="img"
+                        class="img-fluid"
+                        src="/assets/images/single-img-12-158x158.webp"
+                        alt="img"
                     />
                   </div>
                   <div class="prt_single_image-wrapper style4"></div>
@@ -608,9 +628,9 @@ function clearPersonalInfo() {
               <div class="col-lg-4">
                 <div class="prt_single_image-wrapper">
                   <img
-                    class="img-fluid border-rad_20 mb-5"
-                    src="/assets/images/sport-bg.jpg"
-                    alt="img"
+                      class="img-fluid border-rad_20 mb-5"
+                      src="/assets/images/sport-bg.jpg"
+                      alt="img"
                   />
                 </div>
               </div>
@@ -618,6 +638,21 @@ function clearPersonalInfo() {
           </div>
         </section>
       </div>
+    </template>
+    <template v-else>
+      <div class="position-relative">
+        <div class="container vh-30 d-flex align-items-center justify-content-center">
+          <div class="py-3 px-4 border-rad_30 res-991-mt-30">
+            <div class="section-title title-style-center_text">
+              <div class="title-header">
+                <h2 class="title">{{ $t('no_space_for_participation') }}</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+
     </div>
   </div>
 </template>

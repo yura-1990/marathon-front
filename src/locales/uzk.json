@@ -76,6 +76,7 @@
   "phone_number": "Телефон рақами",
   "gender": "Жинс",
   "regions": "Минтақалар",
+  "country": "Мамлакат",
   "address": "Манзил",
   "parent_name": "Ота-она исми",
   "if_child": "Агар бола бўлса",
@@ -143,5 +144,8 @@
   "additional_options": "Қўшимча вариантлар",
   "process": "Жараён",
   "seat_left": "жой қолди",
-  "choose_date": "Санани танланг"
+  "choose_date": "Санани танланг",
+  "last_name": "Фамилия",
+  "last_name_required": "Фамилия киритилиши шарт",
+  "no_space_for_participation": "Сизнинг иштирок этишингизга жой қолмади"
 }

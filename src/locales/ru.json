@@ -76,6 +76,7 @@
   "phone_number": "Номер телефона",
   "gender": "Пол",
   "regions": "Регионы",
+  "country": "Страна",
   "address": "Адрес",
   "parent_name": "Имя родителя",
   "if_child": "Если ребенок",
@@ -142,5 +143,8 @@
   "additional_options": "Дополнительные опции",
   "process": "Процесс",
   "seat_left": "место осталось",
-  "choose_date": "Выберите дату"
+  "choose_date": "Выберите дату",
+  "last_name": "Фамилия",
+  "last_name_required": "Фамилия обязательна",
+  "no_space_for_participation": "Для вашего участия мест не осталось"
 }

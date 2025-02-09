@@ -76,6 +76,7 @@
   "phone_number": "Telefon raqami",
   "gender": "Jins",
   "regions": "Mintaqalar",
+  "country": "Mamlakat",
   "address": "Manzil",
   "parent_name": "Ota-ona ismi",
   "if_child": "Agar bola bo'lsa",
@@ -143,5 +144,8 @@
   "additional_options": "Qo‘shimcha variantlar",
   "process": "Jarayon",
   "seat_left": "joy qoldi",
-  "choose_date": "Sanani tanlang"
+  "choose_date": "Sanani tanlang",
+  "last_name": "Familiya",
+  "last_name_required": "Familiya kiritilishi shart",
+  "no_space_for_participation": "Sizning ishtirok etishingizga joy qolmadi"
 }

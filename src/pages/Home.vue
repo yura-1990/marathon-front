@@ -60,6 +60,8 @@ function showEvent(date, eventId, marathonId){
 
   indexEvent.value = eventId;
   indexMarathon.value = marathonId;
+
+  console.log(date.marathons)
 }
 
 function showNumber(num){

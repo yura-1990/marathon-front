@@ -76,6 +76,7 @@
   "email": "Email",
   "gender": "Gender",
   "regions": "Regions",
+  "country": "Country",
   "address": "Address",
   "parent_name": "Parent Name",
   "if_child": "If Child",
@@ -143,5 +144,8 @@
   "additional_options": "Additional Options",
   "process": "Process",
   "seat_left": "seat left",
-  "choose_date": "Choose date"
+  "choose_date": "Choose date",
+  "last_name": "Last name",
+  "last_name_required": "Last name is required",
+  "no_space_for_participation": "No space left for your participation"
 }

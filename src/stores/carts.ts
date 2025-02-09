@@ -25,6 +25,8 @@ export const useCartStore = defineStore('carts',  {
                 localStorage.setItem('carts', JSON.stringify(this.carts))
                 localStorage.setItem('cart_time', JSON.stringify({ time: new Date() }))
 
+                console.log(response.data)
+
 
             } catch (error: any) {
                 console.log('Error in event')

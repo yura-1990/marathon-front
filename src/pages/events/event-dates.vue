@@ -140,7 +140,7 @@ watch(()=>locale.value, async (language)=>{
                             <img width="480" height="330" class="img-fluid" :src="`https://api.roadrunning.uz/storage/${image}`" alt="">
                           </div>
                         </div>
-                        <div class="carousel-caption d-none d-md-block">
+                        <div class="carousel-caption d-md-block">
                           <h4 class="text-white ">{{ marathon?.marathon_type?.name}}</h4>
                           <h6>{{ marathon?.gender?.type }}</h6>
                           <h6 class="text-white ">{{ marathon.price }} UZS</h6>

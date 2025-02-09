@@ -284,7 +284,7 @@ function clearPersonalInfo() {
                   <h2 class="title">{{ $t('personal_info') }}</h2>
                 </div>
               </div>
-              <div class="contact-form-block p-5">
+              <div class="contact-form-block">
                 <form
                     @submit.prevent="addCard"
                     id="self-participation"
@@ -494,14 +494,14 @@ function clearPersonalInfo() {
                         </div>
                       </div>
 
-                      <div class="d-flex flex-wrap align-items-center gap-4">
+                      <div class="row align-items-center">
                         <div
-                            class="form-check"
+                            class="col-md-3 col-6 d-flex align-items-center gap-3"
                             v-for="(value, valueIndex) in marathon?.uniforms"
                             :key="valueIndex"
                         >
                           <input
-                              class="form-check-input"
+                              class="form-check-input h3"
                               v-model="personInfo.uniform"
                               type="radio"
                               name="uniform"
@@ -509,7 +509,7 @@ function clearPersonalInfo() {
                               :id="'size-' + value.id"
                               @blur="validateField('uniform_id')"
                           />
-                          <label class="form-check-label" :for="'size-' + value.id">
+                          <label class="form-check-label h4" :for="'size-' + value.id">
                             {{ value?.size }}
                           </label>
                           <span v-if="errors.uniform" class="text-danger">{{ errors.uniform }}</span>
@@ -526,24 +526,15 @@ function clearPersonalInfo() {
                       <div
                           v-for="(num, numIndex) in marathon?.marathon?.number_types"
                           :key="numIndex"
-                          class="pricing-plan"
+                          class="pricing-plan mt-3"
                       >
                         <div class="pricing-table-heading">
-                          <div class="prt-p-blur-text">{{ num?.type.charAt(0) }}</div>
-                          <div class="pricing-head">
-                            <div class="prt-p_table-title">
-                              <h3>{{ num?.type }}</h3>
-                            </div>
+                          <div class="d-flex align-items-center justify-content-between flex-wrap">
+                            <h3>{{ num?.type }}</h3>
+                            <p class="h2 text-info">{{ num?.pivot?.price ? num.pivot.price + ' UZS' : 0 }}</p>
                           </div>
-                          <div class="prt-p_table-amount float-custom-end">
-                            <div class="prt-p_table-price text-nowrap">
-                              {{ num?.pivot?.price ? num.pivot.price + ' UZS' : 0 }}
-                            </div>
-                            <div class="prt-p-blur-text right">{{ num?.type.charAt(0) }}</div>
-                          </div>
-                          <div class="prt-p_table-button"></div>
 
-                          <ul class="numbers d-flex flex-wrap gap-3 list-unstyled">
+                          <ul class="numbers row row-cols-md-4 justify-content-md-start justify-content-center row-gap-3 column-gap-3  list-unstyled">
                             <template v-for="n in num.options" :key="n">
                               <li
                                   v-if="n === 0"

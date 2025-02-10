@@ -276,7 +276,7 @@ async function canselPayment()
                                 @input="onInputChange(index)"
                               />
                             </div>
-                            <span class="text-danger">{{ errorCode }}</span>
+                            <span class="text-danger">{{ errorCode?.title }}</span>
                             <p class="text-danger mt-2" v-if="timeStore.timeLeft > 0">
                               {{ $t('time_remaining') }} {{ timeStore.formattedTime }} {{ $t('seconds') }}
                             </p>

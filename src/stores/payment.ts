@@ -2,7 +2,6 @@ import { defineStore } from 'pinia'
 import axiosInstance from '@/axios'
 import axios, { type AxiosResponse } from 'axios'
 
-
 interface State {
   payment: Array<any>
   code: string
@@ -36,26 +35,26 @@ export const usePaymentStore = defineStore('payment', {
         if (axios.isAxiosError(error)) {
           // Check if error.response is defined
           this.error = 'not_enough_funds'
-
-          if (error.response) {
-            const status = error.response.status;
-
-            if (status === 404) {
-              this.error = 'not_found'; // Handle 404 error
-              console.log('404 Error: Resource not found');
-            } else if (status === 400) {
-              this.error = error.response.data.errors; // Handle 400 error
-              console.log('400 Error: Bad request');
-
-            } else {
-              this.error = 'server_error'; // General server error
-              console.log(`Error: ${status}`, error.response.data);
-            }
-          } else {
-            // Network or other Axios error without a response
-            this.error = 'network_error';
-            console.log('Network error or no response', error.message);
-          }
+          this.error = error.response.data.errors;
+          // if (error.response) {
+          //   const status = error.response.status;
+          //
+          //   if (status === 404) {
+          //     this.error = 'not_found'; // Handle 404 error
+          //     console.log('404 Error: Resource not found');
+          //   } else if (status === 400) {
+          //      // Handle 400 error
+          //     console.log('400 Error: Bad request');
+          //
+          //   } else {
+          //     this.error = 'server_error'; // General server error
+          //     console.log(`Error: ${status}`, error.response.data);
+          //   }
+          // } else {
+          //   // Network or other Axios error without a response
+          //   this.error = 'network_error';
+          //   console.log('Network error or no response', error.message);
+          // }
         } else {
           // Handle non-Axios errors
           this.error = 'unknown_error';
@@ -80,18 +79,17 @@ export const usePaymentStore = defineStore('payment', {
 
           if (error.response) {
             const status = error.response.status;
-
-            if (status === 404) {
-              this.errorCode = {title: 'not_found'}; // Handle 404 error
-              console.log('404 Error: Resource not found');
-            } else if (status === 400) {
-              this.errorCode = error.response.data.errors; // Handle 400 error
-              console.log('400 Error: Bad request');
-
-            } else {
-              this.errorCode = {title: 'server_error'} ; // General server error
-              console.log(`Error: ${status}`, error.response.data);
-            }
+            this.errorCode = error.response.data.errors;
+            // if (status === 404) {
+            //   this.errorCode = {title: 'not_found'}; // Handle 404 error
+            //   console.log('404 Error: Resource not found');
+            // } else if (status === 400) {
+            //    // Handle 400 error
+            //   console.log('400 Error: Bad request');
+            // } else {
+            //   this.errorCode = {title: 'server_error'} ; // General server error
+            //   console.log(`Error: ${status}`, error.response.data);
+            // }
           } else {
             // Network or other Axios error without a response
             this.error = 'network_error';
@@ -115,6 +113,8 @@ export const usePaymentStore = defineStore('payment', {
           // Check if error.response is defined
           this.error = 'not_enough_funds'
 
+          this.error = error.response.data.errors;
+
           if (error.response) {
             const status = error.response.status;
 
@@ -122,7 +122,7 @@ export const usePaymentStore = defineStore('payment', {
               this.error = 'not_found'; // Handle 404 error
               console.log('404 Error: Resource not found');
             } else if (status === 400) {
-              this.error = error.response.data.errors; // Handle 400 error
+               // Handle 400 error
               console.log('400 Error: Bad request');
 
             } else {

@@ -147,5 +147,7 @@
   "choose_date": "Choose date",
   "last_name": "Last name",
   "last_name_required": "Last name is required",
-  "no_space_for_participation": "No space left for your participation"
+  "no_space_for_participation": "No space left for your participation",
+  "new": "New",
+  "news": "News"
 }

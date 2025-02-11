@@ -146,5 +146,7 @@
   "choose_date": "Выберите дату",
   "last_name": "Фамилия",
   "last_name_required": "Фамилия обязательна",
-  "no_space_for_participation": "Для вашего участия мест не осталось"
+  "no_space_for_participation": "Для вашего участия мест не осталось",
+  "new": "Новый",
+  "news": "Новости"
 }

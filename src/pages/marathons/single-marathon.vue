@@ -39,7 +39,10 @@ watch(()=>locale.value, async (language)=>{
           <div class="col-lg-12">
             <div class="prt-page-title-row-heading">
               <div class="prt-page-title-link d-flex align-items-center">
-                <RouterLink :to="`/participate/${singleMarathons.id}`" v-if="singleMarathons?.event_has_marathon?.status" class="prt-btn border-0 prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-skincolor me-3">
+                <RouterLink :to="`/participate/${singleMarathons.id}`"
+                            v-if="singleMarathons?.event_has_marathon?.status"
+                            class="prt-btn border-0 prt-btn-size-md prt-btn-shape-rounded prt-btn-style-fill prt-btn-color-skincolor me-3"
+                >
                   {{ $t('participate') }}
                 </RouterLink>
 
@@ -51,20 +54,24 @@ watch(()=>locale.value, async (language)=>{
                     <span>
                       {{ settingStore.formatDate(singleMarathons?.event_has_marathon?.date_event) }}
                     </span>
-                    <span>{{ singleMarathons?.datetime_from }} - {{ singleMarathons?.datetime_to }}</span>
+                    <span>
+                      {{ singleMarathons?.datetime_from }}
+                      <template v-if="singleMarathons?.datetime_to">
+                        - {{ singleMarathons?.datetime_to }}
+                      </template>
+                    </span>
                   </div>
                 </div>
                 <div class="post-date">
                   <i class="fa-light fa-user"></i>
-                  <span> {{ singleMarathons?.participants ? singleMarathons.participants.length : 0 }} {{ $t('participants') }}</span>
+                  <span> {{ singleMarathons.participants_count }} {{ $t('participants') }}</span>
                 </div>
               </div>
               <div class="prt-page-title-details">
-
               </div>
               <div class="page-title-heading">
                 <h2 class="title">{{ singleMarathons?.name }}</h2>
-                <p class="text-white ">{{ singleMarathons?.description }}</p>
+                <p class="text-white " v-html="singleMarathons.description"></p>
                 <h4 class="text-white ">{{ singleMarathons?.price }} UZS</h4>
               </div>
             </div>

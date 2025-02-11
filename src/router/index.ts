@@ -11,6 +11,7 @@ import Events from "@/pages/events/events.vue";
 import Payment from '@/pages/cart/payment.vue'
 import Invoices from '@/pages/cart/invoices.vue'
 import Cookies from 'js-cookie'
+import News from "@/pages/news.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -53,6 +54,11 @@ const router = createRouter({
           path: '/participate/:id',
           name: 'Participate',
           component: Participate
+        },
+        {
+          path: '/news/:id',
+          name: 'News',
+          component: News
         },
         {
           path: '/carts',

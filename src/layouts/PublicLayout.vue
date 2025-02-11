@@ -24,7 +24,7 @@ watch(()=>carts.value.length, ()=>{
 </script>
 
 <template>
-  <div class="page" :class="{'sticky-column': isActive('/') || isActive('/carts') || isActive('/payment')}">
+  <div class="page sticky-column">
 
     <Header />
 

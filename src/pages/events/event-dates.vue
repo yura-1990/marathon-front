@@ -71,6 +71,7 @@ watch(()=>locale.value, async (language)=>{
                   </h2>
                   <p class="text-white float-start me-2"><i v-if="event?.address" class="fa-solid fa-location-dot"></i></p>
                   <p class="text-white">{{ event?.address }}</p>
+                  <p class="text-white " v-html="event.description"></p>
                 </div>
               </div>
             </div>

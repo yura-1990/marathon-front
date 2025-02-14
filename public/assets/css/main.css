@@ -2113,7 +2113,7 @@ ul.footer-social-icons li:last-child:after{
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    height: 83vh;
+    min-height: 83vh;
 }
 .prt-page-title-row.style1 {
     background-image: url(../images/pagetitle-bg-1.webp);

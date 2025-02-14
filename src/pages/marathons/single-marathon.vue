@@ -82,17 +82,17 @@ watch(()=>locale.value, async (language)=>{
   </div>
   <div class="site-main">
     <!-- prt-blog-single -->
-    <div class="pt-40  blog-details-section clearfix">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-12">
-            <div class="prt-page-title-row-heading">
-                <p class="text-white " v-html="singleMarathons.description"></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<!--    <div class="pt-40  blog-details-section clearfix">-->
+<!--      <div class="container">-->
+<!--        <div class="row align-items-center">-->
+<!--          <div class="col-lg-12">-->
+<!--            <div class="prt-page-title-row-heading">-->
+<!--                <p class="text-white " v-html="singleMarathons.description"></p>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
 
   </div>
 </div>

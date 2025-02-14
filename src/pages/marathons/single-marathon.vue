@@ -33,6 +33,7 @@ watch(()=>locale.value, async (language)=>{
       background-attachment: fixed;
       background-repeat: no-repeat;
     `">
+
     <div class="prt-page-title-row-inner ">
       <div class="container">
         <div class="row align-items-center">

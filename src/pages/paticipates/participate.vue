@@ -238,7 +238,7 @@ function clearPersonalInfo() {
     <div
       class="prt-page-title-row style1 inner-pages pricing"
       :style="`
-      background-image: url(https://api.roadrunning.uz/storage/${marathon?.marathon?.image[0]});
+      background-image: url(https://api.roadrunning.uz/storage/${JSON.parse(marathon?.marathon?.image)[0]});
       background-size: cover;
       background-position: center center;
       background-attachment: fixed;
@@ -247,6 +247,7 @@ function clearPersonalInfo() {
     >
       <div class="prt-page-title-row-inner">
         <div class="container">
+
           <div class="row align-items-center">
             <div class="col-lg-12">
               <div class="prt-page-title-row-heading">

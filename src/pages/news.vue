@@ -81,10 +81,10 @@ watch(()=>locale.value, async (language)=>{
               </div>
               <div class="featured-content">
                 <div class="featured-title">
-                  <h3>{{ oneNews?.marathon?.name }}</h3>
+                  <h3>{{ oneNews?.marathon?.marathon_type?.name }}</h3>
                 </div>
                 <div class="featured-desc">
-                  <p>{{ oneNews?.marathon?.description }}</p>
+<!--                  <p>{{ oneNews?.marathon?.description }}</p>-->
                 </div>
               </div>
               <RouterLink :to="`/participate/${oneNews?.marathon.id}`" v-if="oneNews?.marathon?.status"

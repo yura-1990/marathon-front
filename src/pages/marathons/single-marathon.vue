@@ -26,13 +26,13 @@ watch(()=>locale.value, async (language)=>{
 
 <template>
 <div>
-  <div class="prt-page-title-row blog-single style2" :style="`
+  <div class="prt-page-title-row blog-single style2" :style="singleMarathons?.image ? `
       background-image: url(https://api.roadrunning.uz/storage/${singleMarathons?.image});
       background-size: cover;
       background-position: center center;
       background-attachment: fixed;
       background-repeat: no-repeat;
-    `">
+    `: ''">
 
     <div class="prt-page-title-row-inner ">
       <div class="container">

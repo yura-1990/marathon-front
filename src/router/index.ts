@@ -12,6 +12,7 @@ import Payment from '@/pages/cart/payment.vue'
 import Invoices from '@/pages/cart/invoices.vue'
 import Cookies from 'js-cookie'
 import News from "@/pages/news.vue";
+import ShowQrcode from '@/pages/show-qrcode.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -78,6 +79,11 @@ const router = createRouter({
           meta: { requiresAuth: true }
         },
       ]
+    },
+    {
+      path: '/show-qrcode/:id',
+      name: 'ShowQrCode',
+      component: ShowQrcode,
     },
   ]
 })

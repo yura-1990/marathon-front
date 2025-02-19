@@ -4,12 +4,14 @@ import { storeToRefs } from 'pinia'
 import { onMounted, ref, watch } from 'vue'
 import { useSettingStore } from '@/stores/setting'
 import { useI18n } from 'vue-i18n'
+import QrcodeVue from 'qrcode.vue';
 
 const { locale } = useI18n();
 const paymentStore = usePaymentStore()
 const settingStore = useSettingStore()
 const { invoices } = storeToRefs(paymentStore)
 const invoiceId = ref<number|null>(null)
+const qrcodeimage = ref<number|null>(null)
 
 onMounted(async ()=>{
   await paymentStore.getInvoice(locale.value)
@@ -22,6 +24,16 @@ function getInvoice(id: number){
 watch(()=>locale.value, async (language)=>{
   await paymentStore.getInvoice(language)
 })
+
+function showQrCode(qrcodeImg: number){
+  qrcodeimage.value = qrcodeImg
+}
+
+function hideQRcode(e: Event){
+  if (e.target === e.currentTarget){
+    qrcodeimage.value = null
+  }
+}
 
 </script>
 
@@ -41,31 +53,27 @@ watch(()=>locale.value, async (language)=>{
         </div>
 
         <div class="prt-tabs prt-tab-style-01">
-          <ul class="tabs active" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <ul class="tabs active vh-100 overflow-auto" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <li><h3>{{ $t('invoice_number') }}</h3></li>
             <template v-for="item in invoices.invoices" :key="item.id">
               <li class="tab border-bottom" @click="getInvoice(item.id)" id="v-pills-home-tab" data-bs-toggle="pill" :data-bs-target="`#v-pills-${item.id}`" type="button" role="tab" :aria-controls="`v-pills-${item.id}`" aria-selected="true">
                 <div class="d-flex align-items-center justify-content-between">
                   <div class="d-flex flex-column">
                     <span>#{{ item?.invoice_number }}</span>
-                    <span class="text-theme">{{ item?.total_sum }} sum</span>
-                  </div>
-                  <div class="d-flex flex-column">
-                    <span class="h6">Cart type</span>
-                    <span class="px-2 bg-theme rounded">{{ item?.type }}</span>
+                    <span class="text-theme">{{ settingStore.formatNumber(item?.total_sum) }} sum</span>
                   </div>
                 </div>
               </li>
             </template>
           </ul>
-          <div class="content-tab w-100" id="v-pills-tabContent">
+          <div class="content-tab vh-100 overflow-auto w-100" id="v-pills-tabContent">
             <template v-for="item in invoices?.invoices?.filter((el:any)=>el?.id === invoiceId)" :key="item.id">
               <div class="tab-pane content-inner fade show active" :id="`v-pills-${item.id}`" role="tabpanel" :aria-labelledby="`v-pills-${item.id}-tab`">
 
                 <div class="prt-pricing-plan">
                   <div class="prt-p_table-body d-flex justify-content-between pb-3 border-bottom  ">
                     <div>
-<!--                      <img :src="item.qrcode" alt="">-->
+
                       <div class="prt-p_table-amount pricing-price">
                         <h3>{{ $t('total') }}</h3>
                       </div>
@@ -73,7 +81,7 @@ watch(()=>locale.value, async (language)=>{
 
                     <div>
                       <div class="prt-p_table-amount pricing-price">
-                        <h3>{{ item.total_sum }}</h3>
+                        <h3>{{ settingStore.formatNumber(item.total_sum) }}</h3>
                         <span class="pac_frequency"> UZS </span>
                       </div>
                       <ul class="prt-p_table-features">
@@ -110,18 +118,27 @@ watch(()=>locale.value, async (language)=>{
                     <h3>{{ $t('payment_composition') }}</h3>
                     <div  class="pb-2">
                       <ul class="prt-p_table-features list-unstyled">
-                        <li v-for="value in item.invoice_items" :key="value.id" class="shadow">
+                        <li v-for="value in item.invoice_items" :key="value.id">
                           <div class="d-flex justify-content-between py-2">
-                            <span>{{ value.marathon.marathon_type.name }} <br> {{ value?.marathon?.name }}</span>
+                            <span class="text-theme">{{ value.marathon.marathon_type.name }} <br> {{ value?.marathon?.name }}</span>
                             <span class="text-end text-theme">{{ value.marathon.marathon_type.price }} <br> {{ settingStore.formatDate(value?.marathon?.event_has_marathon?.date_event) }}</span>
                           </div>
                           <div class="d-flex justify-content-between py-2">
-                            <span class="text-uppercase " :style="`color: ${value?.number_type.number_color}`" >
+                            <span class="text-uppercase text-info fw-bold" >
                               {{ value?.number_type?.type }}
                             </span>
-                            <span class="text-uppercase text-end" :style="`color: ${value?.number_type.number_color}`">
-                              {{ value.number }} <br>  {{ value?.number_price ? value?.number_price + ' sum' : '' }}
+                            <span class="text-end text-info fw-bold">
+                              {{ value.number }} <br>  {{ value?.number_price ? settingStore.formatNumber(value?.number_price) + ' sum' : '' }}
                             </span>
+                          </div>
+                          <div class="qrcode-image" @click="showQrCode(value?.id)" >
+                            <QrcodeVue
+                              :value="`https://roadrunning.uz/show-qrcode/${value?.id}`"
+                              :size="212"
+                              level="M"
+                              render-as="canvas"
+                              color="#000000"
+                            />
                           </div>
                           <hr />
                         </li>
@@ -131,16 +148,53 @@ watch(()=>locale.value, async (language)=>{
                 </div>
               </div>
             </template>
-
           </div>
         </div>
-
       </div>
-
     </section>
+    
+    <div class="show-qrcode " @click="hideQRcode" :class="{ 'active': qrcodeimage }" >
+      <QrcodeVue
+        :value="`https://roadrunning.uz/show-qrcode/${qrcodeimage}`"
+        :size="320"
+        level="M"
+        render-as="canvas"
+        color="#000000"
+      />
+    </div>
   </div>
 </template>
 
 <style scoped>
+::-webkit-scrollbar {
+  width: 5px;
+  border-radius:10px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius:10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
 
+.show-qrcode{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.show-qrcode.active{
+  display: flex;
+}
 </style>

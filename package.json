@@ -23,6 +23,7 @@
     "js-cookie": "^3.0.5",
     "jwt-decode": "^4.0.0",
     "pinia": "^2.1.7",
+    "qrcode.vue": "^3.6.0",
     "sweetalert2": "^11.15.3",
     "swiper": "^11.1.14",
     "vue": "^3.4.29",

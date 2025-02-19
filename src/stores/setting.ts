@@ -66,6 +66,23 @@ export const useSettingStore = defineStore('setting', {
       return formatDate(date)
     },
 
+    getAge: (birthYear: any) => {
+      const birth = new Date(birthYear);
+      const today = new Date();
+
+      let age = today.getFullYear() - birth.getFullYear();
+
+      const hasBirthdayPassed =
+        today.getMonth() > birth.getMonth() ||
+        (today.getMonth() === birth.getMonth() && today.getDate() >= birth.getDate());
+
+      if (!hasBirthdayPassed) {
+        age--;
+      }
+
+      return age;
+    },
+
     formatEventDateRange(marathons: Array<{ date_event: string }>): string
     {
       const { t } = useI18n()

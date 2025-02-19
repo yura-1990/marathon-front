@@ -8,7 +8,8 @@ interface State {
   error: any,
   invoiceStatus: any,
   errorCode: any,
-  invoices: any
+  invoices: any,
+  qrcodes: Array<any>
 }
 
 export const usePaymentStore = defineStore('payment', {
@@ -18,7 +19,8 @@ export const usePaymentStore = defineStore('payment', {
     error: '',
     invoiceStatus: [],
     errorCode: '',
-    invoices: []
+    invoices: [],
+    qrcodes: []
   }),
 
   actions: {
@@ -33,30 +35,9 @@ export const usePaymentStore = defineStore('payment', {
 
       } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
-          // Check if error.response is defined
           this.error = 'not_enough_funds'
-          this.error = error.response.data.errors;
-          // if (error.response) {
-          //   const status = error.response.status;
-          //
-          //   if (status === 404) {
-          //     this.error = 'not_found'; // Handle 404 error
-          //     console.log('404 Error: Resource not found');
-          //   } else if (status === 400) {
-          //      // Handle 400 error
-          //     console.log('400 Error: Bad request');
-          //
-          //   } else {
-          //     this.error = 'server_error'; // General server error
-          //     console.log(`Error: ${status}`, error.response.data);
-          //   }
-          // } else {
-          //   // Network or other Axios error without a response
-          //   this.error = 'network_error';
-          //   console.log('Network error or no response', error.message);
-          // }
+          this.error = error?.response?.data.errors;
         } else {
-          // Handle non-Axios errors
           this.error = 'unknown_error';
           console.log('An unknown error occurred', error);
         }
@@ -80,16 +61,6 @@ export const usePaymentStore = defineStore('payment', {
           if (error.response) {
             const status = error.response.status;
             this.errorCode = error.response.data.errors;
-            // if (status === 404) {
-            //   this.errorCode = {title: 'not_found'}; // Handle 404 error
-            //   console.log('404 Error: Resource not found');
-            // } else if (status === 400) {
-            //    // Handle 400 error
-            //   console.log('400 Error: Bad request');
-            // } else {
-            //   this.errorCode = {title: 'server_error'} ; // General server error
-            //   console.log(`Error: ${status}`, error.response.data);
-            // }
           } else {
             // Network or other Axios error without a response
             this.error = 'network_error';
@@ -110,10 +81,9 @@ export const usePaymentStore = defineStore('payment', {
         this.payment = response.data
       } catch (error: any) {
         if (axios.isAxiosError(error)) {
-          // Check if error.response is defined
           this.error = 'not_enough_funds'
 
-          this.error = error.response.data.errors;
+          this.error = error?.response?.data.errors;
 
           if (error.response) {
             const status = error.response.status;
@@ -172,6 +142,26 @@ export const usePaymentStore = defineStore('payment', {
         this.error = error
         console.log('Error in event')
       }
+    },
+
+    async getQRCode(language: string, invouceItem: string | string[]): Promise<void>
+    {
+      try {
+        const response: AxiosResponse<any> = await axiosInstance.get(`/news/show-qrcode/${invouceItem}`, {
+          params: {
+            language
+          }
+        })
+
+        this.qrcodes = response.data
+        console.log(response.data)
+
+      } catch (error: any) {
+        this.error = error
+        console.log('Error in event')
+      }
     }
+
+
   }
 })

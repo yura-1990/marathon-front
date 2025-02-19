@@ -191,8 +191,7 @@ async function canselPayment()
                 <div class="big-title" style="transform: translateX(13.8062px);"> {{ $t('invoices') }} </div>
               </div>
             </div>
-            <div class="prt-bg prt-col-bgimage-yes prt-col-bgcolor-yes
-                            col-bg-img-four border-rad_30 h-auto">
+            <div class="prt-bg prt-col-bgimage-yes prt-col-bgcolor-yes col-bg-img-four border-rad_30 h-auto">
               <div class="prt-col-wrapper-bg-layer prt-bg-layer">
                 <div class="prt-col-wrapper-bg-layer-inner"></div>
               </div>

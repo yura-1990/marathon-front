@@ -131,14 +131,17 @@ function hideQRcode(e: Event){
                               {{ value.number }} <br>  {{ value?.number_price ? settingStore.formatNumber(value?.number_price) + ' sum' : '' }}
                             </span>
                           </div>
-                          <div class="qrcode-image" @click="showQrCode(value?.id)" >
-                            <QrcodeVue
-                              :value="`https://roadrunning.uz/show-qrcode/${value?.id}`"
-                              :size="212"
-                              level="M"
-                              render-as="canvas"
-                              color="#000000"
-                            />
+                          <div class="qrcode-image  " @click="showQrCode(value?.id)" >
+                            <div class="bg-white qrcode-image-item ">
+
+                              <QrcodeVue
+                                :value="`https://roadrunning.uz/show-qrcode/${value?.id}`"
+                                :size="212"
+                                level="M"
+                                render-as="canvas"
+                                color="#000000"
+                              />
+                            </div>
                           </div>
                           <hr />
                         </li>
@@ -154,13 +157,15 @@ function hideQRcode(e: Event){
     </section>
     
     <div class="show-qrcode " @click="hideQRcode" :class="{ 'active': qrcodeimage }" >
-      <QrcodeVue
-        :value="`https://roadrunning.uz/show-qrcode/${qrcodeimage}`"
-        :size="320"
-        level="M"
-        render-as="canvas"
-        color="#000000"
-      />
+      <div class="bg-white qrcode-image-item ">
+        <QrcodeVue
+          :value="`https://roadrunning.uz/show-qrcode/${qrcodeimage}`"
+          :size="320"
+          level="M"
+          render-as="canvas"
+          color="#000000"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -187,7 +192,7 @@ function hideQRcode(e: Event){
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.87);
   z-index: 1;
   display: none;
   align-items: center;
@@ -196,5 +201,12 @@ function hideQRcode(e: Event){
 
 .show-qrcode.active{
   display: flex;
+}
+
+.qrcode-image-item{
+  width: max-content;
+  padding: 8px 8px 3px 8px;
+  margin-bottom: 0;
+  border-radius: 5px;
 }
 </style>
